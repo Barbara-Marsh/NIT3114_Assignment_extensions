@@ -2,17 +2,21 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Raleway');
 // Variables
-//@import "variables";
+@import "less-addins/_variables";
+
 @import "less-addins/navbar-fixed-top";
 @import "less-addins/sticky-footer";
+
 
 html {
   body {
     font-family: 'Raleway', sans-serif;
-
     .footer {
       padding: 15px 0 5px;
       text-align: right;
+    }
+    .content-header {
+      text-align: center;
     }
   }
 }

@@ -22,3 +22,8 @@ Route::get('/about', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('/', 'UserController@index')
+        ->name('user.index')->middleware('auth');
+});

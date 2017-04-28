@@ -26,3 +26,6 @@ html body .footer {
   padding: 15px 0 5px;
   text-align: right;
 }
+html body .content-header {
+  text-align: center;
+}

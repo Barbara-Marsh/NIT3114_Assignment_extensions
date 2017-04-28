@@ -5,7 +5,7 @@
 @endsection
 
 @section('content-header')
-    <div class="row">
+    <div class="row content-header">
         <div class="col-md-12">
             <h1>About this app</h1>
         </div>
