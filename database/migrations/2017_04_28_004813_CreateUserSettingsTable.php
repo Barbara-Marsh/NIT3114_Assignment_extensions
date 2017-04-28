@@ -13,7 +13,14 @@ class CreateUserSettingsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('user_settings', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('user');
+            $table->boolean('subscribed_to_newsletter');
+            $table->boolean('third_party_offers');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class CreateUserSettingsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('user_settings');
     }
 }

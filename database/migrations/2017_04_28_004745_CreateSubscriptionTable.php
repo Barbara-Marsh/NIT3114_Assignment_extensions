@@ -13,7 +13,19 @@ class CreateSubscriptionTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('subscription', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('user');
+            $table->integer('plan_id')->unsigned();
+            $table->foreign('plan_id')->references('id')->on('plan');
+
+            $table->double('price', 5, 2);
+            $table->date('starts_at');
+            $table->date('ends_at');
+            $table->enum('status', array('active', 'expired', 'cancelled'));
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +35,6 @@ class CreateSubscriptionTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('subscription');
     }
 }

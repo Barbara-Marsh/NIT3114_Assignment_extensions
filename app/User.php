@@ -9,18 +9,13 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    public function plan()
-    {
-        $this->belongsTo('App/Plan');
-    }
-
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
+ * The attributes that are mass assignable.
+ *
+ * @var array
+ */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'subscription_id',
     ];
 
     /**
@@ -31,4 +26,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function billing_details()
+    {
+        return $this->hasOne('App/BillingDetails');
+    }
+
+    public function user_settings()
+    {
+        return $this->hasOne('App/UserSettings');
+    }
+
+    public function subscription()
+    {
+        return $this->belongsTo('App/Subscription');
+    }
 }

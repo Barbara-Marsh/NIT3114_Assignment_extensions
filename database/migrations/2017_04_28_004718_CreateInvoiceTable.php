@@ -13,7 +13,15 @@ class CreateInvoiceTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('invoice', function (Blueprint $table){
+            $table->increments('id');
+            $table->integer('subscription_id')->unsigned();
+            $table->foreign('subscription_id')->references('subscription')->on('id');
+            $table->double('price', 5, 2);
+            $table->date('date');
+            $table->boolean('ignore_taxes');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ class CreateInvoiceTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('invoice');
     }
 }

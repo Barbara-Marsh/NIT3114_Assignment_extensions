@@ -13,7 +13,15 @@ class CreateBillingDetailsTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('billing_details', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('user');
+            $table->string('card_name');
+            $table->string('card_number');
+            $table->date('expiry');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +31,6 @@ class CreateBillingDetailsTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('billing_details');
     }
 }

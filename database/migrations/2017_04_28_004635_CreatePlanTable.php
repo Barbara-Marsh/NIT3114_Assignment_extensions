@@ -13,7 +13,13 @@ class CreatePlanTable extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('plan', function (Blueprint $table){
+            $table->increments('id');
+            $table->string('name');
+            $table->text('features');
+            $table->boolean('is_active');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ class CreatePlanTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('plan');
     }
 }
