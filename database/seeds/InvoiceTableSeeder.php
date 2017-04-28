@@ -11,6 +11,11 @@ class InvoiceTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('invoice')->insert([
+            'subscription_id' => 1,
+            'price' => 49.95,
+            'date' => '2017-03-01',
+            'ignore_taxes' => FALSE,
+        ]);
     }
 }

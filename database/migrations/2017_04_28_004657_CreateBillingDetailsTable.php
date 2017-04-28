@@ -18,8 +18,9 @@ class CreateBillingDetailsTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('user');
             $table->string('card_name');
-            $table->string('card_number');
+            $table->integer('card_number');
             $table->date('expiry');
+            $table->integer('csv');
             $table->timestamps();
         });
     }

@@ -39,6 +39,6 @@ class User extends Authenticatable
 
     public function subscription()
     {
-        return $this->belongsTo('App/Subscription');
+        return $this->hasOne('App/Subscription');
     }
 }

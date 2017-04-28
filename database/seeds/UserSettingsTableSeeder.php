@@ -11,6 +11,10 @@ class UserSettingsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('user_settings')->insert([
+            'user_id' => 1,
+            'subscribed_to_newsletter' => TRUE,
+            'third_party_offers' => FALSE,
+        ]);
     }
 }

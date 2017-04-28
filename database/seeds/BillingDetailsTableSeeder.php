@@ -11,6 +11,12 @@ class BillingDetailsTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('billing_details')->insert([
+            'user_id' => 1,
+            'card_name' => 'Barbara Marsh',
+            'card_number' => 4242424242424242,
+            'expiry' => '2020-06-01',
+            'csv' => 123,
+        ]);
     }
 }

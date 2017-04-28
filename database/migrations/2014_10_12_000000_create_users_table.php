@@ -18,8 +18,6 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
-            $table->integer('subscription_id')->unsigned();
-            $table->foreign('subscription_id')->references('id')->on('subscription');
             $table->rememberToken();
             $table->timestamps();
         });

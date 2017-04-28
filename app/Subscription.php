@@ -25,6 +25,6 @@ class Subscription extends Model
 
     public function invoice()
     {
-        return $this->hasMany('invoice');
+        return $this->belongsTo('invoice');
     }
 }
