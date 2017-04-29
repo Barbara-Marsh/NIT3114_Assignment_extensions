@@ -20,13 +20,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Barbara Marsh</a>
+                <a class="navbar-brand" href="{{ Route('welcome') }}">Company Name</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a href="{{ Route('welcome') }}">Home</a></li>
                     <li><a href="{{ Route('about') }}">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="{{ Route('contact') }}">Contact</a></li>
                 </ul>
                 @if (Route::has('login'))
                 <ul class="nav navbar-nav navbar-right">
@@ -37,6 +37,9 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="{{ Route('user.index') }}">Profile</a>
+                                </li>
                                 <li>
                                     <a href="{{ route('logout') }}"
                                        onclick="event.preventDefault();

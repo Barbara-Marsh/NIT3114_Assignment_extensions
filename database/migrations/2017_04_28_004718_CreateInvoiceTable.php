@@ -13,7 +13,7 @@ class CreateInvoiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice', function (Blueprint $table){
+        Schema::create('invoices', function (Blueprint $table){
             $table->increments('id');
             $table->integer('subscription_id')->unsigned();
             $table->foreign('subscription_id')->references('subscription')->on('id');
@@ -31,6 +31,6 @@ class CreateInvoiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoice');
+        Schema::dropIfExists('invoices');
     }
 }

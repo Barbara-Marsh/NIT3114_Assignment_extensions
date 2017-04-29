@@ -17,15 +17,30 @@ body {
   bottom: 0;
   width: 100%;
   /* Set the fixed height of the footer here */
-  background-color: #f5f5f5;
+  background-color: #f8f8f8;
 }
 html body {
   font-family: 'Raleway', sans-serif;
 }
-html body .footer {
+html body footer.footer {
   padding: 15px 0 5px;
   text-align: right;
+  border-color: #e7e7e7;
+  border-top-width: 1px;
 }
 html body .content-header {
   text-align: center;
+}
+html body .sidebar {
+  position: absolute;
+  float: left;
+}
+html body .row-bottom-margin {
+  margin-bottom: 20px;
+}
+html body .btn-margin-top {
+  margin-top: 10px;
+}
+html body .btn-default {
+  background-color: #eee;
 }

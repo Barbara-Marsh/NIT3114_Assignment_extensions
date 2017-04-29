@@ -13,7 +13,7 @@ class CreateSubscriptionTable extends Migration
      */
     public function up()
     {
-        Schema::create('subscription', function (Blueprint $table) {
+        Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('user');
@@ -33,6 +33,6 @@ class CreateSubscriptionTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subscription');
+        Schema::dropIfExists('subscriptions');
     }
 }

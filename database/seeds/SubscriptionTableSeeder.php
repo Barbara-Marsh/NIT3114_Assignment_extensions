@@ -11,7 +11,7 @@ class SubscriptionTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('subscription')->insert([
+        DB::table('subscriptions')->insert([
             'user_id' => 1,
             'plan_id' => 2,
             'starts_at' => '2017-03-01',

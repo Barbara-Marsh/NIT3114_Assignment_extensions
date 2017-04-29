@@ -11,7 +11,7 @@ class InvoiceTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('invoice')->insert([
+        DB::table('invoices')->insert([
             'subscription_id' => 1,
             'price' => 49.95,
             'date' => '2017-03-01',
