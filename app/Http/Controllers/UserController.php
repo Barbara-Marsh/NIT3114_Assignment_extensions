@@ -44,7 +44,10 @@ class UserController extends Controller
 
     public function edit_subscription()
     {
+        $id = Auth::id();
+        $user_settings = UserSettings::where('user_id', $id)->first()->toArray();
 
+        return view('layouts.user.edit_subscription_form')->with(['user_settings' => $user_settings]);
     }
 
     public function update_subscription()
@@ -54,7 +57,9 @@ class UserController extends Controller
 
     public function edit_billing()
     {
+        $id = Auth::id();
 
+        return view('layouts.user.edit_billing_form');
     }
 
     public function update_billing()

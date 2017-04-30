@@ -59,7 +59,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            <a href="{{ Route('user.edit_subscription') }}" class="btn btn-default btn-margin-top">Change Newsletter Subscription</a>
+            <a href="{{ Route('user.edit_subscription') }}" class="btn btn-default btn-margin-top">Change Email Settings</a>
         </div>
     </div>
     @if ($user['plan']['name'] !== 'Open')
