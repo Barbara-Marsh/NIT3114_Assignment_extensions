@@ -49,3 +49,8 @@ html body .rdo-block {
 html body #card-details-table tr td {
   padding: 5px;
 }
+html body .align-right {
+  text-align: right;
+  float: right;
+  margin-right: 5px;
+}

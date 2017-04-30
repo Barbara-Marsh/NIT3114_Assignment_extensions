@@ -17,34 +17,39 @@
     <div class="sidebar">
         @include('layouts.user-sidebar')
     </div>
-    <div class="col-md-6 col-md-offset-3">
+    <div class="col-md-8 col-md-offset-2">
         <p>Your current plan is: {{ $user['plan'] }}</p>
     </div>
 </div>
 <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <form action="" method="">
-            {{ csrf_field() }}
-            @foreach($plans as $plan)
-                <p class="text-justify">
-                    <input type="radio" name="plan_type" value="{{ $plan['id'] }}"
-                    @if($user['plan'] == $plan['name'])
-                        checked="checked"
-                    @endif
-                    ><strong>{{ $plan['name'] }}</strong><br>
-                    {{ $plan['features'] }}<br>
-                    @if($plan['name'] == 'Open')
-                        Free<br>
-                    @else
-                        ${{ $plan['price'] }} per month<br>
-                    @endif
-                </p>
-            @endforeach
-            <p style="text-align: right">
-                <a href="" class="btn btn-default">Change Plan</a>
-                <a href="{{ Route('user.index') }}" class="btn btn-default">Cancel</a>
-            </p>
-        </form>
+    <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-heading">Update plan</div>
+            <div class="panel-body">
+                <form action="" method="">
+                    {{ csrf_field() }}
+                    @foreach($plans as $plan)
+                        <p class="text-justify">
+                            <input type="radio" name="plan_type" value="{{ $plan['id'] }}"
+                            @if($user['plan'] == $plan['name'])
+                                checked="checked"
+                            @endif
+                            ><strong>{{ $plan['name'] }}</strong><br>
+                            {{ $plan['features'] }}<br>
+                            @if($plan['name'] == 'Open')
+                                Free<br>
+                            @else
+                                ${{ $plan['price'] }} per month<br>
+                            @endif
+                        </p>
+                    @endforeach
+                    <p style="text-align: right">
+                        <a href="" class="btn btn-default">Change Plan</a>
+                        <a href="{{ Route('user.index') }}" class="btn btn-default">Cancel</a>
+                    </p>
+                </form>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

@@ -34,11 +34,18 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/edit_plan', 'UserController@edit_plan')
         ->name('user.edit_plan')->middleware('auth');
 
+    Route::put('/edit_plan', 'UserController@update_plan')
+        ->name('user.update_plan')->middleware('auth');
+
     Route::get('/edit_subscription', 'UserController@edit_subscription')
         ->name('user.edit_subscription')->middleware('auth');
+
+    Route::put('/edit_subscription', 'UserController@update_subscription')
+        ->name('user.update_subscription')->middleware('auth');
 
     Route::get('/edit_billing', 'UserController@edit_billing')
         ->name('user.edit_billing')->middleware('auth');
 
-    //Route::put();
+    Route::put('/edit_billing', 'UserController@update_billing')
+        ->name('user.update_billing')->middleware('auth');
 });
