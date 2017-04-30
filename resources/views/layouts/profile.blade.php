@@ -29,7 +29,11 @@
     </div>
     <div class="row row-bottom-margin">
         <div class="col-md-4 col-md-offset-3">
-            <p><strong>Current Plan: </strong></p>
+            <p><strong>Current Plan: </strong>{{ $user['plan']['name'] }}</p>
+            <p><strong>Plan Features: </strong>{{ $user['plan']['features'] }}</p>
+            <p>${{ $user['plan']['price'] }}</p>
+            <p><strong>Status: </strong>{{ $user['subscription']['status'] }}</p>
+            <p><strong>Plan is current until: </strong>{{ date('d-m-Y', strtotime($user['subscription']['ends_at'])) }}</p>
         </div>
         <div class="col-md-3">
             <a href="" class="btn btn-default btn-margin-top">Change Plan</a>
@@ -41,17 +45,17 @@
             <ul>
                 <li>Newsletter Subscription
                     <input type="checkbox"
-                           @if ($user['newsletter'] == true)
-                           checked="checked"
-                           @endif
-                           disabled="disabled">
+                       @if ($user['newsletter'] == true)
+                       checked="checked"
+                       @endif
+                       disabled="disabled">
                 </li>
                 <li>Third Party Offers
                     <input type="checkbox"
-                           @if ($user['offers'] == true)
-                           checked="checked"
-                           @endif
-                           disabled="disabled">
+                       @if ($user['offers'] == true)
+                       checked="checked"
+                       @endif
+                       disabled="disabled">
                 </li>
             </ul>
         </div>
@@ -59,13 +63,21 @@
             <a href="" class="btn btn-default btn-margin-top">Change Newsletter Subscription</a>
         </div>
     </div>
+    @if ($user['plan']['name'] !== 'Open')
     <div class="row">
         <div class="col-md-4 col-md-offset-3">
             <p><strong>Billing Details: </strong></p>
-            <p></p>
+            <p>Name on card: {{ $user['billing']['card_name'] }}</p>
+            <p>Card No.: {{ $user['billing']['card_number'] }}</p>
+            <p>Expiry: {{ date('d-m-Y', strtotime($user['billing']['expiry'])) }}</p>
+            <p>CSV: {{ $user['billing']['csv'] }}</p>
         </div>
         <div class="col-md-3">
             <a href="" class="btn btn-default btn-margin-top">Change Billing Details</a>
         </div>
+    </div>
+    @endif
+    <div class="row">
+        <?php //var_dump($user) ?>
     </div>
 @endsection

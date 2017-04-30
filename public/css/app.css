@@ -25,8 +25,7 @@ html body {
 html body footer.footer {
   padding: 15px 0 5px;
   text-align: right;
-  border-color: #e7e7e7;
-  border-top-width: 1px;
+  border-top: 1px solid #e7e7e7;
 }
 html body .content-header {
   text-align: center;
