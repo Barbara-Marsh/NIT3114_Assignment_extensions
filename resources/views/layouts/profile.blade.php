@@ -76,7 +76,4 @@
         </div>
     </div>
     @endif
-    <div class="row">
-        <?php //var_dump($user) ?>
-    </div>
 @endsection

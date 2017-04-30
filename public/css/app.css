@@ -43,6 +43,6 @@ html body .btn-margin-top {
 html body .btn-default {
   background-color: #eee;
 }
-html body .text-justified {
-  text-align: justify;
+html body .rdo-block {
+  margin-bottom: 30px;
 }

@@ -17,7 +17,6 @@ class UserController extends Controller
         $id = Auth::id();
         $user = User::findOrFail($id);
         $user['subscription'] = Subscription::where('user_id', $id)->first()->toArray();
-        $user['subscription']['ends_at'];
         $plan_id = (int)$user['subscription']['plan_id'];
         $user['plan'] = Plan::where('id', $plan_id)->first()->toArray();
         $user['billing'] = BillingDetails::where('user_id', $id)->first()->toArray();
@@ -27,12 +26,33 @@ class UserController extends Controller
         return view('layouts/profile')->with(['user' => $user['attributes']]);
     }
 
+    public function edit_plan()
+    {
+        $id = Auth::id();
+        $user = User::findOrFail($id);
+        $plan_id = Subscription::where('user_id', $id)->value('plan_id');
+        $user['plan'] = Plan::where('id', $plan_id)->value('name');
+        $plans = Plan::all()->toArray();
+
+        return view('layouts.user.edit_plan_form')->with(['user' => $user['attributes']])->with(['plans' => $plans]);
+    }
+
     public function update_plan()
     {
 
     }
 
+    public function edit_subscription()
+    {
+
+    }
+
     public function update_subscription()
+    {
+
+    }
+
+    public function edit_billing()
     {
 
     }

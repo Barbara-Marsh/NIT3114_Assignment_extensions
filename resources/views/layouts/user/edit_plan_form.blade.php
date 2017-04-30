@@ -5,14 +5,43 @@
 @endsection
 
 @section('content-header')
-    <div class="row content-header">
-        <div class="col-md-12">
-            <h1>Change Plan Details</h1>
-        </div>
+<div class="row content-header">
+    <div class="col-md-12">
+        <h1>Change Plan Details</h1>
     </div>
+</div>
 @endsection
 
 @section('content')
-
-
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <p>Your current plan is: {{ $user['plan'] }}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <form action="" method="">
+            {{ csrf_field() }}
+            @foreach($plans as $plan)
+                <p class="text-justify">
+                    <input type="radio" name="plan_type" value="{{ $plan['id'] }}"
+                    @if($user['plan'] == $plan['name'])
+                        checked="checked"
+                    @endif
+                    ><strong>{{ $plan['name'] }}</strong><br>
+                    {{ $plan['features'] }}<br>
+                    @if($plan['name'] == 'Open')
+                        Free<br>
+                    @else
+                        ${{ $plan['price'] }} per month<br>
+                    @endif
+                </p>
+            @endforeach
+            <p style="text-align: right">
+                <a href="" class="btn btn-default">Change Plan</a>
+                <a href="{{ Route('user.index') }}" class="btn btn-default">Cancel</a>
+            </p>
+        </form>
+    </div>
+</div>
 @endsection

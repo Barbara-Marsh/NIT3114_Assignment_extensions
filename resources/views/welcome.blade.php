@@ -22,7 +22,7 @@
         <div class="col-md-8 col-md-offset-2">
             @foreach($plans as $plan)
                 <h3>{{ $plan['name'] }}</h3>
-                <p class="text-justified">{{ $plan['features'] }}</p>
+                <p class="text-justify">{{ $plan['features'] }}</p>
                 @if($plan['name'] == 'Open')
                     <p>Price: Free</p>
                 @else
