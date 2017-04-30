@@ -14,6 +14,9 @@
 
 @section('content')
 <div class="row">
+    <div class="sidebar">
+        @include('layouts.user-sidebar')
+    </div>
     <div class="col-md-6 col-md-offset-3">
         <p>Your current plan is: {{ $user['plan'] }}</p>
     </div>

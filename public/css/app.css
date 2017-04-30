@@ -46,3 +46,6 @@ html body .btn-default {
 html body .rdo-block {
   margin-bottom: 30px;
 }
+html body #card-details-table tr td {
+  padding: 5px;
+}
