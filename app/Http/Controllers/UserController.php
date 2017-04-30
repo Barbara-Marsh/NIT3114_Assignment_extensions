@@ -26,4 +26,19 @@ class UserController extends Controller
 
         return view('layouts/profile')->with(['user' => $user['attributes']]);
     }
+
+    public function update_plan()
+    {
+
+    }
+
+    public function update_subscription()
+    {
+
+    }
+
+    public function update_billing()
+    {
+
+    }
 }

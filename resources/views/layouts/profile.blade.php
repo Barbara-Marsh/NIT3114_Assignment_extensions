@@ -35,7 +35,7 @@
             <p><strong>Plan is current until: </strong>{{ date('d-m-Y', strtotime($user['subscription']['ends_at'])) }}</p>
         </div>
         <div class="col-md-3">
-            <a href="" class="btn btn-default btn-margin-top">Change Plan</a>
+            <a href="{{ Route('user.edit_plan') }}" class="btn btn-default btn-margin-top">Change Plan</a>
         </div>
     </div>
     <div class="row row-bottom-margin">
@@ -59,7 +59,7 @@
             </ul>
         </div>
         <div class="col-md-3">
-            <a href="" class="btn btn-default btn-margin-top">Change Newsletter Subscription</a>
+            <a href="{{ Route('user.edit_subscription') }}" class="btn btn-default btn-margin-top">Change Newsletter Subscription</a>
         </div>
     </div>
     @if ($user['plan']['name'] !== 'Open')
@@ -72,7 +72,7 @@
             <p>CSV: {{ $user['billing']['csv'] }}</p>
         </div>
         <div class="col-md-3">
-            <a href="" class="btn btn-default btn-margin-top">Change Billing Details</a>
+            <a href="{{ Route('user.edit_billing') }}" class="btn btn-default btn-margin-top">Change Billing Details</a>
         </div>
     </div>
     @endif
