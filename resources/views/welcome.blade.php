@@ -5,20 +5,30 @@
 @endsection
 
 @section('content-header')
+    <div class="row content-header">
+        <div class="col-md-12">
+            <h1>Welcome</h1>
+        </div>
+    </div>
 @endsection
 
 @section('content')
-    <div class="content">
-        <div class="title m-b-md">
-            Laravel
+    <div class="row">
+        <div class="col" style="text-align: center">
+            <h2>Our Plans</h2>
         </div>
-
-        <div class="links">
-            <a href="https://laravel.com/docs">Documentation</a>
-            <a href="https://laracasts.com">Laracasts</a>
-            <a href="https://laravel-news.com">News</a>
-            <a href="https://forge.laravel.com">Forge</a>
-            <a href="https://github.com/laravel/laravel">GitHub</a>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            @foreach($plans as $plan)
+                <h3>{{ $plan['name'] }}</h3>
+                <p class="text-justified">{{ $plan['features'] }}</p>
+                @if($plan['name'] == 'Open')
+                    <p>Price: Free</p>
+                @else
+                    <p>Price: ${{ $plan['price'] }}</p>
+                @endif
+            @endforeach
         </div>
     </div>
 @endsection

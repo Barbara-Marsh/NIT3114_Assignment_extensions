@@ -7,7 +7,7 @@
 @section('content-header')
     <div class="row content-header">
         <div class="col-md-12">
-            <h1>User Profile</h1>
+            <h1>{{ $user['name'] }}'s User Profile</h1>
         </div>
     </div>
 @endsection
@@ -18,12 +18,11 @@
             @include('layouts.user-sidebar')
         </div>
         <div class=" col col-md-9 col-md-offset-3">
-            <h2>Current settings</h2>
+            <h2>Your settings</h2>
         </div>
     </div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <p><strong>Name: </strong>{{ $user['name'] }}</p>
             <p><strong>Email: </strong>{{ $user['email'] }}</p>
         </div>
     </div>

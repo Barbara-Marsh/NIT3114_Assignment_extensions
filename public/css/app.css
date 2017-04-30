@@ -43,3 +43,6 @@ html body .btn-margin-top {
 html body .btn-default {
   background-color: #eee;
 }
+html body .text-justified {
+  text-align: justify;
+}
