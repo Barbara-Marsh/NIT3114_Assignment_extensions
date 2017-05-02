@@ -20,23 +20,9 @@ class UserController extends Controller
         $plan_id = (int)$user['subscription']['plan_id'];
         $user['plan'] = Plan::where('id', $plan_id)->first()->toArray();
         $user['billing'] = BillingDetails::where('user_id', $id)->first()->toArray();
-        $user['newsletter'] = UserSettings::where('user_id', $id)->value('subscribed_to_newsletter');
-        $user['offers'] = UserSettings::where('user_id', $id)->value('third_party_offers');
+        $user['user_settings'] = UserSettings::where('user_id', $id)->first()->toArray();
 
         return view('layouts/profile')->with(['user' => $user['attributes']]);
-    }
-
-    public function edit_subscription()
-    {
-        $id = Auth::id();
-        $user_settings = UserSettings::where('user_id', $id)->first()->toArray();
-
-        return view('layouts.user.edit_subscription_form')->with(['user_settings' => $user_settings]);
-    }
-
-    public function update_subscription()
-    {
-
     }
 
     public function edit_billing()

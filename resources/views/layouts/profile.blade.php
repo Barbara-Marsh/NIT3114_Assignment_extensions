@@ -46,14 +46,14 @@
                             <ul>
                                 <li>Newsletter Subscription
                                     <input type="checkbox"
-                                           @if ($user['newsletter'] == true)
+                                           @if ($user['user_settings']['subscribed_to_newsletter'] == true)
                                            checked="checked"
                                            @endif
                                            disabled="disabled">
                                 </li>
                                 <li>Third Party Offers
                                     <input type="checkbox"
-                                           @if ($user['offers'] == true)
+                                           @if ($user['user_settings']['third_party_offers'] == true)
                                            checked="checked"
                                            @endif
                                            disabled="disabled">
@@ -61,7 +61,7 @@
                             </ul>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ Route('user.edit_newsletter') }}" class="btn btn-default btn-margin-top align-right">Change Newsletter Settings</a>
+                            <a href="{{ Route('user.edit_newsletter', ['id' => $user['user_settings']['id']]) }}" class="btn btn-default btn-margin-top align-right">Change Newsletter Settings</a>
                         </div>
                     </div><hr>
                     @if ($user['plan']['name'] !== 'Open')

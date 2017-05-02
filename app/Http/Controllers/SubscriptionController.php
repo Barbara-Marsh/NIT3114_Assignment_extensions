@@ -24,7 +24,6 @@ class SubscriptionController extends Controller
     public function update(Request $request)
     {
         $user_id = Auth::id();
-        //var_dump($request);
         $plan_id = $request['plan_type'];
 
         $subscription = Subscription::where('user_id', $user_id)->first();
@@ -32,6 +31,7 @@ class SubscriptionController extends Controller
         $subscription->save();
 
         $request->session()->flash('alert-success', 'Plan successfully updated');
+
         return redirect()->route('user.index');
     }
 
