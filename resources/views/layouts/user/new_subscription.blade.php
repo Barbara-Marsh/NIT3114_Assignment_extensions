@@ -12,6 +12,8 @@
     </div>
 @endsection
 
+@inject('input','Illuminate\Support\Facades\Input')
+
 @section('content')
     <div class="row">
         <div class="sidebar">

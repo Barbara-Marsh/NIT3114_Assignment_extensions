@@ -20,7 +20,10 @@ class UserController extends Controller
         $user['subscription'] = Subscription::where('user_id', $id)->first()->toArray();
         $plan_id = (int)$user['subscription']['plan_id'];
         $user['plan'] = Plan::where('id', $plan_id)->first()->toArray();
-        $user['billing'] = BillingDetails::where('user_id', $id)->first()->toArray();
+        $billing = BillingDetails::where('user_id', $id)->first();
+        if ($billing != NULL) {
+            $user['billing'] = $billing->toArray();
+        }
         $user['user_settings'] = UserSettings::where('user_id', $id)->first()->toArray();
 
         return view('layouts/profile')->with(['user' => $user['attributes']]);
