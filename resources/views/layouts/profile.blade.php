@@ -76,7 +76,7 @@
                             <p>CSV: {{ $user['billing']['csv'] }}</p>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ Route('user.edit_billing') }}" class="btn btn-default btn-margin-top align-right">Change Billing Details</a>
+                            <a href="{{ Route('user.edit_billing', ['id' => $user['user_settings']['id']]) }}" class="btn btn-default btn-margin-top align-right">Change Billing Details</a>
                         </div>
                     </div>
                     @endif

@@ -24,19 +24,4 @@ class UserController extends Controller
 
         return view('layouts/profile')->with(['user' => $user['attributes']]);
     }
-
-    public function edit_billing()
-    {
-        $id = Auth::id();
-        $billing_details = BillingDetails::where('user_id', $id)->first()->toArray();
-
-        return view('layouts.user.edit_billing_form')->with(['billing_details' => $billing_details]);
-    }
-
-    public function update_billing()
-    {
-
-    }
-
-
 }

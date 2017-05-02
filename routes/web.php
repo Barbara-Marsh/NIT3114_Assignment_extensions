@@ -39,10 +39,10 @@ Route::group(['prefix' => 'user'], function () {
     Route::put("/newsletter/{user_settings_id}", 'UserSettingsController@update')
         ->name('user.update_newsletter')->middleware('auth');
 
-    Route::get('/billing', 'UserController@edit_billing')
+    Route::get("/billing/{billing_details_id}", 'BillingDetailsController@edit')
         ->name('user.edit_billing')->middleware('auth');
 
-    Route::put('/billing', 'UserController@update_billing')
+    Route::put("/billing/{billing_details_id}", 'BillingDetailsController@update')
         ->name('user.update_billing')->middleware('auth');
 });
 

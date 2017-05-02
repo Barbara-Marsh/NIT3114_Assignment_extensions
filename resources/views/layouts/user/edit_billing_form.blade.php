@@ -22,8 +22,10 @@
             <div class="panel-heading">Update details</div>
             <div class="panel-body">
                 <div class="col-md-6 col-md-offset-3">
-                    <form class="form-horizontal" action="" method="">
+                    <form class="form-horizontal" action="{{ route('user.update_billing', ['id' => $billing_details['id']]) }}" method="post">
                         {{ csrf_field() }}
+                        {{ method_field('PUT') }}
+                        <input type="hidden" name="id" value="{{ $billing_details['id'] }}">
                         <input type="hidden" name="user_id" value="{{ $billing_details['user_id'] }}">
                         <div class="form-group">
                             <label for="card_name" class="control-label">Name on card: </label>
@@ -42,7 +44,7 @@
                             <input type="text" class="form-control" name="csv" value="{{ $billing_details['csv'] or old('csv') }}">
                         </div>
                         <div class="form-group">
-                            <a href="" class="btn btn-default">Change Billing Method</a>
+                            <button class="btn btn-default">Change Billing Method</button>
                             <a href="{{ Route('user.index') }}" class="btn btn-default">Cancel</a>
                         </div>
                     </form>
