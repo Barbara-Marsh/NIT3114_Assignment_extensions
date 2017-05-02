@@ -35,7 +35,7 @@
                             <p><strong>Plan is current until: </strong>{{ date('d-m-Y', strtotime($user['subscription']['ends_at'])) }}</p>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ Route('user.edit_plan') }}" class="btn btn-default btn-margin-top align-right">Change Plan</a><br>
+                            <a href="{{ Route('user.edit_subscription') }}" class="btn btn-default btn-margin-top align-right">Change Plan</a><br>
                         </div>
                     </div><hr>
                     <div class="row">
@@ -61,7 +61,7 @@
                             </ul>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ Route('user.edit_subscription') }}" class="btn btn-default btn-margin-top align-right">Change Email Settings</a>
+                            <a href="{{ Route('user.edit_newsletter') }}" class="btn btn-default btn-margin-top align-right">Change Newsletter Settings</a>
                         </div>
                     </div><hr>
                     @if ($user['plan']['name'] !== 'Open')

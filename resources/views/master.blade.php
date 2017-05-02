@@ -26,7 +26,6 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ Route('welcome') }}">Home</a></li>
                     <li><a href="{{ Route('about') }}">About</a></li>
-                    <li><a href="{{ Route('contact') }}">Contact</a></li>
                 </ul>
                 @if (Route::has('login'))
                 <ul class="nav navbar-nav navbar-right">

@@ -19,10 +19,6 @@ Route::get('/about', function () {
     return view('layouts/about');
 })->name('about');
 
-Route::get('/contact', function () {
-    return view('layouts.contact');
-})->name('contact');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
@@ -31,21 +27,25 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/', 'UserController@index')
         ->name('user.index')->middleware('auth');
 
-    Route::get('/edit_plan', 'UserController@edit_plan')
-        ->name('user.edit_plan')->middleware('auth');
-
-    Route::put('/edit_plan', 'UserController@update_plan')
-        ->name('user.update_plan')->middleware('auth');
-
-    Route::get('/edit_subscription', 'UserController@edit_subscription')
+    Route::get('/subscription', 'SubscriptionController@edit')
         ->name('user.edit_subscription')->middleware('auth');
 
-    Route::put('/edit_subscription', 'UserController@update_subscription')
+    Route::put('/subscription', 'SubscriptionController@update')
         ->name('user.update_subscription')->middleware('auth');
 
-    Route::get('/edit_billing', 'UserController@edit_billing')
+    Route::get('/newsletter', 'UserController@edit_newsletter')
+        ->name('user.edit_newsletter')->middleware('auth');
+
+    Route::put('/newsletter', 'UserController@update_newsletter')
+        ->name('user.update_newsletter')->middleware('auth');
+
+    Route::get('/billing', 'UserController@edit_billing')
         ->name('user.edit_billing')->middleware('auth');
 
-    Route::put('/edit_billing', 'UserController@update_billing')
+    Route::put('/billing', 'UserController@update_billing')
         ->name('user.update_billing')->middleware('auth');
+});
+
+Route::group(['prefix' => 'admin'], function () {
+
 });

@@ -26,22 +26,6 @@ class UserController extends Controller
         return view('layouts/profile')->with(['user' => $user['attributes']]);
     }
 
-    public function edit_plan()
-    {
-        $id = Auth::id();
-        $user = User::findOrFail($id);
-        $plan_id = Subscription::where('user_id', $id)->value('plan_id');
-        $user['plan'] = Plan::where('id', $plan_id)->value('name');
-        $plans = Plan::all()->toArray();
-
-        return view('layouts.user.edit_plan_form')->with(['user' => $user['attributes']])->with(['plans' => $plans]);
-    }
-
-    public function update_plan()
-    {
-
-    }
-
     public function edit_subscription()
     {
         $id = Auth::id();
@@ -67,4 +51,6 @@ class UserController extends Controller
     {
 
     }
+
+
 }
