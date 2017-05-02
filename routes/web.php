@@ -24,10 +24,11 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['prefix' => 'user'], function () {
+    // Display layouts/profile.blade when user logs in or completes registration
     Route::get('/', 'User\UserController@index')
         ->name('user.index')->middleware('auth');
 
-
+    // Routes relating to Subscription class
     Route::get('/subscription', 'User\SubscriptionController@show')
         ->name('user.show_subscription');
 
@@ -40,7 +41,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::put("/subscription/{subscription_id}", 'User\SubscriptionController@update')
         ->name('user.update_subscription')->middleware('auth');
 
-
+    // Routes relating to UserSettings class
     Route::get("/newsletter/{user_settings_id}", 'User\UserSettingsController@edit')
         ->name('user.edit_newsletter')->middleware('auth');
 
@@ -53,7 +54,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::post('/newsletter', 'User\UserSettingsController@store')
         ->name('user.store_newsletter')->middleware('auth');
 
-
+    // Routes relating to BillingDetails class
     Route::get("/billing/{billing_details_id}", 'User\BillingDetailsController@edit')
         ->name('user.edit_billing')->middleware('auth');
 
