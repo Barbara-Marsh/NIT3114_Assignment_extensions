@@ -28,4 +28,33 @@ class BillingDetailsController extends Controller
         $request->session()->flash('alert-success', 'Billing details successfully updated');
         return redirect()->route('user.index');
     }
+
+    public function show()
+    {
+        return view('layouts.user.new_billing_form');
+    }
+
+    public function store(Request $request)
+    {
+        // TODO: validation
+
+        // TODO: make card number collection more secure
+
+        $billingDetails = new BillingDetails;
+        $billingDetails->user_id = Auth::id();
+        $billingDetails->card_name = $request['card_name'];
+        $billingDetails->card_number = $request['card_number'];
+        $billingDetails->expiry = $request['expiry'];
+        $billingDetails->csv = $request['csv'];
+        $billingDetails->save();
+
+        $request->session()->flash('alert-success', 'Billing details added successfully');
+
+        return redirect()->route('user.show_newsletter');
+    }
+
+    public function destroy()
+    {
+        // TODO: complete function
+    }
 }

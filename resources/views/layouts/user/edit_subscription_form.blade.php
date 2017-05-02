@@ -20,7 +20,7 @@
         @include('layouts.user-sidebar')
     </div>
     <div class="col-md-8 col-md-offset-2">
-        <p>Choose a plan</p>
+        <p>Your current plan is: {{ $user['plan'] }}</p>
     </div>
 </div>
 <div class="row">
@@ -28,7 +28,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Update plan</div>
             <div class="panel-body">
-                <form action="{{ route('user.store_subscription', ['id'=> $input::get('plan_type') == 'true' ? 1 : 0]) }}" method="post">
+                <form action="{{ route('user.update_subscription', ['id'=> $input::get('plan_type') == 'true' ? 1 : 0]) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     @foreach($plans as $plan)

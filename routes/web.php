@@ -59,6 +59,12 @@ Route::group(['prefix' => 'user'], function () {
 
     Route::put("/billing/{billing_details_id}", 'User\BillingDetailsController@update')
         ->name('user.update_billing')->middleware('auth');
+
+    Route::get('/billing', 'User\BillingDetailsController@show')
+        ->name('user.show_billing')->middleware('auth');
+
+    Route::post('/billing', 'User\BillingDetailsController@store')
+        ->name('user.store_billing')->middleware('auth');
 });
 
 Route::group(['prefix' => 'admin'], function () {

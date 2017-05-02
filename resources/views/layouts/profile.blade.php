@@ -28,7 +28,11 @@
                             <p><strong>Email: </strong>{{ $user['email'] }}</p><hr>
                             <p><strong>Current Plan: </strong>{{ $user['plan']['name'] }}</p>
                             <p class="text-justify"><strong>Plan Features: </strong>{{ $user['plan']['features'] }}</p>
-                            <p>${{ $user['plan']['price'] }}</p>
+                            @if($user['plan']['name'] == 'Open')
+                                <p><strong>Price: </strong>Free</p>
+                            @else
+                                <p><strong>Price: </strong>${{ $user['plan']['price'] }}</p>
+                            @endif
                         </div>
                         <div class="col-md-8">
                             <p><strong>Status: </strong>{{ $user['subscription']['status'] }}</p>
@@ -63,22 +67,23 @@
                         <div class="col-md-4">
                             <a href="{{ Route('user.edit_newsletter', ['id' => $user['user_settings']['id']]) }}" class="btn btn-default btn-margin-top align-right">Change Newsletter Settings</a>
                         </div>
-                    </div><hr>
-                    @if ($user['plan']['name'] !== 'Open')
-                    <div class="row">
-                        <div class="col-md-12">
-                            <p><strong>Billing Details: </strong></p>
-                            <p>Name on card: {{ $user['billing']['card_name'] }}</p>
-                            <p>Card No.: {{ $user['billing']['card_number'] }}</p>
-                        </div>
-                        <div class="col-md-8">
-                            <p>Expiry: {{ date('d-m-Y', strtotime($user['billing']['expiry'])) }}</p>
-                            <p>CSV: {{ $user['billing']['csv'] }}</p>
-                        </div>
-                        <div class="col-md-4">
-                            <a href="{{ route('user.edit_billing', ['id' => $user['user_settings']['id']]) }}" class="btn btn-default btn-margin-top align-right">Change Billing Details</a>
-                        </div>
                     </div>
+                    @if ($user['plan']['name'] !== 'Open')
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p><strong>Billing Details: </strong></p>
+                                <p>Name on card: {{ $user['billing']['card_name'] }}</p>
+                                <p>Card No.: {{ $user['billing']['card_number'] }}</p>
+                            </div>
+                            <div class="col-md-8">
+                                <p>Expiry: {{ date('d-m-Y', strtotime($user['billing']['expiry'])) }}</p>
+                                <p>CSV: {{ $user['billing']['csv'] }}</p>
+                            </div>
+                            <div class="col-md-4">
+                                <a href="{{ route('user.edit_billing', ['id' => $user['user_settings']['id']]) }}" class="btn btn-default btn-margin-top align-right">Change Billing Details</a>
+                            </div>
+                        </div>
                     @endif
                 </div>
             </div>

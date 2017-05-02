@@ -5,6 +5,7 @@ namespace App\Http\Controllers\User;
 use App\User;
 use App\Plan;
 use App\Subscription;
+use App\BillingDetails;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -49,6 +50,7 @@ class SubscriptionController extends Controller
     {
         // TODO: validation
 
+        //var_dump($request['plan_id']);
         $subscription = new Subscription;
         $subscription->user_id = Auth::id();
         $subscription->plan_id = $request['plan_id'];
@@ -58,12 +60,14 @@ class SubscriptionController extends Controller
         $subscription->save();
         $request->session()->flash('alert-success', 'Product subscription created successfully');
 
-        $planName = Plan::where('id', $subscription->plan_id)->first()->value('name');
+        $plan = Plan::where('id', $subscription->plan_id)->first();
+        $planName = $plan['name'];
+        //var_dump($planName);
 
-        if ($planName == 'Open') {
-            return redirect()->route('user.show_newsletter');
-        } else {
+        if ($planName != 'Open') {
             return redirect()->route('user.show_billing');
+        } else {
+            return redirect()->route('user.show_newsletter');
         }
     }
 

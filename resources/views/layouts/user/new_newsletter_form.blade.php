@@ -42,7 +42,6 @@
                     </ul>
                     <p style="text-align: right">
                         <button class="btn btn-default">Update Subscriptions</button>
-                        <a href="{{ Route('user.index') }}" class="btn btn-default">Cancel</a>
                     </p>
                 </form>
             </div>

@@ -31,4 +31,11 @@
             @endforeach
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <br>
+            <p><strong>Please register to sign up for a plan.</strong></p>
+            <p><strong>Login to change your settings.</strong></p>
+        </div>
+    </div>
 @endsection

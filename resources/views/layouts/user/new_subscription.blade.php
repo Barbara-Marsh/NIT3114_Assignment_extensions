@@ -28,7 +28,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Update plan</div>
                 <div class="panel-body">
-                    <form action="{{ route('user.store_subscription', ['id'=> $input::get('plan_type') == 'true' ? 1 : 0]) }}" method="post">
+                    <form action="{{ route('user.store_subscription') }}" method="post">
                         {{ csrf_field() }}
                         @foreach($plans as $plan)
                             <p class="text-justify">
