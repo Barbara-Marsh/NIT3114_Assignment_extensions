@@ -35,7 +35,7 @@
                             <p><strong>Plan is current until: </strong>{{ date('d-m-Y', strtotime($user['subscription']['ends_at'])) }}</p>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ Route('user.edit_subscription') }}" class="btn btn-default btn-margin-top align-right">Change Plan</a><br>
+                            <a href="{{ Route('user.edit_subscription', ['id' => $user['subscription']['id']]) }}" class="btn btn-default btn-margin-top align-right">Change Plan</a><br>
                         </div>
                     </div><hr>
                     <div class="row">
@@ -76,7 +76,7 @@
                             <p>CSV: {{ $user['billing']['csv'] }}</p>
                         </div>
                         <div class="col-md-4">
-                            <a href="{{ Route('user.edit_billing', ['id' => $user['user_settings']['id']]) }}" class="btn btn-default btn-margin-top align-right">Change Billing Details</a>
+                            <a href="{{ route('user.edit_billing', ['id' => $user['user_settings']['id']]) }}" class="btn btn-default btn-margin-top align-right">Change Billing Details</a>
                         </div>
                     </div>
                     @endif

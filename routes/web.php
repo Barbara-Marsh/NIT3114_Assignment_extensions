@@ -27,22 +27,22 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('/', 'UserController@index')
         ->name('user.index')->middleware('auth');
 
-    Route::get('/subscription', 'SubscriptionController@edit')
+    Route::get("/subscription/{subscription_id}", 'User\SubscriptionController@edit')
         ->name('user.edit_subscription')->middleware('auth');
 
-    Route::put('/subscription', 'SubscriptionController@update')
+    Route::put("/subscription/{subscription_id}", 'User\SubscriptionController@update')
         ->name('user.update_subscription')->middleware('auth');
 
-    Route::get("/newsletter/{user_settings_id}", 'UserSettingsController@edit')
+    Route::get("/newsletter/{user_settings_id}", 'User\UserSettingsController@edit')
         ->name('user.edit_newsletter')->middleware('auth');
 
-    Route::put("/newsletter/{user_settings_id}", 'UserSettingsController@update')
+    Route::put("/newsletter/{user_settings_id}", 'User\UserSettingsController@update')
         ->name('user.update_newsletter')->middleware('auth');
 
-    Route::get("/billing/{billing_details_id}", 'BillingDetailsController@edit')
+    Route::get("/billing/{billing_details_id}", 'User\BillingDetailsController@edit')
         ->name('user.edit_billing')->middleware('auth');
 
-    Route::put("/billing/{billing_details_id}", 'BillingDetailsController@update')
+    Route::put("/billing/{billing_details_id}", 'User\BillingDetailsController@update')
         ->name('user.update_billing')->middleware('auth');
 });
 

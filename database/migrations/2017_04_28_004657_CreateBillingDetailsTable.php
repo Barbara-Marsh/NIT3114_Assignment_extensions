@@ -16,7 +16,7 @@ class CreateBillingDetailsTable extends Migration
         Schema::create('billing_details', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('user');
+            $table->foreign('user_id')->references('id')->on('User');
             $table->string('card_name');
             $table->integer('card_number');
             $table->date('expiry');

@@ -37,7 +37,7 @@
 
                             <ul class="dropdown-menu" role="menu">
                                 <li>
-                                    <a href="{{ Route('user.index') }}">Profile</a>
+                                    <a href="{{ route('user.index') }}">Profile</a>
                                 </li>
                                 <li>
                                     <a href="{{ route('logout') }}"

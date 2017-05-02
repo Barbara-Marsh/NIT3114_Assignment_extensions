@@ -1,4 +1,4 @@
-@section('user-sidebar')
+@section('user')
     <ul>
         <li>sidebar</li>
         <li>content</li>

@@ -29,7 +29,7 @@
 !bin/symfony_requirements
 /vendor/
 
-# Assets and user uploads
+# Assets and User uploads
 /web/bundles/
 /web/uploads/
 
