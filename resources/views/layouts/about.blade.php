@@ -14,5 +14,9 @@
 
 @section('content')
     <p></p>
-    <p></p>
+    <p>Assumptions:</p>
+    <ul>
+        <li>User can only subscribe to 1 plan</li>
+        <li>User can not delete own account</li>
+    </ul>
 @endsection

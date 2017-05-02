@@ -24,7 +24,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['prefix' => 'user'], function () {
-    Route::get('/', 'UserController@index')
+    Route::get('/', 'User\UserController@index')
         ->name('user.index')->middleware('auth');
 
     Route::get("/subscription/{subscription_id}", 'User\SubscriptionController@edit')
@@ -47,5 +47,6 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'admin'], function () {
-
+    Route::get('/', 'Admin\AdminController@index')
+        ->name('admin.index')->middleware('auth');
 });
