@@ -20,6 +20,8 @@ class UserSettingsController extends Controller
 
     public function update(Request $request)
     {
+        // TODO: validation
+
         $user_id = Auth::id();
         $userSettings = UserSettings::where('user_id', $user_id)->first();
 
@@ -45,13 +47,38 @@ class UserSettingsController extends Controller
         return redirect()->route('user.index');
     }
 
-    public function store()
+    public function show()
     {
+        return view('layouts.user.new_newsletter_form');
+    }
 
+    public function store(Request $request)
+    {
+        // TODO: validation
+
+        $newsletter = FALSE;
+        $third_party = FALSE;
+
+        if ($request['subscribed_to_newsletter']) {
+            $newsletter = TRUE;
+        }
+
+        if ($request['third_party_offers']) {
+            $third_party = TRUE;
+        }
+
+        $userSettings = new UserSettings;
+        $userSettings->user_id = Auth::id();
+        $userSettings->subscribed_to_newsletter = $newsletter;
+        $userSettings->third_party_offers = $third_party;
+        $userSettings->save();
+        $request->session()->flash('alert-success', 'Product subscription created successfully');
+
+        return redirect()->route('user.index');
     }
 
     public function destroy()
     {
-
+        // TODO: create function
     }
 }

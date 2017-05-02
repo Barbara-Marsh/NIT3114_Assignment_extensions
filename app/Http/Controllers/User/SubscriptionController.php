@@ -8,6 +8,7 @@ use App\Subscription;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class SubscriptionController extends Controller
 {
@@ -24,6 +25,8 @@ class SubscriptionController extends Controller
 
     public function update(Request $request)
     {
+        // TODO: validation
+
         $user_id = Auth::id();
         $plan_id = $request['plan_type'];
 
@@ -36,13 +39,36 @@ class SubscriptionController extends Controller
         return redirect()->route('user.index');
     }
 
+    public function show()
+    {
+        $plans = Plan::all()->toArray();
+        return view('layouts.user.new_subscription')->with(['plans' => $plans]);
+    }
+
     public function store(Request $request)
     {
+        // TODO: validation
 
+        $subscription = new Subscription;
+        $subscription->user_id = Auth::id();
+        $subscription->plan_id = $request['plan_id'];
+        $subscription->starts_at = Carbon::now()->toDateString();
+        $subscription->ends_at = Carbon::now()->addMonth()->toDateString();
+        $subscription->status = 'active';
+        $subscription->save();
+        $request->session()->flash('alert-success', 'Product subscription created successfully');
+
+        $planName = Plan::where('id', $subscription->plan_id)->first()->value('name');
+
+        if ($planName == 'Open') {
+            return redirect()->route('user.show_newsletter');
+        } else {
+            return redirect()->route('user.show_billing');
+        }
     }
 
     public function destroy(Request $request, Subscription $subscription)
     {
-
+        // TODO: create function
     }
 }

@@ -20,6 +20,8 @@ class BillingDetailsController extends Controller
 
     public function update(Request $request)
     {
+        // TODO: validation
+
         $billingDetails = BillingDetails::where('id', $request['id'])->first();
         $billingDetails->update($request->all());
 
