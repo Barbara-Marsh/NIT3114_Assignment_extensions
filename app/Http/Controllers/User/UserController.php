@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\User;
 
 use App\BillingDetails;
 use App\User;
@@ -9,6 +9,7 @@ use App\Subscription;
 use App\Plan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
