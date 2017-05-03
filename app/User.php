@@ -27,16 +27,6 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function billing_details()
-    {
-        return $this->hasOne('App/BillingDetails');
-    }
-
-    public function user_settings()
-    {
-        return $this->hasOne('App/UserSettings');
-    }
-
     public function subscription()
     {
         return $this->hasOne('App/Subscription');

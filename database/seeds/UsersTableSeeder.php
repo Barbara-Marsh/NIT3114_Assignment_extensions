@@ -15,6 +15,12 @@ class UsersTableSeeder extends Seeder
             'name' => 'barb',
             'email' => 'barb@example.com',
             'password' => bcrypt('barb'),
+            'subscribed_to_newsletter' => TRUE,
+            'third_party_offers' => FALSE,
+            'card_name' => 'Barbara Marsh',
+            'card_number' => 4242424242424242,
+            'expiry' => '2020-06-01',
+            'csv' => 123,
         ]);
     }
 }

@@ -30,15 +30,12 @@ html body footer.footer {
 html body .content-header {
   text-align: center;
 }
-html body .sidebar {
-  position: absolute;
-  float: left;
-}
 html body .row-bottom-margin {
   margin-bottom: 20px;
 }
 html body .btn-margin-top {
   margin-top: 10px;
+  width: 170px;
 }
 html body .btn-default {
   background-color: #eee;

@@ -16,28 +16,28 @@
 
 @section('content')
 <div class="row">
-    <div class="sidebar">
+    <div class="col-md-2 sidebar">
         @include('layouts.user-sidebar')
     </div>
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-8">
         <div class="panel panel-default">
             <div class="panel-heading">Update newsletter subscription details</div>
             <div class="panel-body">
                 <p>Please check the options for emails you would like to receive.</p>
-                <form action="{{ Route('user.update_newsletter', ['id' => $user_settings['id']]) }}" method="post">
+                <form action="{{ Route('user.update_newsletter', ['id' => $user['id']]) }}" method="post">
                     {{ csrf_field() }}
                     {{ method_field('PUT') }}
                     <ul>
                         <li>Newsletter Subscription
                             <input type="checkbox" name="subscribed_to_newsletter"
-                                @if ($user_settings['subscribed_to_newsletter'] == true)
+                                @if ($user['subscribed_to_newsletter'] == true)
                                     checked="checked"
                                 @endif
                             >
                         </li>
                         <li>Third Party Offers
                             <input type="checkbox" name="third_party_offers"
-                                @if ($user_settings['third_party_offers'] == true)
+                                @if ($user['third_party_offers'] == true)
                                     checked="checked"
                                 @endif
                             >

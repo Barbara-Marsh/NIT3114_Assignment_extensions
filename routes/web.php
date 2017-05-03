@@ -28,7 +28,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/', 'User\UserController@index')
         ->name('user.index');
 
-    // Routes relating to Subscription class
     Route::get('/subscription', 'User\SubscriptionController@show')
         ->name('user.show_subscription');
 
@@ -41,30 +40,28 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::put("/subscription/{subscription_id}", 'User\SubscriptionController@update')
         ->name('user.update_subscription');
 
-    // Routes relating to UserSettings class
-    Route::get("/newsletter/{user_settings_id}", 'User\UserSettingsController@edit')
+    Route::get("/newsletter/{user_id}", 'User\UserController@edit_newsletter_settings')
         ->name('user.edit_newsletter');
 
-    Route::put("/newsletter/{user_settings_id}", 'User\UserSettingsController@update')
+    Route::put("/newsletter/{user_id}", 'User\UserController@update_newsletter_settings')
         ->name('user.update_newsletter');
 
-    Route::get('/newsletter', 'User\UserSettingsController@show')
+    Route::get('/newsletter', 'User\UserController@show_newsletter_settings')
         ->name('user.show_newsletter');
 
-    Route::post('/newsletter', 'User\UserSettingsController@store')
+    Route::post('/newsletter', 'User\UserController@store_newsletter_settings')
         ->name('user.store_newsletter');
 
-    // Routes relating to BillingDetails class
-    Route::get("/billing/{billing_details_id}", 'User\BillingDetailsController@edit')
+    Route::get("/billing/{user_id}", 'User\UserController@edit_billing')
         ->name('user.edit_billing');
 
-    Route::put("/billing/{billing_details_id}", 'User\BillingDetailsController@update')
+    Route::put("/billing/{user_id}", 'User\UserController@update_billing')
         ->name('user.update_billing');
 
-    Route::get('/billing', 'User\BillingDetailsController@show')
+    Route::get('/billing', 'User\UserController@show_billing')
         ->name('user.show_billing');
 
-    Route::post('/billing', 'User\BillingDetailsController@store')
+    Route::post('/billing', 'User\UserController@store_billing')
         ->name('user.store_billing');
 });
 
