@@ -68,7 +68,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         ->name('user.store_billing');
 });
 
-Route::group(['prefix' => 'admin'], function () {
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::get('/', 'Admin\AdminController@index')
         ->name('admin.index');
 });
