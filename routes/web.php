@@ -23,52 +23,52 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::group(['prefix' => 'user'], function () {
+Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     // Display layouts/profile.blade when user logs in or completes registration
     Route::get('/', 'User\UserController@index')
-        ->name('user.index')->middleware('auth');
+        ->name('user.index');
 
     // Routes relating to Subscription class
     Route::get('/subscription', 'User\SubscriptionController@show')
         ->name('user.show_subscription');
 
     Route::post('/subscription', 'User\SubscriptionController@store')
-        ->name('user.store_subscription')->middleware('auth');
+        ->name('user.store_subscription');
 
     Route::get("/subscription/{subscription_id}", 'User\SubscriptionController@edit')
-        ->name('user.edit_subscription')->middleware('auth');
+        ->name('user.edit_subscription');
 
     Route::put("/subscription/{subscription_id}", 'User\SubscriptionController@update')
-        ->name('user.update_subscription')->middleware('auth');
+        ->name('user.update_subscription');
 
     // Routes relating to UserSettings class
     Route::get("/newsletter/{user_settings_id}", 'User\UserSettingsController@edit')
-        ->name('user.edit_newsletter')->middleware('auth');
+        ->name('user.edit_newsletter');
 
     Route::put("/newsletter/{user_settings_id}", 'User\UserSettingsController@update')
-        ->name('user.update_newsletter')->middleware('auth');
+        ->name('user.update_newsletter');
 
     Route::get('/newsletter', 'User\UserSettingsController@show')
-        ->name('user.show_newsletter')->middleware('auth');
+        ->name('user.show_newsletter');
 
     Route::post('/newsletter', 'User\UserSettingsController@store')
-        ->name('user.store_newsletter')->middleware('auth');
+        ->name('user.store_newsletter');
 
     // Routes relating to BillingDetails class
     Route::get("/billing/{billing_details_id}", 'User\BillingDetailsController@edit')
-        ->name('user.edit_billing')->middleware('auth');
+        ->name('user.edit_billing');
 
     Route::put("/billing/{billing_details_id}", 'User\BillingDetailsController@update')
-        ->name('user.update_billing')->middleware('auth');
+        ->name('user.update_billing');
 
     Route::get('/billing', 'User\BillingDetailsController@show')
-        ->name('user.show_billing')->middleware('auth');
+        ->name('user.show_billing');
 
     Route::post('/billing', 'User\BillingDetailsController@store')
-        ->name('user.store_billing')->middleware('auth');
+        ->name('user.store_billing');
 });
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index')
-        ->name('admin.index')->middleware('auth');
+        ->name('admin.index');
 });
