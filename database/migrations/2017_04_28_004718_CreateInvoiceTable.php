@@ -20,6 +20,7 @@ class CreateInvoiceTable extends Migration
             $table->double('price', 5, 2);
             $table->date('date');
             $table->boolean('ignore_taxes');
+            $table->boolean('paid')->default(FALSE);
             $table->timestamps();
         });
     }

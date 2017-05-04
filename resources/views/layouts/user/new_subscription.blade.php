@@ -16,9 +16,6 @@
 
 @section('content')
     <div class="row">
-        <div class="sidebar">
-            @include('layouts.user-sidebar')
-        </div>
         <div class="col-md-8 col-md-offset-2">
             <p>Which plan would you like to subscribe to?</p>
         </div>
@@ -33,9 +30,9 @@
                         @foreach($plans as $plan)
                             <p class="text-justify">
                                 <input type="radio" name="plan_id" value="{{ $plan['id'] }}"
-                                       @if(old('plan_id') == $plan['id'])
-                                       checked="checked"
-                                        @endif
+                                    @if(old('plan_id') == $plan['id'] || ($_GET['plan_id'] && $_GET['plan_id'] == $plan['id']))
+                                        checked="checked"
+                                    @endif
                                 ><strong>{{ $plan['name'] }}</strong><br>
                                 {{ $plan['features'] }}<br>
                                 @if($plan['name'] == 'Open')

@@ -18,7 +18,7 @@ class SubscriptionController extends Controller
         $user = User::findOrFail($id);
         $plan_id = Subscription::where('user_id', $id)->value('plan_id');
         $user['plan'] = Plan::where('id', $plan_id)->value('name');
-        $plans = Plan::all()->toArray();
+        $plans = Plan::all()->where('is_active', '==', TRUE);
 
         return view('layouts.user.edit_subscription_form')->with(['user' => $user['attributes']])->with(['plans' => $plans]);
     }
@@ -27,6 +27,9 @@ class SubscriptionController extends Controller
     {
         // TODO: validation
 
+        // TODO: change to take account of new_plan_id variable
+        // if open change immediately
+        // else change in next billing cycle
         $user_id = Auth::id();
         $plan_id = $request['plan_type'];
 
@@ -49,9 +52,12 @@ class SubscriptionController extends Controller
     {
         // TODO: validation
 
+        $price = Plan::where('id', $request['plan_id'])->value('price');
+
         $subscription = new Subscription;
         $subscription->user_id = Auth::id();
         $subscription->plan_id = $request['plan_id'];
+        $subscription->price = $price;
         $subscription->starts_at = Carbon::now()->toDateString();
         $subscription->ends_at = Carbon::now()->addMonth()->toDateString();
         $subscription->status = 'active';

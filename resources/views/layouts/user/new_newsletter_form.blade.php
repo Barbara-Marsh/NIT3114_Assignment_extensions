@@ -14,9 +14,6 @@
 
 @section('content')
 <div class="row">
-    <div class="sidebar">
-        @include('layouts.user-sidebar')
-    </div>
     <div class="col-md-8 col-md-offset-2">
         <div class="panel panel-default">
             <div class="panel-heading">Choose newsletter subscription details</div>

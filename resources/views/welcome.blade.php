@@ -19,8 +19,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
             @foreach($plans as $plan)
+            <div class="col-md-4">
                 <h3>{{ $plan['name'] }}</h3>
                 <p class="text-justify">{{ $plan['features'] }}</p>
                 @if($plan['name'] == 'Open')
@@ -28,14 +28,8 @@
                 @else
                     <p>Price: ${{ $plan['price'] }}</p>
                 @endif
+                <a href="{{ url("/register?plan_id=".$plan['id']) }}" class="btn btn-default">Sign up</a>
+            </div>
             @endforeach
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <br>
-            <p><strong>Please register to sign up for a plan.</strong></p>
-            <p><strong>Login to change your settings.</strong></p>
-        </div>
     </div>
 @endsection

@@ -60,7 +60,7 @@
                             </ul>
                         </div>
                     </div>
-                    @if ($user['plan']['name'] !== 'Open')
+                    @if ($plan['name'] !== 'Open')
                         <hr>
                         <div class="row">
                             <div class="col-md-12">

@@ -19,7 +19,9 @@ class CreateSubscriptionTable extends Migration
             $table->foreign('user_id')->references('id')->on('User');
             $table->integer('plan_id')->unsigned();
             $table->foreign('plan_id')->references('id')->on('plan');
-            $table->double('price');
+            $table->integer('renew_plan_id')->unsigned()->nullable();
+            $table->foreign('renew_plan_id')->references('id')->on('plan');
+            $table->double('price')->nullable()->default(NULL);
             $table->date('starts_at');
             $table->date('ends_at');
             $table->enum('status', array('active', 'expired', 'cancelled'));
