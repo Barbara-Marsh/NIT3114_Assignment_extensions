@@ -18,8 +18,10 @@ class UserController extends Controller
         $subscription = Subscription::where('user_id', $id)->first()->toArray();
         $plan_id = (int)$subscription['plan_id'];
         $plan = Plan::where('id', $plan_id)->first()->toArray();
+        $renew_plan_id = (int)$subscription['renew_plan_id'];
+        $renew_plan = Plan::where('id', $renew_plan_id)->first()->toArray();
 
-        return view('layouts/profile')->with(['user' => $user, 'subscription' => $subscription, 'plan' => $plan]);
+        return view('layouts/profile')->with(['user' => $user, 'subscription' => $subscription, 'plan' => $plan, 'renew_plan' => $renew_plan]);
     }
 
     public function edit_newsletter_settings()

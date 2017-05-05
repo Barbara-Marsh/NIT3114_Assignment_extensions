@@ -19,12 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->rememberToken();
-            $table->boolean('subscribed_to_newsletter')->default(FALSE);
+            $table->boolean('subscribed_to_newsletter')->default(TRUE);
             $table->boolean('third_party_offers')->default(FALSE);
             $table->string('card_name')->nullable();
             $table->integer('card_number')->nullable();
             $table->date('expiry')->nullable();
             $table->integer('csv')->nullable();
+            $table->boolean('is_auth')->default(FALSE);
             $table->timestamps();
         });
     }

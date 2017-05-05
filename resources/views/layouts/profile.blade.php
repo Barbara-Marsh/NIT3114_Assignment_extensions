@@ -35,6 +35,12 @@
                         <div class="col-md-12">
                             <p><strong>Status: </strong>{{ $subscription['status'] }}</p>
                             <p><strong>Plan is current until: </strong>{{ date('d-m-Y', strtotime($subscription['ends_at'])) }}</p>
+                            @if($renew_plan != NULL)
+                                <p>
+                                    At the start of the next billing period your plan will change to
+                                    <strong>{{ $renew_plan['name'] }}</strong>
+                                </p>
+                            @endif
                         </div>
                     </div><hr>
                     <div class="row">
@@ -76,16 +82,9 @@
                     @endif
                 </div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" style="font-size: larger">Your invoices</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-12">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+        </div>
+        <div class="col-md-2 sidebar">
+            @include('layouts.user-right-sidebar')
         </div>
     </div>
 @endsection

@@ -27,19 +27,32 @@ class SubscriptionController extends Controller
     {
         // TODO: validation
 
-        // TODO: change to take account of new_plan_id variable
-        // if open change immediately
-        // else change in next billing cycle
         $user_id = Auth::id();
         $plan_id = $request['plan_type'];
 
         $subscription = Subscription::where('user_id', $user_id)->first();
-        $subscription->plan_id = $plan_id;
-        $subscription->save();
 
-        $request->session()->flash('alert-success', 'Plan successfully updated');
+        if ($subscription['plan_id'] == 1) {
+            $price = Plan::where('id', $request['plan_id'])->value('price');
 
-        return redirect()->route('user.index');
+            $subscription->plan_id = $plan_id;
+            $subscription->price = $price;
+            $subscription->starts_at = Carbon::now()->toDateString();
+            $subscription->ends_at = Carbon::now()->addMonth()->toDateString();
+            $subscription->status = 'active';
+            $subscription->save();
+
+            $request->session()->flash('alert-success', 'Plan successfully updated, please update your payment method');
+
+            return redirect()->route('user.update_billing')->with(['id', $user_id]);
+        } else {
+            $subscription->renew_plan_id = $plan_id;
+            $subscription->save();
+
+            $request->session()->flash('alert-success', 'Plan successfully updated');
+
+            return redirect()->route('user.index');
+        }
     }
 
     public function show()
