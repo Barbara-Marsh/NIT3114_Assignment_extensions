@@ -63,6 +63,12 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
 
     Route::post('/billing', 'User\UserController@store_billing')
         ->name('user.store_billing');
+
+    Route::get('/invoices/unpaid', 'InvoiceController@index_unpaid')
+        ->name('user.view_unpaid');
+
+    Route::get('/invoices/all', 'InvoiceController@index_all')
+        ->name('user.view_all');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {

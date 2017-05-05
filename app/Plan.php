@@ -15,6 +15,6 @@ class Plan extends Model
 
     public function subscriptions()
     {
-        return $this->hasMany('App/Subscription');
+        return $this->hasMany('App\Subscription');
     }
 }

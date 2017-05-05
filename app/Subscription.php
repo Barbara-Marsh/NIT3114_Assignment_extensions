@@ -15,16 +15,16 @@ class Subscription extends Model
 
     public function user()
     {
-        return $this->hasMany('App/User');
+        return $this->hasMany('App\User');
     }
 
     public function plan()
     {
-        return $this->belongsTo('App/Plan');
+        return $this->belongsTo('App\Plan');
     }
 
     public function invoice()
     {
-        return $this->belongsTo('App/Invoice');
+        return $this->belongsTo('App\Invoice');
     }
 }
