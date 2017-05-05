@@ -19,7 +19,7 @@ class UserController extends Controller
         $plan_id = (int)$subscription['plan_id'];
         $plan = Plan::where('id', $plan_id)->first()->toArray();
         $renew_plan_id = (int)$subscription['renew_plan_id'];
-        $renew_plan = Plan::where('id', $renew_plan_id)->first()->toArray();
+        $renew_plan = Plan::where('id', $renew_plan_id)->first();
 
         return view('layouts/profile')->with(['user' => $user, 'subscription' => $subscription, 'plan' => $plan, 'renew_plan' => $renew_plan]);
     }

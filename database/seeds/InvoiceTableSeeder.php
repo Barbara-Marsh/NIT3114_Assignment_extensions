@@ -16,6 +16,7 @@ class InvoiceTableSeeder extends Seeder
             'price' => 49.95,
             'date' => '2017-03-01',
             'ignore_taxes' => FALSE,
+            'paid' => FALSE,
         ]);
     }
 }
