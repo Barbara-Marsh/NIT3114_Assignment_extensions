@@ -18,5 +18,13 @@ class InvoiceTableSeeder extends Seeder
             'ignore_taxes' => FALSE,
             'paid' => FALSE,
         ]);
+
+        DB::table('invoices')->insert([
+            'subscription_id' => 2,
+            'price' => 49.95,
+            'date' => '2017-04-01',
+            'ignore_taxes' => FALSE,
+            'paid' => FALSE,
+        ]);
     }
 }
