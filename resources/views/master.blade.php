@@ -30,6 +30,9 @@
                 @if (Route::has('login'))
                 <ul class="nav navbar-nav navbar-right">
                     @if (Auth::check())
+                        @if(Auth::user()->isAdmin())
+                            <li><a href="{{ route('admin.index') }}">Admin Console</a></li>
+                        @endif
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 {{ Auth::user()->name }} <span class="caret"></span>

@@ -22,5 +22,14 @@ class UsersTableSeeder extends Seeder
             'expiry' => '2020-06-01',
             'csv' => 123,
         ]);
+
+        DB::table('users')->insert([
+            'name' => 'admin',
+            'email' => 'admin@example.com',
+            'password' => bcrypt('admin'),
+            'subscribed_to_newsletter' => FALSE,
+            'third_party_offers' => FALSE,
+            'admin' => TRUE,
+        ]);
     }
 }

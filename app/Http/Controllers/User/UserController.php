@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Http\Middleware\Admin;
 use App\User;
 use App\Subscription;
 use App\Plan;
@@ -15,6 +16,11 @@ class UserController extends Controller
     {
         $id = Auth::id();
         $user = User::findOrFail($id);
+
+        if (Auth::user()->isAdmin()) {
+            return redirect()->route('admin.index');
+        }
+
         $subscription = Subscription::where('user_id', $id)->first()->toArray();
         $plan_id = (int)$subscription['plan_id'];
         $plan = Plan::where('id', $plan_id)->first()->toArray();

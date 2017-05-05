@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->integer('card_number')->nullable();
             $table->date('expiry')->nullable();
             $table->integer('csv')->nullable();
-            $table->boolean('is_auth')->default(FALSE);
+            $table->boolean('admin')->default(FALSE);
             $table->timestamps();
         });
     }
