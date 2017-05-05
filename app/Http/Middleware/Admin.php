@@ -19,6 +19,8 @@ class Admin
         if ( Auth::check() && Auth::user()->isAdmin() ) {
             return $next($request);
         }
-        return response('NOT AUTHORISED', 404);
+        //return response('NOT AUTHORISED', 404);
+        $request->session()->flash('alert-danger', 'Only Administrators can access Admin Console page');
+        return redirect()->route('user.index');
     }
 }
