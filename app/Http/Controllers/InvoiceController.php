@@ -52,8 +52,8 @@ class InvoiceController extends Controller
             ->join('subscriptions', function ($join) {
                 $join->on('invoices.subscription_id', '=', 'subscriptions.id');
             })->where('subscriptions.user_id', '=', Auth::id())
-            ->orderBy('date', 'desc')
-            ->get();
+              ->orderBy('date', 'desc')
+              ->get();
 
         return view('layouts.user.view_all')->with(['user' => $user, 'invoices' => $invoices]);
     }
