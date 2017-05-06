@@ -23,19 +23,15 @@
             <div class="row">
                 <div class="col-md-4 col-md-offset-2">
                     <p><strong>Number of subscribers per plan:</strong></p>
-                    <p>&ensp;</p>
-                    <p>&ensp;</p>
+                    <ul>
+                    @foreach($subscribers_plan as $plan)
+                        <li><strong>{{ $plan['name'] }}: </strong>{{ $plan['count'] }}</li>
+                    @endforeach
+                    </ul>
                 </div>
                 <div class="col-md-4">
                     <p><strong>Number of new subscribers this month: </strong>{{ $new_subscribers }}</p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 col-md-offset-2">
                     <p><strong>Number of outstanding invoices: </strong>{{ $outstanding }}</p>
-                </div>
-                <div class="col-md-4">
-
                 </div>
             </div>
             <hr>

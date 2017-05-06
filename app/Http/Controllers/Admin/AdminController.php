@@ -19,7 +19,8 @@ class AdminController extends Controller
 
         return view('layouts.admin.index')
             ->with('new_subscribers', $numberNewSubscribers)
-            ->with('outstanding', $outstandingInvoices);
+            ->with('outstanding', $outstandingInvoices)
+            ->with('subscribers_plan', $subscribersPerPlan);
     }
 
     public function calcNumberOfNewSubscribers()
@@ -33,9 +34,15 @@ class AdminController extends Controller
 
     public function calcNumberOfSubscribersPerPlan()
     {
-        $subscriptions = Subscription::all()->groupBy('plan_id');
+        $plans = Plan::all()->toArray();
 
-        return;
+        foreach ($plans as &$plan) {
+            $subscriptions = Subscription::where('plan_id', '=', $plan['id'])->get();
+            $count = count($subscriptions);
+            $plan['count'] = $count;
+        }
+
+        return $plans;
     }
 
     public function calcOutstandingInvoices()
