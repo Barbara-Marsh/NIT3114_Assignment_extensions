@@ -35,9 +35,30 @@
                     <p><strong>Number of outstanding invoices: </strong>{{ $outstanding }}</p>
                 </div>
                 <div class="col-md-4">
+
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="content-header">System Tasks</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 col-md-offset-2">
+                    <a href="" class="btn btn-default">Send Monthly Invoices</a>
+                </div>
+                <div class="col-md-3>">
                     <a href="" class="btn btn-default">View Outstanding Invoices</a>
                 </div>
             </div>
+            <hr>
+            <div class="row">
+                <div class="col-md-12">
+                    <h2 class="content-header">Usage Graphs</h2>
+                </div>
+            </div>
+            <div class="row"></div>
         </div>
     </div>
 @endsection
