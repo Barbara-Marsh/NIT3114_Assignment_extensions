@@ -18,7 +18,7 @@ class SubscriptionTableSeeder extends Seeder
             'price' => 49.95,
             'starts_at' => '2017-03-01',
             'ends_at' => '2017-04-01',
-            'status' => 'active',
+            'status' => 'cancelled',
         ]);
 
         DB::table('subscriptions')->insert([

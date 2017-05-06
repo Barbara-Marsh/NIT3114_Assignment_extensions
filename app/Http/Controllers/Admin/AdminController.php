@@ -8,6 +8,7 @@ use App\Subscription;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -50,5 +51,18 @@ class AdminController extends Controller
         $invoices = Invoice::where('paid', '=', FALSE)->count();
 
         return $invoices;
+    }
+
+    public function view_outstanding()
+    {
+        $invoices = DB::table('invoices')
+            ->join('subscriptions', function ($join) {
+                $join->on('invoices.subscription_id', '=', 'subscriptions.id');
+            })
+                ->where('invoices.paid', '=', FALSE)
+                ->orderBy('date', 'desc')
+                ->get();
+
+        return view('layouts.admin.view_unpaid')->with(['invoices' => $invoices]);
     }
 }

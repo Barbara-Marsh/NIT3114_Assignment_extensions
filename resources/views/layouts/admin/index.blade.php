@@ -45,7 +45,7 @@
                     <a href="" class="btn btn-default">Send Monthly Invoices</a>
                 </div>
                 <div class="col-md-3>">
-                    <a href="" class="btn btn-default">View Outstanding Invoices</a>
+                    <a href="{{ route('admin.view_outstanding') }}" class="btn btn-default">View Outstanding Invoices</a>
                 </div>
             </div>
             <hr>
