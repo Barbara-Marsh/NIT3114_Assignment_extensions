@@ -10,7 +10,7 @@
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
                         {{-- get the plan_id if user got to register page from button on home page rather than nav menu --}}
-                        @if($_GET['plan_id'])
+                        @if(isset($_GET['plan_id']))
                             <input type="hidden" name="plan_id" value="{{ $_GET['plan_id'] }}">
                         @endif
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

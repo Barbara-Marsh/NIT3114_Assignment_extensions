@@ -65,7 +65,7 @@ class RegisterController extends Controller
     {
         // TODO: validate $_GET argument
 
-        if ($data['plan_id']) {
+        if (isset($data['plan_id'])) {
             $this->redirectTo = $this->redirectTo . '?plan_id=' . $data['plan_id'];
         }
 

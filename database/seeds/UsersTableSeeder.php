@@ -30,6 +30,7 @@ class UsersTableSeeder extends Seeder
             'subscribed_to_newsletter' => FALSE,
             'third_party_offers' => FALSE,
             'admin' => TRUE,
+            'created_at' => \Carbon\Carbon::now(),
         ]);
     }
 }

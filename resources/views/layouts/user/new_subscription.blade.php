@@ -30,7 +30,7 @@
                         @foreach($plans as $plan)
                             <p class="text-justify">
                                 <input type="radio" name="plan_id" value="{{ $plan['id'] }}"
-                                    @if(old('plan_id') == $plan['id'] || ($_GET['plan_id'] && $_GET['plan_id'] == $plan['id']))
+                                    @if(old('plan_id') == $plan['id'] || (isset($_GET['plan_id']) && $_GET['plan_id'] == $plan['id']))
                                         checked="checked"
                                     @endif
                                 ><strong>{{ $plan['name'] }}</strong><br>
