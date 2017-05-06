@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Invoice;
 use App\Plan;
 use App\Subscription;
 use App\User;
@@ -12,11 +13,12 @@ class AdminController extends Controller
 {
     public function index()
     {
-        $numberNewUsers = $this->calcNumberOfNewSubscribers();
-        $subscribersPerPlan = $this->calcNumberSubscribersPerPlan();
+        $numberNewSubscribers = $this->calcNumberOfNewSubscribers();
+        $subscribersPerPlan = $this->calcNumberOfSubscribersPerPlan();
+        $outstandingInvoices = $this->calcOutstandingInvoices();
         //dd($numberNewUsers);
 
-        return view('admin.index')->with('new_subscribers', $numberNewUsers);
+        return view('layouts.admin.index')->with('new_subscribers', $numberNewSubscribers)->with('outstanding', $outstandingInvoices);
     }
 
     public function calcNumberOfNewSubscribers()
@@ -28,8 +30,17 @@ class AdminController extends Controller
         return $numberUsers;
     }
 
-    public function calcNumberSubscribersPerPlan()
+    public function calcNumberOfSubscribersPerPlan()
     {
-        $subscriptions = Subscription::all();
+        $subscriptions = Subscription::all()->groupBy('plan_id');
+
+        return;
+    }
+
+    public function calcOutstandingInvoices()
+    {
+        $invoices = Invoice::where('paid', '=', FALSE)->count();
+
+        return $invoices;
     }
 }
