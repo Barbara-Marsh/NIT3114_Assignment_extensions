@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Invoice;
+use App\Plan;
 use App\Subscription;
 use App\User;
 use Illuminate\Http\Request;
@@ -85,11 +86,20 @@ class InvoiceController extends Controller
         } else {
             $invoice->ignore_taxes = FALSE;
         }
-
+        //dd($invoice->price);
         $invoice->save();
 
         //update subscription
         $subscription = Subscription::where('id', $request['subscription_id'])->first();
+        if (isset($subscription->renew_plan_id)) {
+            $renew_id = $subscription->renew_plan_id;
+            $subscription->plan_id = $renew_id;
+            $plan = Plan::where('id', $subscription->renew_plan_id)->first();
+            $price = $plan->price;
+            $subscription->price = $price;
+            $subscription->renew_plan_id = NULL;
+        }
+
         $starts_at = new \DateTime($subscription['ends_at']);
         $starts_at->add(new \DateInterval('P1D'));
         $ends_at = clone $starts_at;

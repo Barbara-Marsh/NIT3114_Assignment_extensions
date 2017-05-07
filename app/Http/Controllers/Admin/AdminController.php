@@ -85,6 +85,6 @@ class AdminController extends Controller
                 ->orderBy('date', 'desc')
                 ->get();
 
-        return view('layouts.admin.invoices')->with(['invoices' => $invoices]);
+        return view('layouts.admin.view_unpaid')->with(['invoices' => $invoices]);
     }
 }
