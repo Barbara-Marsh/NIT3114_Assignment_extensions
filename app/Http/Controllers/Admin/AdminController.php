@@ -53,6 +53,17 @@ class AdminController extends Controller
         return $invoices;
     }
 
+    public function createInvoicesList()
+    {
+        $today = new \DateTime();
+        $recent = $today->sub(new \DateInterval('P7D'));
+        $subscriptions = Subscription::where('ends_at', '>', $recent)->where('status', '=', 'active')->get();
+
+        //dd($subscriptions);
+
+        return view('layouts.admin.invoices')->with(['subscriptions' => $subscriptions]);
+    }
+
     public function view_outstanding()
     {
         $invoices = DB::table('invoices')

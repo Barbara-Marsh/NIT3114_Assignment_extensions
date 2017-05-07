@@ -75,6 +75,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/', 'Admin\AdminController@index')
         ->name('admin.index');
 
+    Route::get('/invoices', 'Admin\AdminController@createInvoicesList')
+        ->name('admin.create_invoices_list');
+
     Route::get('/unpaid_invoices', 'Admin\AdminController@view_outstanding')
         ->name('admin.view_outstanding');
 });
