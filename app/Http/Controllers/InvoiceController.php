@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Carbon\Carbon;
+use function Sodium\add;
 
 class InvoiceController extends Controller
 {
@@ -56,5 +58,49 @@ class InvoiceController extends Controller
               ->get();
 
         return view('layouts.user.view_all')->with(['user' => $user, 'invoices' => $invoices]);
+    }
+
+    public function store(Request $request)
+    {
+        // TODO: validation
+
+         //create invoice
+        function calcPrice($request)
+        {
+            $price = doubleval($request['price']);
+            if (isset($request['discount'])) {
+                $price = $price + doubleval($request['discount']);
+            }
+
+            return $price;
+        }
+
+        $invoice = new Invoice();
+        $invoice->subscription_id = $request['subscription_id'];
+        $invoice->price = calcPrice($request);
+        $invoice->date = $request['date'];
+
+        if ($request['ignore_taxes'] == TRUE) {
+            $invoice->ignore_taxes = TRUE;
+        } else {
+            $invoice->ignore_taxes = FALSE;
+        }
+
+        $invoice->save();
+
+        //update subscription
+        $subscription = Subscription::where('id', $request['subscription_id'])->first();
+        $starts_at = new \DateTime($subscription['ends_at']);
+        $starts_at->add(new \DateInterval('P1D'));
+        $ends_at = clone $starts_at;
+        $ends_at->add(new \DateInterval('P1M'));
+        $ends_at->sub(new \DateInterval('P1D'));
+        $subscription->starts_at = $starts_at;
+        $subscription->ends_at = $ends_at;
+        $subscription->update();
+
+        $request->session()->flash('alert-success', 'Invoice created successfully');
+
+        return redirect()->route('admin.invoices_list');
     }
 }

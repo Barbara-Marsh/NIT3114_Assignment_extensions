@@ -6,6 +6,7 @@ use App\Invoice;
 use App\Plan;
 use App\Subscription;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
@@ -53,15 +54,25 @@ class AdminController extends Controller
         return $invoices;
     }
 
-    public function createInvoicesList()
+    public function invoicesList()
     {
         $today = new \DateTime();
         $recent = $today->sub(new \DateInterval('P7D'));
-        $subscriptions = Subscription::where('ends_at', '>', $recent)->where('status', '=', 'active')->get();
-
-        //dd($subscriptions);
+        $recent = $recent->format('Y-m-d H:i');
+        $max = $today->add(new \DateInterval('P60D'));
+        $max = $max->format('Y-m-d H:i');
+        $subscriptions = Subscription::where('status', '=', 'active')->whereBetween('ends_at', [$recent, $max])->get();
 
         return view('layouts.admin.invoices')->with(['subscriptions' => $subscriptions]);
+    }
+
+    public function createInvoice(Request $request)
+    {
+        $subscription = json_decode($request['subscription']);
+        $date = date("Y-m-d H:i:s");
+        return view('layouts.admin.create-invoices')
+            ->with('subscription', $subscription)
+            ->with('date', $date);
     }
 
     public function view_outstanding()
@@ -74,6 +85,6 @@ class AdminController extends Controller
                 ->orderBy('date', 'desc')
                 ->get();
 
-        return view('layouts.admin.view_unpaid')->with(['invoices' => $invoices]);
+        return view('layouts.admin.invoices')->with(['invoices' => $invoices]);
     }
 }

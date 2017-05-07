@@ -18,30 +18,35 @@
             <h2>Subscriptions Near to Ending</h2>
         </div>
         <div class="col-md-8 col-md-offset-2">
-            <table class="table table-responsive table-bordered">
+            <table class="table table-responsive table-bordered table-hover">
                 <tr>
                     <th>id</th>
                     <th>User</th>
                     <th>Plan</th>
-                    <th>Update Plan</th>
+                    <th>Renew Plan</th>
                     <th>Price</th>
                     <th>Starts at</th>
                     <th>Ends at</th>
                     <th></th>
                 </tr>
-            @foreach($subscriptions as $subscription)
-                <tr>
-                    <td>{{ $subscription->id }}</td>
-                    <td>{{ $subscription->user_id }}</td>
-                    <td>{{ $subscription->plan_id }}</td>
-                    <td>{{ $subscription->update_plan_id }}</td>
-                    <td>{{ $subscription->price }}</td>
-                    <td>{{ $subscription->starts_at }}</td>
-                    <td>{{ $subscription->ends_at }}</td>
-                    <td><a href="" class="btn btn-default">Create Invoice</a></td>
-                </tr>
-            @endforeach
+            @for($x = 0; $x < count($subscriptions); $x++)
+                <form action="{{ route('admin.create_invoice') }}" method="get">
+                    {{ csrf_field() }}
+                    <tr>
+                        <td>{{ $subscriptions[$x]->id }}</td>
+                        <td>{{ $subscriptions[$x]->user_id }}</td>
+                        <td>{{ $subscriptions[$x]->plan_id }}</td>
+                        <td>{{ $subscriptions[$x]->renew_plan_id }}</td>
+                        <td>{{ $subscriptions[$x]->price }}</td>
+                        <td>{{ $subscriptions[$x]->starts_at }}</td>
+                        <td>{{ $subscriptions[$x]->ends_at }}</td>
+                        <input type="hidden" value="{{ $subscriptions[$x] }}" name="subscription">
+                        <td><button class="btn btn-default">Create Invoice</button></td>
+                    </tr>
+                </form>
+            @endfor
             </table>
+            <p><a href="{{ route('admin.index') }}" class="btn btn-default">Return to Admin Console</a></p>
         </div>
     </div>
 @endsection

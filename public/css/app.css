@@ -58,3 +58,7 @@ html body .statistics-container {
   padding: 0 0 25px;
   margin: 20px 0;
 }
+html body .big-checkbox {
+  transform: scale(1.75, 1.75);
+  margin: 0 5px;
+}
