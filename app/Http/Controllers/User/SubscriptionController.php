@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Invoice as MailInvoice;
 
 class SubscriptionController extends Controller
 {
@@ -80,12 +82,18 @@ class SubscriptionController extends Controller
 
         // Create Invoice
         $invoice = new Invoice;
-        $invoice->subscription_id = Subscription::getPdo()->lastInsertId();
+        $invoice->subscription_id = $subscription->id;
         $invoice->price = $price;
         $invoice->date = Carbon::now()->toDateString();
         $invoice->ignore_taxes = FALSE;
         $invoice->paid = FALSE;
         $invoice->save();
+
+        $user_id = Auth::id();
+        $user = User::findOrFail($user_id);
+        $invoice_id = $invoice->id;
+        $inv = Invoice::findOrFail($invoice_id);
+        Mail::to($user)->send(new MailInvoice($user, $inv));
 
         $request->session()->flash('alert-success', 'Product subscription created successfully');
 
