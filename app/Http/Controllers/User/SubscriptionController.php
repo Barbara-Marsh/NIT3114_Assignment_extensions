@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\User;
 
+use App\Invoice;
 use App\User;
 use App\Plan;
 use App\Subscription;
@@ -67,6 +68,7 @@ class SubscriptionController extends Controller
 
         $price = Plan::where('id', $request['plan_id'])->value('price');
 
+        // Create Subscription
         $subscription = new Subscription;
         $subscription->user_id = Auth::id();
         $subscription->plan_id = $request['plan_id'];
@@ -75,6 +77,16 @@ class SubscriptionController extends Controller
         $subscription->ends_at = Carbon::now()->addMonth()->toDateString();
         $subscription->status = 'active';
         $subscription->save();
+
+        // Create Invoice
+        $invoice = new Invoice;
+        $invoice->subscription_id = Subscription::getPdo()->lastInsertId();
+        $invoice->price = $price;
+        $invoice->date = Carbon::now()->toDateString();
+        $invoice->ignore_taxes = FALSE;
+        $invoice->paid = FALSE;
+        $invoice->save();
+
         $request->session()->flash('alert-success', 'Product subscription created successfully');
 
         $plan = Plan::where('id', $subscription->plan_id)->first();

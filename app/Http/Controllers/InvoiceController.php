@@ -91,7 +91,7 @@ class InvoiceController extends Controller
         {
             $price = doubleval($request['price']);
             if (isset($request['discount'])) {
-                $price = $price + doubleval($request['discount']);
+                $price = $price - doubleval($request['discount']);
             }
 
             return $price;
@@ -107,7 +107,6 @@ class InvoiceController extends Controller
         } else {
             $invoice->ignore_taxes = FALSE;
         }
-        //dd($invoice->price);
         $invoice->save();
 
         //update subscription
