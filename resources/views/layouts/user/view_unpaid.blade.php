@@ -25,20 +25,22 @@
                         <tr>
                             <th>Invoice Number</th>
                             <th>Invoice Date</th>
+                            <th>Plan</th>
                             <th>Invoice Total</th>
                             <th>Outstanding Amount</th>
                         </tr>
                         @foreach($invoices as $invoice)
                             <tr>
-                                <td>{{ $invoice->id }}</td>
-                                <td>{{ date('d-m-Y', strtotime($invoice->date)) }}</td>
-                                <td>${{ number_format($invoice->price, 2) }}</td>
-                                <td>${{ number_format($invoice->price, 2) }}</td>
+                                <td>{{ $invoice['id'] }}</td>
+                                <td>{{ date('d-m-Y', strtotime($invoice['date'])) }}</td>
+                                <td>{{ $invoice['plan'] }}</td>
+                                <td>${{ number_format($invoice['price'], 2) }}</td>
+                                <td>${{ number_format($invoice['price'], 2) }}</td>
                             </tr>
                             <tr>
                         @endforeach
                         <tr>
-                            <td colspan="3"></td>
+                            <td colspan="4"></td>
                             <td><a href="{{ route('user.edit_billing', ['user_id' => $user['id']]) }}" class="btn btn-default">Update Payment Details</a></td>
                         </tr>
                     </table>

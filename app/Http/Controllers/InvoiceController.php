@@ -9,8 +9,6 @@ use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
-use function Sodium\add;
 
 class InvoiceController extends Controller
 {
@@ -21,9 +19,9 @@ class InvoiceController extends Controller
         $total_owing = 0.0;
 
         foreach ($subscriptions as $subscription) {
-            $invoice = Invoice::where('subscription_id', $subscription['id'])->value('price');
-            if ($invoice != NULL) {
-                $total_owing = $total_owing + $invoice;
+            $invoices = Invoice::where('subscription_id', $subscription['id'])->where('paid', '=', FALSE)->get();
+            foreach ($invoices as $invoice) {
+                $total_owing = $total_owing + $invoice->price;
             }
         }
 
@@ -35,13 +33,24 @@ class InvoiceController extends Controller
         $id = Auth::id();
         $user = User::findOrFail($id);
 
-        $invoices = DB::table('invoices')
-            ->join('subscriptions', function ($join) {
-                $join->on('invoices.subscription_id', '=', 'subscriptions.id');
-            })->where('subscriptions.user_id', '=', Auth::id())
-              ->where('invoices.paid', '=', FALSE)
-              ->orderBy('date', 'desc')
-              ->get();
+        $subscriptions = Subscription::where('user_id', '=', $id)->get();
+        $invoices = [];
+
+        foreach ($subscriptions as $subscription) {
+            $invoiceData = Invoice::where('subscription_id', '=', $subscription->id)
+                ->where('paid', '=', FALSE)
+                ->orderBy('date', 'desc')
+                ->get()->toArray();
+
+            foreach ($invoiceData as $datum) {
+                $id = $datum['id'];
+                $date = $datum['date'];
+                $price = $datum['price'];
+                $plan = Plan::where('id', '=', $subscription->id)->value('name');
+                $invoice = array('id' => $id, 'date' => $date, 'price' => $price, 'plan' => $plan);
+                array_push($invoices, $invoice);
+            }
+        }
 
         return view('layouts.user.view_unpaid')->with(['user' => $user, 'invoices' => $invoices]);
     }
@@ -51,12 +60,24 @@ class InvoiceController extends Controller
         $id = Auth::id();
         $user = User::findOrFail($id);
 
-        $invoices = DB::table('invoices')
-            ->join('subscriptions', function ($join) {
-                $join->on('invoices.subscription_id', '=', 'subscriptions.id');
-            })->where('subscriptions.user_id', '=', Auth::id())
-              ->orderBy('date', 'desc')
-              ->get();
+        $subscriptions = Subscription::where('user_id', '=', $id)->get();
+        $invoices = [];
+
+        foreach ($subscriptions as $subscription) {
+            $invoiceData = Invoice::where('subscription_id', '=', $subscription->id)
+                ->orderBy('date', 'desc')
+                ->get()->toArray();
+
+            foreach ($invoiceData as $datum) {
+                $id = $datum['id'];
+                $date = $datum['date'];
+                $price = $datum['price'];
+                $paid = $datum['paid'];
+                $plan = Plan::where('id', '=', $subscription->id)->value('name');
+                $invoice = array('id' => $id, 'date' => $date, 'price' => $price, 'paid' => $paid, 'plan' => $plan);
+                array_push($invoices, $invoice);
+            }
+        }
 
         return view('layouts.user.view_all')->with(['user' => $user, 'invoices' => $invoices]);
     }

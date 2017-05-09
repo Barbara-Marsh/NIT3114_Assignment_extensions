@@ -6,7 +6,6 @@ use App\Invoice;
 use App\Plan;
 use App\Subscription;
 use App\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
