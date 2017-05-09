@@ -8,7 +8,7 @@ use App\Subscription;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Mail\Invoice as MailInvoice;
 
 class InvoiceController extends Controller
 {
@@ -104,10 +104,19 @@ class InvoiceController extends Controller
 
         if ($request['ignore_taxes'] == TRUE) {
             $invoice->ignore_taxes = TRUE;
+            $invoice->price = $invoice->price / 1.1;
         } else {
             $invoice->ignore_taxes = FALSE;
         }
         $invoice->save();
+
+        // send email
+        $user_id = Auth::id();
+        $user = User::findOrFail($user_id);
+        $invoice_id = $invoice->id;
+        $inv = Invoice::findOrFail($invoice_id);
+        $type = 'old';
+        Mail::to($user)->send(new MailInvoice($user, $inv, $type));
 
         //update subscription
         $subscription = Subscription::where('id', $request['subscription_id'])->first();

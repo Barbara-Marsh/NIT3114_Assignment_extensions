@@ -13,16 +13,18 @@ class Invoice extends Mailable
 
     public $user;
     public $invoice;
+    public $type;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($user, $invoice)
+    public function __construct($user, $invoice, $type)
     {
         $this->user = $user;
         $this->invoice = $invoice;
+        $this->type = $type;
     }
 
     /**
@@ -32,6 +34,11 @@ class Invoice extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.first-invoice');
+        if ($type = 'new') {
+            return $this->view('mail.first-invoice');
+        } else {
+            return $this->view('mail.invoice');
+        }
+
     }
 }

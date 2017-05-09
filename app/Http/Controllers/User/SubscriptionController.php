@@ -89,11 +89,13 @@ class SubscriptionController extends Controller
         $invoice->paid = FALSE;
         $invoice->save();
 
+        // Send email
         $user_id = Auth::id();
         $user = User::findOrFail($user_id);
         $invoice_id = $invoice->id;
         $inv = Invoice::findOrFail($invoice_id);
-        Mail::to($user)->send(new MailInvoice($user, $inv));
+        $type = 'new';
+        Mail::to($user)->send(new MailInvoice($user, $inv, $type));
 
         $request->session()->flash('alert-success', 'Product subscription created successfully');
 
