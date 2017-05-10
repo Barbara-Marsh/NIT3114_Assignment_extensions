@@ -12,50 +12,7 @@ use App\Mail\Invoice as MailInvoice;
 
 class InvoiceController extends Controller
 {
-    public function getTotalOwing()
-    {
-        $user_id = Auth::id();
-        $subscriptions = Subscription::where('user_id', $user_id)->get();
-        $total_owing = 0.0;
-
-        foreach ($subscriptions as $subscription) {
-            $invoices = Invoice::where('subscription_id', $subscription['id'])->where('paid', '=', FALSE)->get();
-            foreach ($invoices as $invoice) {
-                $total_owing = $total_owing + $invoice->price;
-            }
-        }
-
-        return $total_owing;
-    }
-
-    public function index_unpaid()
-    {
-        $id = Auth::id();
-        $user = User::findOrFail($id);
-
-        $subscriptions = Subscription::where('user_id', '=', $id)->get();
-        $invoices = [];
-
-        foreach ($subscriptions as $subscription) {
-            $invoiceData = Invoice::where('subscription_id', '=', $subscription->id)
-                ->where('paid', '=', FALSE)
-                ->orderBy('date', 'desc')
-                ->get()->toArray();
-
-            foreach ($invoiceData as $datum) {
-                $id = $datum['id'];
-                $date = $datum['date'];
-                $price = $datum['price'];
-                $plan = Plan::where('id', '=', $subscription->id)->value('name');
-                $invoice = array('id' => $id, 'date' => $date, 'price' => $price, 'plan' => $plan);
-                array_push($invoices, $invoice);
-            }
-        }
-
-        return view('layouts.user.view_unpaid')->with(['user' => $user, 'invoices' => $invoices]);
-    }
-
-    public function index_all()
+    public function index()
     {
         $id = Auth::id();
         $user = User::findOrFail($id);

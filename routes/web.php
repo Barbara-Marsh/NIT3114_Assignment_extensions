@@ -64,11 +64,8 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::post('/billing', 'User\UserController@store_billing')
         ->name('user.store_billing');
 
-    Route::get('/invoices/unpaid', 'InvoiceController@index_unpaid')
-        ->name('user.view_unpaid');
-
-    Route::get('/invoices/all', 'InvoiceController@index_all')
-        ->name('user.view_all');
+    Route::get('/invoices', 'InvoiceController@index')
+        ->name('user.invoices');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
@@ -83,7 +80,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
     Route::post('/invoices/create', 'InvoiceController@store')
         ->name('admin.store_invoice');
-
-    Route::get('/unpaid_invoices', 'Admin\AdminController@view_outstanding')
-        ->name('admin.view_outstanding');
 });

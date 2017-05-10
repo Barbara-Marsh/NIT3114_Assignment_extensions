@@ -35,9 +35,19 @@ class ExampleTest extends TestCase
      * @test
      *
      */
+    public function home_page_returns_302()
+    {
+        $response = $this->get('/home');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     */
     public function user_home_page_returns_302()
     {
-        $response = $this->get('/user/');
+        $response = $this->get('/user');
         $response->assertStatus(302);
     }
 
@@ -61,6 +71,10 @@ class ExampleTest extends TestCase
         $response->assertStatus(302);
     }
 
+    /**
+     * @test
+     *
+     */
     public function newsletter_page_returns_302()
     {
         $response = $this->get('/user/newsletter/');
@@ -84,6 +98,57 @@ class ExampleTest extends TestCase
     public function billing_page_returns_302()
     {
         $response = $this->get('/user/billing');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function billing_1_page_returns_302()
+    {
+        $response = $this->get('/user/billing/1');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function invoices_page_returns_302()
+    {
+        $response = $this->get('/user/invoices');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     *
+     */
+    public function admin_home_returns_302()
+    {
+        $response = $this->get('/admin');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function admin_invoice_page_returns_302()
+    {
+        $response = $this->get('/admin/invoices');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function admin_invoice_creation_page_returns_302()
+    {
+        $response = $this->get('/admin/invoices/create');
         $response->assertStatus(302);
     }
 }

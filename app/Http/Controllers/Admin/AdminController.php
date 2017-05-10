@@ -46,13 +46,6 @@ class AdminController extends Controller
         return $plans;
     }
 
-    public function calcOutstandingInvoices()
-    {
-        $invoices = Invoice::where('paid', '=', FALSE)->count();
-
-        return $invoices;
-    }
-
     public function invoicesList()
     {
         $today = new \DateTime();
@@ -72,18 +65,5 @@ class AdminController extends Controller
         return view('layouts.admin.create-invoices')
             ->with('subscription', $subscription)
             ->with('date', $date);
-    }
-
-    public function view_outstanding()
-    {
-        $invoices = DB::table('invoices')
-            ->join('subscriptions', function ($join) {
-                $join->on('invoices.subscription_id', '=', 'subscriptions.id');
-            })
-                ->where('invoices.paid', '=', FALSE)
-                ->orderBy('date', 'desc')
-                ->get();
-
-        return view('layouts.admin.view_unpaid')->with(['invoices' => $invoices]);
     }
 }
