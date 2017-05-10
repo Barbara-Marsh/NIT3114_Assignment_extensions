@@ -20,4 +20,70 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+
+    /*
+     * @test
+     *
+     */
+    public function about_page_returns_200()
+    {
+        $response = $this->get('/about');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function user_home_page_returns_302()
+    {
+        $response = $this->get('/user/');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function subscription_page_returns_302()
+    {
+        $response = $this->get('/user/subscription');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function subscription_1_page_returns_302()
+    {
+        $response = $this->get('/user/subscription/1');
+        $response->assertStatus(302);
+    }
+
+    public function newsletter_page_returns_302()
+    {
+        $response = $this->get('/user/newsletter/');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function newsletter_1_page_returns_302()
+    {
+        $response = $this->get('/user/newsletter/1');
+        $response->assertStatus(302);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function billing_page_returns_302()
+    {
+        $response = $this->get('/user/billing');
+        $response->assertStatus(302);
+    }
 }
