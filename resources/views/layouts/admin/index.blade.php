@@ -31,7 +31,6 @@
                 </div>
                 <div class="col-md-4">
                     <p><strong>Number of new subscribers this month: </strong>{{ $new_subscribers }}</p>
-                    <p><strong>Number of outstanding invoices: </strong>{{ $outstanding }}</p>
                 </div>
             </div>
             <hr>

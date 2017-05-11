@@ -8,6 +8,7 @@ use App\Subscription;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use App\Mail\Invoice as MailInvoice;
 
 class InvoiceController extends Controller
@@ -29,14 +30,13 @@ class InvoiceController extends Controller
                 $id = $datum['id'];
                 $date = $datum['date'];
                 $price = $datum['price'];
-                $paid = $datum['paid'];
                 $plan = Plan::where('id', '=', $subscription->id)->value('name');
-                $invoice = array('id' => $id, 'date' => $date, 'price' => $price, 'paid' => $paid, 'plan' => $plan);
+                $invoice = array('id' => $id, 'date' => $date, 'price' => $price, 'plan' => $plan);
                 array_push($invoices, $invoice);
             }
         }
 
-        return view('layouts.user.view_all')->with(['user' => $user, 'invoices' => $invoices]);
+        return view('layouts.user.view_invoices')->with(['user' => $user, 'invoices' => $invoices]);
     }
 
     public function store(Request $request)

@@ -16,11 +16,9 @@ class AdminController extends Controller
     {
         $numberNewSubscribers = $this->calcNumberOfNewSubscribers();
         $subscribersPerPlan = $this->calcNumberOfSubscribersPerPlan();
-        $outstandingInvoices = $this->calcOutstandingInvoices();
 
         return view('layouts.admin.index')
             ->with('new_subscribers', $numberNewSubscribers)
-            ->with('outstanding', $outstandingInvoices)
             ->with('subscribers_plan', $subscribersPerPlan);
     }
 

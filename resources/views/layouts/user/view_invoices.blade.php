@@ -27,7 +27,6 @@
                             <th>Invoice Date</th>
                             <th>Plan</th>
                             <th>Invoice Total</th>
-                            <th>Outstanding Amount</th>
                         </tr>
                         @foreach($invoices as $invoice)
                             <tr>
@@ -35,16 +34,14 @@
                                 <td>{{ date('d-m-Y', strtotime($invoice['date'])) }}</td>
                                 <td>{{ $invoice['plan'] }}</td>
                                 <td>${{ number_format($invoice['price'], 2) }}</td>
-                                @if($invoice['paid'] == FALSE)
-                                    <td>${{ number_format($invoice['price'], 2) }}</td>
-                                @else
-                                    <td>${{ number_format(0, 2) }}</td>
-                                @endif
+
                             </tr>
                             <tr>
                         @endforeach
                         <tr>
-                            <td colspan="4"></td>
+                            <td colspan="3">
+                                <a href="{{ route('user.index', ['user_id' => $user['id']]) }}" class="btn btn-default">Return to Profile</a>
+                            </td>
                             <td><a href="{{ route('user.edit_billing', ['user_id' => $user['id']]) }}" class="btn btn-default">Update Payment Details</a></td>
                         </tr>
                     </table>

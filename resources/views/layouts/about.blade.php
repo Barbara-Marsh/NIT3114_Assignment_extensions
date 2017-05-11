@@ -17,5 +17,6 @@
     <p>Assumptions:</p>
     <ul>
         <li>User can only subscribe to 1 plan</li>
+        <li>Upon first registering, invoice price will be plan price. For further invoices an administrator can take discounts from the total</li>
     </ul>
 @endsection

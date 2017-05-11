@@ -16,7 +16,6 @@ class InvoiceTableSeeder extends Seeder
             'price' => 49.95,
             'date' => '2017-03-01',
             'ignore_taxes' => FALSE,
-            'paid' => TRUE,
         ]);
 
         DB::table('invoices')->insert([
@@ -24,7 +23,6 @@ class InvoiceTableSeeder extends Seeder
             'price' => 49.95,
             'date' => '2017-04-01',
             'ignore_taxes' => FALSE,
-            'paid' => FALSE,
         ]);
 
         DB::table('invoices')->insert([
@@ -32,7 +30,6 @@ class InvoiceTableSeeder extends Seeder
             'price' => 49.95,
             'date' => '2017-05-01',
             'ignore_taxes' => FALSE,
-            'paid' => FALSE,
         ]);
     }
 }
