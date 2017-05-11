@@ -66,7 +66,7 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-        // TODO: validation
+        // TODO: validation of invoice
 
         $price = Plan::where('id', $request['plan_id'])->value('price');
 
@@ -78,7 +78,10 @@ class SubscriptionController extends Controller
         $subscription->starts_at = Carbon::now()->toDateString();
         $subscription->ends_at = Carbon::now()->addMonth()->toDateString();
         $subscription->status = 'active';
-        $subscription->save();
+
+        $this->validate($subscription, self::rules());
+        //$subscription->save();
+        Subscription::create($subscription);
 
         // Create Invoice
         $invoice = new Invoice;
@@ -112,5 +115,20 @@ class SubscriptionController extends Controller
     public function destroy(Request $request, Subscription $subscription)
     {
         // TODO: create function
+    }
+
+    public static function rules()
+    {
+        $rules = [
+            'user_id' => 'required',
+            'plan_id' => 'required',
+            'renew_plan_id' => 'nullable',
+            'price' => "required|numeric",
+            'starts_at' => "required|date",
+            'ends_at' => "required|date",
+            'status' => 'required',
+        ];
+
+        return $rules;
     }
 }

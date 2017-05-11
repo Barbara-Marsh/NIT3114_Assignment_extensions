@@ -19,17 +19,26 @@
         </div>
     </div>
     <div class="row">
-            @foreach($plans as $plan)
-            <div class="col-md-4">
-                <h3>{{ $plan['name'] }}</h3>
-                <p class="text-justify">{{ $plan['features'] }}</p>
-                @if($plan['name'] == 'Open')
-                    <p>Price: Free</p>
-                @else
-                    <p>Price: ${{ $plan['price'] }}</p>
-                @endif
-                <a href="{{ url("/register?plan_id=".$plan['id']) }}" class="btn btn-default">Sign up</a>
-            </div>
-            @endforeach
+        @foreach($plans as $plan)
+        <div class="col-md-4">
+            <h3>{{ $plan['name'] }}</h3>
+            <p class="text-justify">{{ $plan['features'] }}</p>
+            @if($plan['name'] == 'Open')
+                <p>Price: Free</p>
+            @else
+                <p>Price: ${{ $plan['price'] }}</p>
+            @endif
+            <a href="{{ url("/register?plan_id=".$plan['id']) }}" class="btn btn-default">Sign up</a>
+        </div>
+        @endforeach
+        @if(Auth::check())
+            <script>
+                // jQuery function to prevent logged-in users from subscribing to another plan.
+                // Redirects to profile page if user clicks on one of the Sign Up buttons.
+                $('.btn').click(function ( event ) {
+                    event.preventDefault();
+                });
+            </script>
+        @endif
     </div>
 @endsection
