@@ -6,13 +6,13 @@ use App\Invoice;
 use App\User;
 use App\Plan;
 use App\Subscription;
-use Dotenv\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Invoice as MailInvoice;
+use Validator;
 
 class SubscriptionController extends Controller
 {
