@@ -32,7 +32,7 @@
                     {{ method_field('PUT') }}
                     @foreach($plans as $plan)
                         <p class="text-justify">
-                            <input type="radio" name="plan_type" value="{{ $plan['id'] }}"
+                            <input type="radio" name="plan_id" value="{{ $plan['id'] }}"
                                    @if($user['plan'] == $plan['name'])
                                    checked="checked"
                                     @endif

@@ -6,6 +6,7 @@ use App\Invoice;
 use App\User;
 use App\Plan;
 use App\Subscription;
+use Dotenv\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -28,30 +29,34 @@ class SubscriptionController extends Controller
 
     public function update(Request $request)
     {
-        // TODO: validation
-
         $user_id = Auth::id();
-        $plan_id = $request['plan_type'];
-
+        $plan_id = $request['plan_id'];
         $subscription = Subscription::where('user_id', $user_id)->first();
 
+        // If original plan was Open, change to new plan immediately, else change plan in next billing cycle
         if ($subscription['plan_id'] == 1) {
             $price = Plan::where('id', $request['plan_id'])->value('price');
-
-            $subscription->plan_id = $plan_id;
-            $subscription->price = $price;
-            $subscription->starts_at = Carbon::now()->toDateString();
-            $subscription->ends_at = Carbon::now()->addMonth()->toDateString();
-            $subscription->status = 'active';
-            $subscription->save();
-
+            $request['price'] = $price;
+            $request['starts_at'] = Carbon::now()->toDateString();
+            $request['ends_at'] = Carbon::now()->addMonth()->toDateString();
+            $request['status'] = 'active';
+            $this->validate($request, [
+                'price' => "numeric",
+                'starts_at' => "required|date",
+                'ends_at' => "required|date",
+                'status' => 'required',
+            ]);
+            $subscription->update($request->all());
             $request->session()->flash('alert-success', 'Plan successfully updated, please update your payment method');
 
-            return redirect()->route('user.update_billing')->with(['id', $user_id]);
+            return redirect()->route('user.show_billing')->with(['create_invoice' => 'true']);
         } else {
-            $subscription->renew_plan_id = $plan_id;
+            $request['renew_plan_id'] = $plan_id;
+            $this->validate($request, [
+                'renew_plan_id' => "numeric|nullable",
+            ]);
+            $subscription->renew_plan_id = $request['renew_plan_id'];
             $subscription->save();
-
             $request->session()->flash('alert-success', 'Plan successfully updated');
 
             return redirect()->route('user.index');
@@ -66,36 +71,38 @@ class SubscriptionController extends Controller
 
     public function store(Request $request)
     {
-        // TODO: validation of invoice
-
         $price = Plan::where('id', $request['plan_id'])->value('price');
 
         // Create Subscription
-        $subscription = new Subscription;
-        $subscription->user_id = Auth::id();
-        $subscription->plan_id = $request['plan_id'];
-        $subscription->price = $price;
-        $subscription->starts_at = Carbon::now()->toDateString();
-        $subscription->ends_at = Carbon::now()->addMonth()->toDateString();
-        $subscription->status = 'active';
+        $request['user_id'] = Auth::id();
+        $request['price'] = $price;
+        $request['starts_at'] = Carbon::now()->toDateString();
+        $request['ends_at'] = Carbon::now()->addMonth()->toDateString();
+        $request['status'] = 'active';
 
-        $this->validate($subscription, self::rules());
-        //$subscription->save();
-        Subscription::create($subscription);
+        $this->validate($request, self::rules());
+        $subscription = Subscription::create($request->all());
 
         // Create Invoice
-        $invoice = new Invoice;
-        $invoice->subscription_id = $subscription->id;
-        $invoice->price = $price;
-        $invoice->date = Carbon::now()->toDateString();
-        $invoice->ignore_taxes = FALSE;
-        $invoice->paid = FALSE;
-        $invoice->save();
+        $invoice = array();
+        $invoice['subscription_id'] = $subscription->id;
+        $invoice['price'] = $price;
+        $invoice['date'] = Carbon::now()->toDateString();
+        $invoice['ignore_taxes'] = FALSE;
+
+        $validator = Validator::make($invoice, [
+            'subscription_id' => 'required',
+            'price' => "required|numeric",
+            'date' => "required|date",
+            'ignore_taxes' => "required|boolean",
+        ]);
+
+        $new_inv = Invoice::create($invoice);
 
         // Send email
         $user_id = Auth::id();
         $user = User::findOrFail($user_id);
-        $invoice_id = $invoice->id;
+        $invoice_id = $new_inv->id;
         $inv = Invoice::findOrFail($invoice_id);
         $type = 'new';
         Mail::to($user)->send(new MailInvoice($user, $inv, $type));
@@ -119,11 +126,12 @@ class SubscriptionController extends Controller
 
     public static function rules()
     {
+        // TODO: use 'sometimes' to avoid having to add separate validation logic in update function
         $rules = [
             'user_id' => 'required',
             'plan_id' => 'required',
             'renew_plan_id' => 'nullable',
-            'price' => "required|numeric",
+            'price' => "numeric",
             'starts_at' => "required|date",
             'ends_at' => "required|date",
             'status' => 'required',
