@@ -18,6 +18,7 @@ class CreateInvoiceTable extends Migration
             $table->integer('subscription_id')->unsigned();
             $table->foreign('subscription_id')->references('subscription')->on('id');
             $table->double('price', 5, 2);
+            $table->double('discount')->nullable()->default(NULL);
             $table->date('date');
             $table->boolean('ignore_taxes')->default(FALSE);
             $table->timestamps();

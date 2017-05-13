@@ -119,11 +119,6 @@ class SubscriptionController extends Controller
         }
     }
 
-    public function destroy(Request $request, Subscription $subscription)
-    {
-        // TODO: create function
-    }
-
     public static function rules()
     {
         // TODO: use 'sometimes' to avoid having to add separate validation logic in update function

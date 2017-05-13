@@ -41,34 +41,30 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
-        // TODO: validation
-
-         //create invoice
+        //Create invoice
+        // Calculate the price if the 'discount' or 'ignore_taxes' fields are present
         function calcPrice($request)
         {
+            //dd($request);
             $price = doubleval($request['price']);
             if (isset($request['discount'])) {
                 $price = $price - doubleval($request['discount']);
             }
 
+            if (isset($request['ignore_taxes']) && $request['ignore_taxes'] == TRUE) {
+                // Remove taxes from price. Assumed 10% GST.
+                $price = $price / 1.1;
+            }
+
             return $price;
         }
 
-        $invoice = new Invoice();
-        $invoice->subscription_id = $request['subscription_id'];
-        $invoice->price = calcPrice($request);
-        $invoice->date = $request['date'];
-
-        if ($request['ignore_taxes'] == TRUE) {
-            $invoice->ignore_taxes = TRUE;
-            $invoice->price = $invoice->price / 1.1;
-        } else {
-            $invoice->ignore_taxes = FALSE;
-        }
-        $invoice->save();
+        $request['price'] = calcPrice($request);
+        $this->validate($request, self::rules());
+        $invoice = Invoice::create($request->all());
 
         // send email
-        $user_id = Auth::id();
+        $user_id = Auth::id();// todo: correct user
         $user = User::findOrFail($user_id);
         $invoice_id = $invoice->id;
         $inv = Invoice::findOrFail($invoice_id);
@@ -77,6 +73,7 @@ class InvoiceController extends Controller
 
         //update subscription
         $subscription = Subscription::where('id', $request['subscription_id'])->first();
+        // Change the subscription id to the new id
         if (isset($subscription->renew_plan_id)) {
             $renew_id = $subscription->renew_plan_id;
             $subscription->plan_id = $renew_id;
@@ -93,10 +90,26 @@ class InvoiceController extends Controller
         $ends_at->sub(new \DateInterval('P1D'));
         $subscription->starts_at = $starts_at;
         $subscription->ends_at = $ends_at;
+        // TODO: add validation
+
         $subscription->update();
 
         $request->session()->flash('alert-success', 'Invoice created successfully');
 
         return redirect()->route('admin.invoices_list');
+    }
+
+    public static function rules()
+    {
+        echo ('entering validation');
+        $rules = [
+            'subscription_id' => "required|numeric",
+            'price' => "required|numeric",
+            'discount' => "nullable|numeric",
+            'date' => "required|date",
+            'ignore_taxes' => "nullable|boolean",
+        ];
+        echo ('finished validation');
+        return $rules;
     }
 }
