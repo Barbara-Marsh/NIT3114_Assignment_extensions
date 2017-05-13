@@ -43,7 +43,7 @@ class InvoiceController extends Controller
     public function store(Request $request)
     {
         // Create invoice
-        // Calculate the price if the 'discount' or 'ignore_taxes' fields are present
+        // Calculate the new price if the 'discount' or 'ignore_taxes' fields are present
         function calcPrice($request)
         {
             $price = doubleval($request['price']);
