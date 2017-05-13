@@ -65,6 +65,7 @@ class InvoiceController extends Controller
 
         // Send email
         $user_id = Subscription::where('id', $invoice->subscription_id)->pluck('user_id');
+        // Above returns an array, so the user_id is the 1st element in the array
         $user = User::findOrFail($user_id[0]);
         $invoice_id = $invoice->id;
         $inv = Invoice::findOrFail($invoice_id);
@@ -75,6 +76,19 @@ class InvoiceController extends Controller
         $subscription = Subscription::where('id', $request['subscription_id'])->first();
         // Change the subscription id to the new id if renew_plan_id is set
         if (isset($subscription->renew_plan_id)) {
+            // If the renew_plan_id is 0, the plan has been cancelled
+            if ($subscription->renew_plan_id == 0) {
+                // Cancel the subscription and send farewell email
+                $subscription->status = "cancelled";
+                $subscription->save();
+                $inv = "";
+                $type = 'cancelled';
+                Mail::to($user)->send(new MailInvoice($user, $inv, $type));
+                $request->session()->flash('alert-success', 'Invoice created successfully and subscription cancelled');
+
+                return redirect()->route('admin.invoices_list');
+            }
+
             $renew_id = $subscription->renew_plan_id;
             $subscription->plan_id = $renew_id;
             $plan = Plan::where('id', $subscription->renew_plan_id)->first();

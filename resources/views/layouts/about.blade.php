@@ -27,6 +27,7 @@
                 <li>Displayed prices include GST of 10%</li>
                 <li>Upon first registering, invoice price will be plan price, but for further invoices an administrator can take discounts from the total or remove tax</li>
                 <li>No function to delete subscriptions, instead give status of 'cancelled' so historical information can be kept</li>
+                <li>Invoices are created for the previous month, not billed in advance</li>
             </ul>
         </div>
     </div>

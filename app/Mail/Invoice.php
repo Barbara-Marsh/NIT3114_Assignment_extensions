@@ -36,8 +36,10 @@ class Invoice extends Mailable
     {
         if ($this->type == 'new') {
             return $this->view('mail.first-invoice');
-        } else {
+        } elseif ($this->type == 'old') {
             return $this->view('mail.invoice');
+        } elseif ($this->type == 'cancelled') {
+            return $this->view('mail.cancelled');
         }
     }
 }
