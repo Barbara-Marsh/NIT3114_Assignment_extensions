@@ -34,11 +34,10 @@ class Invoice extends Mailable
      */
     public function build()
     {
-        if ($type = 'new') {
+        if ($this->type == 'new') {
             return $this->view('mail.first-invoice');
         } else {
             return $this->view('mail.invoice');
         }
-
     }
 }

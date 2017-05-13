@@ -121,7 +121,6 @@ class SubscriptionController extends Controller
 
     public static function rules()
     {
-        // TODO: use 'sometimes' to avoid having to add separate validation logic in update function
         $rules = [
             'user_id' => 'required',
             'plan_id' => 'required',

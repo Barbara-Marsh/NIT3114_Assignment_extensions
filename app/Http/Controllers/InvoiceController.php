@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Invoice as MailInvoice;
+use Validator;
 
 class InvoiceController extends Controller
 {
@@ -41,11 +42,10 @@ class InvoiceController extends Controller
 
     public function store(Request $request)
     {
-        //Create invoice
+        // Create invoice
         // Calculate the price if the 'discount' or 'ignore_taxes' fields are present
         function calcPrice($request)
         {
-            //dd($request);
             $price = doubleval($request['price']);
             if (isset($request['discount'])) {
                 $price = $price - doubleval($request['discount']);
@@ -63,17 +63,17 @@ class InvoiceController extends Controller
         $this->validate($request, self::rules());
         $invoice = Invoice::create($request->all());
 
-        // send email
-        $user_id = Auth::id();// todo: correct user
-        $user = User::findOrFail($user_id);
+        // Send email
+        $user_id = Subscription::where('id', $invoice->subscription_id)->pluck('user_id');
+        $user = User::findOrFail($user_id[0]);
         $invoice_id = $invoice->id;
         $inv = Invoice::findOrFail($invoice_id);
         $type = 'old';
         Mail::to($user)->send(new MailInvoice($user, $inv, $type));
 
-        //update subscription
+        // Update Subscription
         $subscription = Subscription::where('id', $request['subscription_id'])->first();
-        // Change the subscription id to the new id
+        // Change the subscription id to the new id if renew_plan_id is set
         if (isset($subscription->renew_plan_id)) {
             $renew_id = $subscription->renew_plan_id;
             $subscription->plan_id = $renew_id;
@@ -82,7 +82,7 @@ class InvoiceController extends Controller
             $subscription->price = $price;
             $subscription->renew_plan_id = NULL;
         }
-
+        // Update the starts_at and ends_at dates
         $starts_at = new \DateTime($subscription['ends_at']);
         $starts_at->add(new \DateInterval('P1D'));
         $ends_at = clone $starts_at;
@@ -90,9 +90,16 @@ class InvoiceController extends Controller
         $ends_at->sub(new \DateInterval('P1D'));
         $subscription->starts_at = $starts_at;
         $subscription->ends_at = $ends_at;
-        // TODO: add validation
-
-        $subscription->update();
+        // Validator only accepts arrays, so create array for validation
+        $sub = $subscription->toArray();
+        $validator = Validator::make($sub, [
+            'plan_id' => 'required',
+            'starts_at' => "required|date",
+            'ends_at' => "required|date",
+            'price' => "required|numeric",
+            'renew_plan_id' => "nullable|numeric",
+        ]);
+        $subscription->save();
 
         $request->session()->flash('alert-success', 'Invoice created successfully');
 
@@ -101,7 +108,6 @@ class InvoiceController extends Controller
 
     public static function rules()
     {
-        echo ('entering validation');
         $rules = [
             'subscription_id' => "required|numeric",
             'price' => "required|numeric",
@@ -109,7 +115,7 @@ class InvoiceController extends Controller
             'date' => "required|date",
             'ignore_taxes' => "nullable|boolean",
         ];
-        echo ('finished validation');
+
         return $rules;
     }
 }
