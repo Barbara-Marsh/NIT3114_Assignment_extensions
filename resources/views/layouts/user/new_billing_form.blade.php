@@ -21,22 +21,46 @@
                 <div class="col-md-6 col-md-offset-3">
                     <form class="form-horizontal" action="{{ route('user.store_billing') }}" method="post">
                         {{ csrf_field() }}
-                        <div class="form-group">
+                        <div class="form-group{{ $errors->has('card_name') ? ' has-error' : '' }}">
                             <label for="card_name" class="control-label">Name on card: </label>
                             <input type="text" class="form-control" name="card_name" value="{{ old('card_name') }}" autofocus>
+                            @if ($errors->has('card_name'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('card_name') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group{{ $errors->has('card_number') ? ' has-error' : '' }}">
                             <label for="card_number" class="control-label">Card number: </label>
                             <input type="text" class="form-control" name="card_number" value="{{ old('card_name') }}">
+                            @if ($errors->has('card_number'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('card_number') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group{{ $errors->has('expiry') ? ' has-error' : '' }}">
                             <label for="expiry" class="control-label">Expiry date: </label>
                             <input type="text" class="form-control" name="expiry" value="{{ old('expiry') }}">
+                            @if ($errors->has('expiry'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('expiry') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group{{ $errors->has('csv') ? ' has-error' : '' }}">
                             <label for="csv" class="control-label">CSV: </label>
                             <input type="text" class="form-control" name="csv" value="{{ old('csv') }}">
+                            @if ($errors->has('csv'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('csv') }}</strong>
+                                </span>
+                            @endif
                         </div>
+
                         <div class="form-group">
                             <button class="btn btn-default">Add Billing Method</button>
                         </div>

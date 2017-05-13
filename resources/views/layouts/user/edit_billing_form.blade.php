@@ -26,22 +26,47 @@
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <input type="hidden" name="id" value="{{ $user['id'] }}">
-                        <div class="form-group">
+
+                        <div class="form-group{{ $errors->has('card_name') ? ' has-error' : '' }}">
                             <label for="card_name" class="control-label">Name on card: </label>
                             <input type="text" class="form-control" name="card_name" value="{{ $user['card_name'] or old('card_name') }}" autofocus>
+                            @if ($errors->has('card_name'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('card_name') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group{{ $errors->has('card_number') ? ' has-error' : '' }}">
                             <label for="card_number" class="control-label">Card number: </label>
                             <input type="text" class="form-control" name="card_number" value="{{ $user['card_number'] or old('card_name') }}">
+                            @if ($errors->has('card_number'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('card_number') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group{{ $errors->has('expiry') ? ' has-error' : '' }}">
                             <label for="expiry" class="control-label">Expiry date: </label>
                             <input type="text" class="form-control" name="expiry" value="{{ $user['expiry'] or old('expiry') }}">
+                            @if ($errors->has('expiry'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('expiry') }}</strong>
+                                </span>
+                            @endif
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group{{ $errors->has('csv') ? ' has-error' : '' }}">
                             <label for="csv" class="control-label">CSV: </label>
                             <input type="text" class="form-control" name="csv" value="{{ $user['csv'] or old('csv') }}">
+                            @if ($errors->has('csv'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('csv') }}</strong>
+                                </span>
+                            @endif
                         </div>
+
                         <div class="form-group">
                             <button class="btn btn-default">Change Billing Method</button>
                             <a href="{{ Route('user.index') }}" class="btn btn-default">Cancel</a>
