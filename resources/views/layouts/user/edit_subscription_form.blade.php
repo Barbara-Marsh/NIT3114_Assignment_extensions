@@ -45,6 +45,10 @@
                             @endif
                         </p>
                     @endforeach
+                    <p class="text-justify">
+                        <input type="radio" name="plan_id" value="0"><strong>Cancel Plan</strong><br>
+                        If you cancel your plan, you will still have access to the service until the end of the billing period.
+                    </p>
                     <p style="text-align: right">
                         <button class="btn btn-default">Change Plan</button>
                         <a href="{{ Route('user.index') }}" class="btn btn-default">Cancel</a>

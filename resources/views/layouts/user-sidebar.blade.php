@@ -11,7 +11,7 @@ if (!isset($subscription)) {
 
 @section('user-sidebar')
     <h2>Edit your settings</h2>
-    <a href="{{ Route('user.edit_subscription', ['id' => $user['id']]) }}" class="btn btn-default btn-margin-top">Change Plan</a><br>
+    <a href="{{ Route('user.edit_subscription', ['id' => $user['id']]) }}" class="btn btn-default btn-margin-top">Change or Cancel Plan</a><br>
     <a href="{{ Route('user.edit_newsletter', ['id' => $user['id']]) }}" class="btn btn-default btn-margin-top">Change Email Settings</a>
     @if ($plan['name'] !== 'Open')
     <a href="{{ route('user.edit_billing', ['id' => $user['id']]) }}" class="btn btn-default btn-margin-top">Change Billing Details</a>

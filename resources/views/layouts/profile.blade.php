@@ -36,10 +36,14 @@
                             <p><strong>Status: </strong>{{ $subscription['status'] }}</p>
                             <p><strong>Plan is current until: </strong>{{ date('d-m-Y', strtotime($subscription['ends_at'])) }}</p>
                             @if($renew_plan != NULL)
-                                <p>
-                                    At the start of the next billing period your plan will change to
-                                    <strong>{{ $renew_plan['name'] }}</strong>
-                                </p>
+                                @if($renew_plan == "cancelled")
+                                    <p>Your plan has been cancelled, but you still have access until the end of this billing period. If you change your mind you can renew your subscription by selecting the 'Change or Cancel Plan' button.</p>
+                                @else
+                                    <p>
+                                        At the start of the next billing period your plan will change to
+                                        <strong>{{ $renew_plan['name'] }}</strong>
+                                    </p>
+                                @endif
                             @endif
                         </div>
                     </div><hr>

@@ -16,7 +16,7 @@ class CreateSubscriptionTable extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('User');
+            $table->foreign('user_id')->references('id')->on('user');
             $table->integer('plan_id')->unsigned();
             $table->foreign('plan_id')->references('id')->on('plan');
             $table->integer('renew_plan_id')->unsigned()->nullable();

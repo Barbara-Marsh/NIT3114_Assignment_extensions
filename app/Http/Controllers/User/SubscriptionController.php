@@ -33,6 +33,15 @@ class SubscriptionController extends Controller
         $plan_id = $request['plan_id'];
         $subscription = Subscription::where('user_id', $user_id)->first();
 
+        // If the user has chosen to cancel their plan, redirect to profile page with message
+        if ($request['renew_plan_id'] == 0) {
+            $subscription->renew_plan_id = $request['renew_plan_id'];
+            $subscription->save();
+            $request->session()->flash('alert-info', "Your plan has been canceled. We're sorry to see you go.");
+
+            return redirect()->route('user.index');
+        }
+
         // If original plan was Open, change to new plan immediately, else change plan in next billing cycle
         if ($subscription['plan_id'] == 1) {
             $price = Plan::where('id', $request['plan_id'])->value('price');
