@@ -1,5 +1,3 @@
-<?php //dd($user) ?>
-
 <h1>Welcome</h1>
 
 <p>Dear {{ $user['name'] }},</p>

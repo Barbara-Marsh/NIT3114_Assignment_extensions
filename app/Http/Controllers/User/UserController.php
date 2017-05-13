@@ -40,10 +40,9 @@ class UserController extends Controller
 
     public function update_newsletter_settings(Request $request)
     {
-        // TODO: validation
-
         $id = Auth::id();
         $user = User::findOrFail($id);
+
         $newsletter = FALSE;
         $third_party = FALSE;
         if ($request['subscribed_to_newsletter'] && $request['subscribed_to_newsletter'] === 'on') {
@@ -54,7 +53,8 @@ class UserController extends Controller
         }
         $user->subscribed_to_newsletter = $newsletter;
         $user->third_party_offers = $third_party;
-        $user->update();
+
+        $user->save();
 
         $request->session()->flash('alert-success', 'Newsletter settings successfully updated');
 
@@ -68,8 +68,6 @@ class UserController extends Controller
 
     public function store_newsletter_settings(Request $request)
     {
-        // TODO: validation
-
         $id = Auth::id();
         $user = User::findOrFail($id);
         $newsletter = FALSE;
@@ -99,14 +97,13 @@ class UserController extends Controller
 
     public function update_billing(Request $request)
     {
-        // TODO: validation
-
         $user = User::where('id', $request['id'])->first();
+        $this->validate($request, self::rules());
         $user->card_name = $request['card_name'];
         $user->card_number = $request['card_number'];
         $user->expiry = $request['expiry'];
         $user->csv = $request['csv'];
-        $user->update();
+        $user->save();
 
         $request->session()->flash('alert-success', 'Billing details successfully updated');
         return redirect()->route('user.index');
@@ -119,12 +116,11 @@ class UserController extends Controller
 
     public function store_billing(Request $request)
     {
-        // TODO: validation
-
         // TODO: make card number collection more secure
 
         $id = Auth::id();
         $user = User::findOrFail($id);
+        $this->validate($request, self::rules());
         $user->card_name = $request['card_name'];
         $user->card_number = $request['card_number'];
         $user->expiry = $request['expiry'];
@@ -134,5 +130,17 @@ class UserController extends Controller
         $request->session()->flash('alert-success', 'Billing details added successfully');
 
         return redirect()->route('user.show_newsletter');
+    }
+
+    public static function rules()
+    {
+        $rules = [
+            'card_name' => "required|string|max:50",
+            'card_number' => "required|numeric|digits:16",
+            'expiry' => "required|date|after:tomorrow",
+            'csv' => "required|numeric|digits:3",
+        ];
+
+        return $rules;
     }
 }
