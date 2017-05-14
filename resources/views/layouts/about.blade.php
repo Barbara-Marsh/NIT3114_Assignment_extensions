@@ -48,11 +48,11 @@
                 <li>third_party_offers: boolean</li>
                 <li>card_name: string</li>
                 <li>card_number: integer, 12 digits</li>
-                <li>expiry: date</li>
+                <li>expiry: datetime</li>
                 <li>csv: integer, 3 digits</li>
                 <li>admin: boolean</li>
-                <li>created_at: timestamp</li>
-                <li>updated_at: timestamp</li>
+                <li>created_at: datetime</li>
+                <li>updated_at: datetime</li>
             </ul>
         </div>
         <div class="col-md-3">
@@ -63,8 +63,8 @@
                 <li>features: string</li>
                 <li>price: double</li>
                 <li>is_active: boolean</li>
-                <li>created_at: timestamp</li>
-                <li>updated_at: timestamp</li>
+                <li>created_at: datetime</li>
+                <li>updated_at: datetime</li>
             </ul>
         </div>
         <div class="col-md-3">
@@ -75,11 +75,11 @@
                 <li>plan_id (fk): integer</li>
                 <li>renew_plan_id (fk): integer</li>
                 <li>price: double</li>
-                <li>starts_at: date</li>
-                <li>ends_at: date</li>
+                <li>starts_at: datetime</li>
+                <li>ends_at: datetime</li>
                 <li>status: enum</li>
-                <li>created_at: timestamp</li>
-                <li>updated_at: timestamp</li>
+                <li>created_at: datetime</li>
+                <li>updated_at: datetime</li>
             </ul>
         </div>
         <div class="col-md-3">
@@ -89,10 +89,10 @@
                 <li>subscription_id (fk): integer</li>
                 <li>price: double</li>
                 <li>discount: double</li>
-                <li>date: date</li>
+                <li>date: datetime</li>
                 <li>ignore_taxes: boolean</li>
-                <li>created_at: timestamp</li>
-                <li>updated_at: timestamp</li>
+                <li>created_at: datetime</li>
+                <li>updated_at: datetime</li>
             </ul>
         </div>
     </div>
@@ -104,6 +104,7 @@
             <p>I designed a registration process that is presented to the user over several small forms rather than one large one. The first form is currently the default Laravel registration form, but if address details are required, they would be added here. On the next page the user selects the plan they want to subscribe to. If they choose Open, they are directed to the newsletter settings page, but if they choose one of the paid plans they are directed to the billing details plan first. I decided to include the plan selection in the registration process because I thought it would be pointless having registered users who were not subscribed to a plan.</p>
             <p>Because I used checkboxes for the newsletter settings form, the built-in Laravel validation didn't work. If the boxes are checked, the value in the $request variable is 'on', so I couldn't validate it as a boolean. However, the way my update_newsletter_settings and store_newsletter_settings functions are written ensures that the values must be boolean.</p>
             <p>As invoices are sent to new users upon subscribing and to renewing users, I thought two different emails should be sent. This made it necessary to include a new variable $type with the request to the Mail constructor function to distinguish the two categories and use different blade templates accordingly. An additional type "cancelled" was created so users who cancel their plan get a farewell message.</p>
+            <p>For the display of subscriptions close to ends_at that need to have invoices sent, I have included a large interval for which records to display to ensure that there are records to display. Ideally this should be limited to payments due that week or that day.</p>
         </div>
     </div>
 @endsection

@@ -51,7 +51,7 @@ class AdminController extends Controller
         $recent = $recent->format('Y-m-d H:i');
         $max = $today->add(new \DateInterval('P60D'));
         $max = $max->format('Y-m-d H:i');
-        $subscriptions = Subscription::where('status', '=', 'active')->whereBetween('ends_at', [$recent, $max])->get();
+        $subscriptions = Subscription::where('status', '=', 'active')->whereBetween('ends_at', [$recent, $max])->orderBy('ends_at')->get();
 
         return view('layouts.admin.invoices')->with(['subscriptions' => $subscriptions]);
     }

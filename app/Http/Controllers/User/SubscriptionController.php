@@ -47,9 +47,20 @@ class SubscriptionController extends Controller
                 'status' => 'required',
             ]);
             $subscription->update($request->all());
-            $request->session()->flash('alert-success', 'Plan successfully updated, please update your payment method');
+            if ($request['renew_plan_id'] == 0) {
+                $subscription->renew_plan_id = $request['renew_plan_id'];
+                $subscription->save();
+                $request->session()->flash('alert-info', "Your plan has been canceled. We're sorry to see you go.");
 
-            return redirect()->route('user.show_billing')->with(['create_invoice' => 'true']);
+                return redirect()->route('user.index');
+            } else {
+                $request->session()->flash('alert-success', 'Plan successfully updated, please update your payment method');
+
+                return redirect()->route('user.show_billing')->with(['create_invoice' => 'true']);
+            }
+
+
+
         } else {
             $request['renew_plan_id'] = $plan_id;
             $this->validate($request, [

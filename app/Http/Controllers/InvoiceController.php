@@ -25,13 +25,14 @@ class InvoiceController extends Controller
         foreach ($subscriptions as $subscription) {
             $invoiceData = Invoice::where('subscription_id', '=', $subscription->id)
                 ->orderBy('date', 'desc')
-                ->get()->toArray();
+                ->get()
+                ->toArray();
 
             foreach ($invoiceData as $datum) {
                 $id = $datum['id'];
                 $date = $datum['date'];
                 $price = $datum['price'];
-                $plan = Plan::where('id', '=', $subscription->id)->value('name');
+                $plan = Plan::where('id', '=', $subscription->plan_id)->value('name');
                 $invoice = array('id' => $id, 'date' => $date, 'price' => $price, 'plan' => $plan);
                 array_push($invoices, $invoice);
             }
