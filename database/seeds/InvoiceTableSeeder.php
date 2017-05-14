@@ -19,15 +19,45 @@ class InvoiceTableSeeder extends Seeder
         ]);
 
         DB::table('invoices')->insert([
-            'subscription_id' => 2,
+            'subscription_id' => 1,
             'price' => 49.95,
             'date' => '2017-04-01',
             'ignore_taxes' => FALSE,
         ]);
 
         DB::table('invoices')->insert([
+            'subscription_id' => 1,
+            'price' => 49.95,
+            'date' => '2017-05-01',
+            'ignore_taxes' => FALSE,
+        ]);
+
+        DB::table('invoices')->insert([
             'subscription_id' => 2,
             'price' => 49.95,
+            'discount' => 10.00,
+            'date' => '2017-04-28',
+            'ignore_taxes' => FALSE,
+        ]);
+
+        DB::table('invoices')->insert([
+            'subscription_id' => 2,
+            'price' => 49.95,
+            'discount' => 10.00,
+            'date' => '2017-05-28',
+            'ignore_taxes' => FALSE,
+        ]);
+
+        DB::table('invoices')->insert([
+            'subscription_id' => 3,
+            'price' => 0.00,
+            'date' => '2017-04-28',
+            'ignore_taxes' => FALSE,
+        ]);
+
+        DB::table('invoices')->insert([
+            'subscription_id' => 4,
+            'price' => 89.95,
             'date' => '2017-05-01',
             'ignore_taxes' => FALSE,
         ]);

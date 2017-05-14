@@ -20,10 +20,10 @@
         <div class="col-md-8 col-md-offset-2">
             <table class="table table-responsive table-bordered table-hover">
                 <tr>
-                    <th>id</th>
-                    <th>User</th>
-                    <th>Plan</th>
-                    <th>Renew Plan</th>
+                    <th>Subscription ID</th>
+                    <th>User ID</th>
+                    <th>Plan ID</th>
+                    <th>Renew Plan ID<br>(if present)</th>
                     <th>Price</th>
                     <th>Starts at</th>
                     <th>Ends at</th>

@@ -21,10 +21,10 @@
                     <p>Subscription Details</p>
                     <table class="table table-bordered table-responsive">
                         <tr>
-                            <th>ID</th>
-                            <th>User</th>
-                            <th>Plan</th>
-                            <th>Renew Plan</th>
+                            <th>Subscription ID</th>
+                            <th>User ID</th>
+                            <th>Plan ID</th>
+                            <th>Renew Plan ID<br>(if present)</th>
                             <th>Price</th>
                             <th>Starts at</th>
                             <th>Ends at</th>
