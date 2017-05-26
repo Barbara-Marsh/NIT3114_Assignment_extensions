@@ -22,9 +22,4 @@ class Subscription extends Model
     {
         return $this->belongsTo('App\Plan');
     }
-
-    public function invoice()
-    {
-        return $this->belongsTo('App\Invoice');
-    }
 }

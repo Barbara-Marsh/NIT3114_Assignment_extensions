@@ -32,7 +32,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         ->name('user.show_subscription');
 
     Route::post('/subscription', 'User\SubscriptionController@store')
-        ->name('user.store_subscription');
+        ->name('user.create_subscription');
 
     Route::get("/subscription/{subscription_id}", 'User\SubscriptionController@edit')
         ->name('user.edit_subscription');
@@ -52,6 +52,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::post('/newsletter', 'User\UserController@store_newsletter_settings')
         ->name('user.store_newsletter');
 
+    /*
     Route::get("/billing/{user_id}", 'User\UserController@edit_billing')
         ->name('user.edit_billing');
 
@@ -63,6 +64,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
 
     Route::post('/billing', 'User\UserController@store_billing')
         ->name('user.store_billing');
+    */
 
     Route::get('/invoices', 'InvoiceController@index')
         ->name('user.invoices');
@@ -72,6 +74,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/', 'Admin\AdminController@index')
         ->name('admin.index');
 
+    /*
     Route::get('/invoices', 'Admin\AdminController@invoicesList')
         ->name('admin.invoices_list');
 
@@ -80,4 +83,5 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
 
     Route::post('/invoices/create', 'InvoiceController@store')
         ->name('admin.store_invoice');
+    */
 });

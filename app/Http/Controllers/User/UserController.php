@@ -136,7 +136,6 @@ class UserController extends Controller
 
         return redirect()->route('user.show_newsletter');
     }
-    */
 
     public static function rules()
     {
@@ -149,4 +148,5 @@ class UserController extends Controller
 
         return $rules;
     }
+    */
 }

@@ -17,8 +17,9 @@ class CreatePlanTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->text('features');
-            $table->double('price', 5, 2);
+            $table->int('price');
             $table->boolean('is_active');
+            $this->int('stripe_id')->nullable;
             $table->timestamps();
         });
     }
