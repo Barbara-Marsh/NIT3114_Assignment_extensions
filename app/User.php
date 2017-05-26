@@ -8,7 +8,7 @@ use Laravel\Cashier\Billable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Billable;
 
     public function isAdmin() {
         return $this->admin;
