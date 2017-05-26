@@ -21,10 +21,6 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
             $table->boolean('subscribed_to_newsletter')->default(TRUE);
             $table->boolean('third_party_offers')->default(FALSE);
-            $table->string('card_name')->nullable();
-            $table->integer('card_number')->nullable();
-            $table->date('expiry')->nullable();
-            $table->integer('csv')->nullable();
             $table->boolean('admin')->default(FALSE);
             $table->timestamps();
         });

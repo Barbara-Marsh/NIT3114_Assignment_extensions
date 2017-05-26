@@ -91,6 +91,7 @@ class UserController extends Controller
         return redirect()->route('user.index');
     }
 
+    /*
     public function edit_billing()
     {
         $id = Auth::id();
@@ -135,6 +136,7 @@ class UserController extends Controller
 
         return redirect()->route('user.show_newsletter');
     }
+    */
 
     public static function rules()
     {

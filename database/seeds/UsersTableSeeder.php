@@ -17,10 +17,6 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('barb'),
             'subscribed_to_newsletter' => TRUE,
             'third_party_offers' => FALSE,
-            'card_name' => 'Barbara Marsh',
-            'card_number' => 4242424242424242,
-            'expiry' => '2020-06-01',
-            'csv' => 123,
             'created_at' => \Carbon\Carbon::now()->subMonths(6),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -42,10 +38,6 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('john'),
             'subscribed_to_newsletter' => TRUE,
             'third_party_offers' => TRUE,
-            'card_name' => 'John Smith',
-            'card_number' => 4545454545454545,
-            'expiry' => '2019-07-01',
-            'csv' => 456,
             'created_at' => \Carbon\Carbon::now()->subMonths(2),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
@@ -66,10 +58,6 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('joe'),
             'subscribed_to_newsletter' => FALSE,
             'third_party_offers' => TRUE,
-            'card_name' => 'Joe Blow',
-            'card_number' => 9874987498749874,
-            'expiry' => '2020-06-01',
-            'csv' => 147,
             'created_at' => \Carbon\Carbon::now(),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
