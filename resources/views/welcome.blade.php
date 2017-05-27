@@ -20,15 +20,17 @@
     </div>
     <div class="row">
         @foreach($plans as $plan)
-        <div class="col-md-4 well well-lg">
-            <h3>{{ $plan['name'] }}</h3>
-            <p class="text-justify">{{ $plan['features'] }}</p>
-            @if($plan['name'] == 'Open')
-                <p>Price: Free</p>
-            @else
-                <p>Price: ${{ $plan['price'] }}</p>
-            @endif
-            <a href="{{ url('/register') }}" class="btn btn-default">Sign up</a>
+        <div class="col-md-4">
+            <div class="well well-lg">
+                <h3 class="content-header">{{ $plan['name'] }}</h3>
+                <p class="text-justify">{{ $plan['features'] }}</p>
+                @if($plan['name'] == 'Open')
+                    <p>Price: Free</p>
+                @else
+                    <p>Price: $@php echo number_format($plan['price']/100,2) @endphp</p>
+                @endif
+                <a href="{{ url('/register') }}" class="btn btn-default">Sign up</a>
+            </div>
         </div>
         @endforeach
         @if(Auth::check())

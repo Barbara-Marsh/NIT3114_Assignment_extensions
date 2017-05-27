@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3 col-md-offset-2">
-                    <a href="{{ route('admin.invoices_list') }}" class="btn btn-default">Send Monthly Invoices</a>
+                    <a href="" class="btn btn-default">Send Monthly Invoices</a>
                 </div>
             </div>
             <hr>

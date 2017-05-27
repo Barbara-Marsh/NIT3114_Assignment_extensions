@@ -28,7 +28,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/', 'User\UserController@index')
         ->name('user.index');
 
-
     Route::get('/subscription/new', 'User\SubscriptionController@show')
         ->name('user.show_subscription');
 
@@ -53,7 +52,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::put('/subscription/update_card', 'User\SubscriptionController@update_card')
         ->name('user.update_card');
 
-
     Route::get("/newsletter/edit", 'User\UserController@edit_newsletter_settings')
         ->name('user.edit_newsletter');
 
@@ -65,7 +63,6 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
 
     Route::post('/newsletter', 'User\UserController@store_newsletter_settings')
         ->name('user.store_newsletter');
-
 
     Route::get('/invoices', 'User\SubscriptionController@listInvoices')
         ->name('user.invoices');

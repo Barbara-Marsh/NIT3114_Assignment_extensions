@@ -79,17 +79,21 @@ class SubscriptionController extends Controller
     public function update(Request $request)
     {
         $user = Auth::user();
-        $stripe_plan = $request->get('stripe_id');
-        $stripe_id = Subscription::where('stripe_plan', $stripe_plan)->value('stripe_id');
+        $subscription = $user->subscription;
+        $current_plan = $subscription->stripe_plan;
+        $stripe_id = $request->get('stripe_id');
+        //$stripe_name = $request->get('name');
+        //dd($stripe_id); //basic
 
         Stripe::setApiKey(config('services.stripe.secret'));
 
-        $subscription = \Stripe\Subscription::retrieve($stripe_id);
-        $subscription->stripe_plan = $stripe_plan;
-        $subscription->save();
+        //$subscription = \Stripe\Subscription::retrieve($stripe_id);
+        /*$subscription->stripe_plan = $stripe_id;
+        $subscription->name = $stripe_name;
+        $subscription->save();*/
 
         // this method didn't work
-        //$user->subscription()->swap($stripe_id);
+        $user->subscription($current_plan)->swap($stripe_id);
 
         // this method charges immediately
         // and updates local db but not stripe

@@ -36,7 +36,7 @@ class AdminController extends Controller
         $plans = Plan::all()->toArray();
 
         foreach ($plans as &$plan) {
-            $subscriptions = Subscription::where('plan_id', '=', $plan['id'])->get();
+            $subscriptions = Subscription::where('name', '=', $plan['name'])->get();
             $count = count($subscriptions);
             $plan['count'] = $count;
         }

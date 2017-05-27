@@ -60,7 +60,7 @@
                                                     <form action="{{ route('user.edit_subscription') }}" method="get">
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="subscription_id" value="{{ $subscription->id }}">
-                                                        <button type="submit" class="btn  btn-success btn-sm">
+                                                        <button type="submit" class="btn  btn-success btn-sm btn-margin-right">
                                                             <span class="glyphicon glyphicon-trash"></span> Change
                                                         </button>
                                                     </form>
