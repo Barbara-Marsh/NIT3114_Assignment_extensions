@@ -34,5 +34,10 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'weather_api' => [
+        'key' => env('WEATHER_API_KEY'),
+        'id' => 'appid',
+        'url_base' => 'http://api/openweathermap.org/data/2.5/weather',
+    ],
 
 ];
