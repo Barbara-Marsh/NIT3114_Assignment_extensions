@@ -7,7 +7,7 @@
 @section('content-header')
     <div class="row content-header">
         <div class="col-md-12">
-            <h1>Welcome</h1>
+            <h1>Welcome to Australian Weather Services</h1>
         </div>
     </div>
 @endsection
@@ -20,7 +20,7 @@
     </div>
     <div class="row">
         @foreach($plans as $plan)
-        <div class="col-md-4">
+        <div class="col-md-4 well well-lg">
             <h3>{{ $plan['name'] }}</h3>
             <p class="text-justify">{{ $plan['features'] }}</p>
             @if($plan['name'] == 'Open')
@@ -28,7 +28,7 @@
             @else
                 <p>Price: ${{ $plan['price'] }}</p>
             @endif
-            <a href="{{ url("/register?plan_id=".$plan['id']) }}" class="btn btn-default">Sign up</a>
+            <a href="{{ url('/register') }}" class="btn btn-default">Sign up</a>
         </div>
         @endforeach
         @if(Auth::check())

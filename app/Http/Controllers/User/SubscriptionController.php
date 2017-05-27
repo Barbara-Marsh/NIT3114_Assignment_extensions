@@ -10,101 +10,138 @@ use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Welcome;
-use Validator;
+use App\Mail\Goodbye;
 use Laravel\Cashier\Subscription;
+use Stripe\Stripe;
 
 class SubscriptionController extends Controller
 {
     public function show()
     {
         $plans = Plan::all()->toArray();
+        $user = Auth::user();
+        $email = $user->email;
 
-        return view('layouts.user.new_subscription')->with(['plans' => $plans]);
+        return view('layouts.user.new_subscription')->with(['plans' => $plans, 'email' => $email]);
     }
 
     public function store(Request $request)
     {
         $user = Auth::user();
         $plan = Plan::findOrFail($request['plan_id']);
-        $stripeToken = $request['stripeToken'];
+        $stripeToken = $request->get('stripeToken');
 
-        $user->newSubscription($plan->name, $plan->stripe_id)->create($stripeToken, [
-            'email' => $user->email,
-        ]);
+        $user->newSubscription($plan->name, $plan->stripe_id)->create($stripeToken);
 
         Mail::to($user)->send(new Welcome($user));
 
         $request->session()->flash('alert-success', 'Product subscription created successfully');
 
-        return redirect()->route('user.show_newsletter');
+        return redirect()->route('user.index');
+    }
+
+    public function cancel(Request $request)
+    {
+        $id = $request->get('subscription_id');
+
+        $subscription = Subscription::find($id);
+        $subscription->cancel();
+
+        $user = Auth::user();
+        Mail::to($user)->send(new Goodbye($user));
+
+        $request->session()->flash('alert-success', "Subscription Cancelled. Please see your profile for end date of your account.");
+        return redirect()->route('user.index');
+    }
+
+    public function resume(Request $request)
+    {
+        $id = $request->get('subscription_id');
+
+        $subscription = Subscription::find($id);
+        $subscription->resume();
+
+        $request->session()->flash('alert-success', "Subscription Reset. Welcome back!");
+        return redirect()->route('user.index');
     }
 
 
     public function edit()
     {
-        /*$id = Auth::id();
-        $user = User::findOrFail($id);
-        $plan_id = Subscription::where('user_id', $id)->value('plan_id');
-        $user['plan'] = Plan::where('id', $plan_id)->value('name');
-        $plans = Plan::all()->where('is_active', '==', TRUE);
+        $plans = Plan::all()->toArray();
+        $user = Auth::user();
+        $email = $user->email;
+        $subscription_name = Subscription::where('user_id', $user->id)->value('name');
 
-        return view('layouts.user.edit_subscription_form')->with(['user' => $user['attributes']])->with(['plans' => $plans]);*/
+        return view('layouts.user.edit_subscription')->with(['plans' => $plans, 'current_plan_name' => $subscription_name, 'email' => $email]);
     }
 
     public function update(Request $request)
     {
-        /*$user_id = Auth::id();
-        $plan_id = $request['plan_id'];
-        $subscription = Subscription::where('user_id', $user_id)->first();
+        $user = Auth::user();
+        $stripe_plan = $request->get('stripe_id');
+        $stripe_id = Subscription::where('stripe_plan', $stripe_plan)->value('stripe_id');
 
-        // If original plan was Open, change to new plan immediately, else change plan in next billing cycle
-        if ($subscription['plan_id'] == 1) {
-            $price = Plan::where('id', $request['plan_id'])->value('price');
-            $request['price'] = $price;
-            $request['starts_at'] = Carbon::now()->toDateString();
-            $request['ends_at'] = Carbon::now()->addMonth()->toDateString();
-            $request['status'] = 'active';
-            $this->validate($request, [
-                'price' => "numeric",
-                'starts_at' => "required|date",
-                'ends_at' => "required|date",
-                'status' => 'required',
-            ]);
-            $subscription->update($request->all());
-            if ($request['renew_plan_id'] == 0) {
-                $subscription->renew_plan_id = $request['renew_plan_id'];
-                $subscription->save();
-                $request->session()->flash('alert-info', "Your plan has been canceled. We're sorry to see you go.");
+        Stripe::setApiKey(config('services.stripe.secret'));
 
-                return redirect()->route('user.index');
-            } else {
-                $request->session()->flash('alert-success', 'Plan successfully updated, please update your payment method');
+        $subscription = \Stripe\Subscription::retrieve($stripe_id);
+        $subscription->stripe_plan = $stripe_plan;
+        $subscription->save();
 
-                return redirect()->route('user.show_billing')->with(['create_invoice' => 'true']);
-            }
+        // this method didn't work
+        //$user->subscription()->swap($stripe_id);
 
+        // this method charges immediately
+        // and updates local db but not stripe
+        /*$user->subscription->stripe_plan = $stripe_id;
+        $user->subscription->name = $name;
+        $user->subscription->save();*/
 
+        // send email to confirm plan changed
 
-        } else {
-            $request['renew_plan_id'] = $plan_id;
-            $this->validate($request, [
-                'renew_plan_id' => "numeric|nullable",
-            ]);
-            $subscription->renew_plan_id = $request['renew_plan_id'];
-            $subscription->status = 'active';
-            $subscription->save();
+        $request->session()->flash('alert-success', "Subscription Updated. Any additional fees incurred from changing your plan will be added to your next invoice.");
+        return redirect()->route('user.index');
+    }
 
-            // If the user has chosen to cancel their plan, redirect to profile page with message
-            if ($request['renew_plan_id'] == 0) {
-                $subscription->renew_plan_id = $request['renew_plan_id'];
-                $subscription->save();
-                $request->session()->flash('alert-info', "Your plan has been canceled. We're sorry to see you go.");
+    public function edit_card()
+    {
+        $user = Auth::user();
+        $email = $user->email;
 
-                return redirect()->route('user.index');
-            }
-            $request->session()->flash('alert-success', 'Plan successfully updated');
+        return view('layouts.user.edit_card')->with(['email' => $email]);
+    }
 
-            return redirect()->route('user.index');
-        }*/
+    public function update_card(Request $request)
+    {
+        $stripeToken = $request->get('stripeToken');
+        $user = Auth::user();
+        $user->updateCard($stripeToken);
+
+        $request->session()->flash('alert-success', "Card Updated.");
+
+        return redirect()->route('user.index');
+    }
+
+    public function listInvoices()
+    {
+        $user = Auth::user();
+        $invoices = $user->invoicesIncludingPending();
+
+        return view('layouts.user.view_invoices')->with(['invoices' => $invoices]);
+    }
+
+    public function downloadInvoice(Request $request)
+    {
+        $invoiceId = $request->get('invoiceId');
+
+        return $request->user()->downloadInvoice($invoiceId, [
+            'header' => 'Thank you for your payment',
+            'vendor'  => 'Australian Weather Services',
+            'product' => 'Subscription',
+            'street' => '11 Elm Street',
+            'location'=>'Footscray VIC 3011',
+            'phone' => '4242 4242 42',
+            'url' => 'www.example.com',
+        ]);
     }
 }

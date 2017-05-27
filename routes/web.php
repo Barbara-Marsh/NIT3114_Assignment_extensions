@@ -28,22 +28,36 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::get('/', 'User\UserController@index')
         ->name('user.index');
 
-    Route::get('/subscription', 'User\SubscriptionController@show')
+
+    Route::get('/subscription/new', 'User\SubscriptionController@show')
         ->name('user.show_subscription');
 
-    Route::post('/subscription', 'User\SubscriptionController@store')
+    Route::post('/subscription/save', 'User\SubscriptionController@store')
         ->name('user.create_subscription');
 
-    Route::get("/subscription/{subscription_id}", 'User\SubscriptionController@edit')
+    Route::get("/subscription/edit", 'User\SubscriptionController@edit')
         ->name('user.edit_subscription');
 
-    Route::put("/subscription/{subscription_id}", 'User\SubscriptionController@update')
+    Route::put("/subscription/update", 'User\SubscriptionController@update')
         ->name('user.update_subscription');
 
-    Route::get("/newsletter/{user_id}", 'User\UserController@edit_newsletter_settings')
+    Route::post('/subscription/cancel', 'User\SubscriptionController@cancel')
+        ->name('user.cancel_subscription');
+
+    Route::post('/subscription/resume', 'User\SubscriptionController@resume')
+        ->name('user.resume_subscription');
+
+    Route::get('/subscription/edit_card', 'User\SubscriptionController@edit_card')
+        -> name('user.edit_card');
+
+    Route::put('/subscription/update_card', 'User\SubscriptionController@update_card')
+        ->name('user.update_card');
+
+
+    Route::get("/newsletter/edit", 'User\UserController@edit_newsletter_settings')
         ->name('user.edit_newsletter');
 
-    Route::put("/newsletter/{user_id}", 'User\UserController@update_newsletter_settings')
+    Route::put("/newsletter/update", 'User\UserController@update_newsletter_settings')
         ->name('user.update_newsletter');
 
     Route::get('/newsletter', 'User\UserController@show_newsletter_settings')
@@ -52,22 +66,12 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
     Route::post('/newsletter', 'User\UserController@store_newsletter_settings')
         ->name('user.store_newsletter');
 
-    /*
-    Route::get("/billing/{user_id}", 'User\UserController@edit_billing')
-        ->name('user.edit_billing');
 
-    Route::put("/billing/{user_id}", 'User\UserController@update_billing')
-        ->name('user.update_billing');
-
-    Route::get('/billing', 'User\UserController@show_billing')
-        ->name('user.show_billing');
-
-    Route::post('/billing', 'User\UserController@store_billing')
-        ->name('user.store_billing');
-    */
-
-    Route::get('/invoices', 'InvoiceController@index')
+    Route::get('/invoices', 'User\SubscriptionController@listInvoices')
         ->name('user.invoices');
+
+    Route::get('/invoices/download', 'User\SubscriptionController@downloadInvoice')
+        ->name('user.download_invoice');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {

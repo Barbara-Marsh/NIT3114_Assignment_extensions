@@ -34,6 +34,6 @@ class User extends Authenticatable
 
     public function subscription()
     {
-        return $this->hasMany('App\Subscription');
+        return $this->hasOne('App\Subscription');
     }
 }

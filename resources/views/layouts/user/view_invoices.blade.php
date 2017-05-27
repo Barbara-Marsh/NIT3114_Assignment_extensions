@@ -23,26 +23,27 @@
                 <div class="panel-body">
                     <table class="table table-bordered table-responsive">
                         <tr>
-                            <th>Invoice Number</th>
                             <th>Invoice Date</th>
-                            <th>Plan</th>
                             <th>Invoice Total</th>
+                            <th></th>
                         </tr>
                         @foreach($invoices as $invoice)
                             <tr>
-                                <td>{{ $invoice['id'] }}</td>
-                                <td>{{ date('d-m-Y', strtotime($invoice['date'])) }}</td>
-                                <td>{{ $invoice['plan'] }}</td>
-                                <td>${{ number_format($invoice['price'], 2) }}</td>
-
+                                <td>{{ $invoice->date()->toFormattedDateString() }}</td>
+                                <td>{{ $invoice->total() }}</td>
+                                <td style="text-align: right">
+                                    <form action="{{ Route('user.download_invoice') }}" method="get">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="invoiceId" value="{{ $invoice->id }}">
+                                        <button class="btn btn-primary btn-sm">Download</button>
+                                    </form>
+                                </td>
                             </tr>
-                            <tr>
                         @endforeach
                         <tr>
-                            <td colspan="3">
-                                <a href="{{ route('user.index', ['user_id' => $user['id']]) }}" class="btn btn-default">Return to Profile</a>
+                            <td colspan="3" style="text-align: right">
+                                <a href="{{ route('user.index') }}" class="btn btn-default">Return to Profile</a>
                             </td>
-                            <td><a href="{{ route('user.edit_billing', ['user_id' => $user['id']]) }}" class="btn btn-default">Update Payment Details</a></td>
                         </tr>
                     </table>
                 </div>

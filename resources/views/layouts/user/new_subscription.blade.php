@@ -12,14 +12,7 @@
     </div>
 @endsection
 
-@inject('input','Illuminate\Support\Facades\Input')
-
 @section('content')
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <p>Which plan would you like to subscribe to?</p>
-        </div>
-    </div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -37,7 +30,7 @@
                                 src="https://checkout.stripe.com/checkout.js" class="stripe-button"
                                 data-key="{{ config('services.stripe.key') }}"
                                 data-amount="{{ $plan['price'] }}"
-                                data-name="Weather Services"
+                                data-name="Australian Weather Services"
                                 data-description="Payment for {{ $plan['name'] }} Subscription"
                                 data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
                                 data-locale="auto"
@@ -45,6 +38,7 @@
                                 data-billing-address="false"
                                 data-currency="aud"
                                 data-label="Subscribe"
+                                data-email="<?php echo $email; ?>"
                             >
                             </script>
                         </form>

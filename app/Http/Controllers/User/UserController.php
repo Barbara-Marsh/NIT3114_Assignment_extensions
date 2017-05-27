@@ -14,24 +14,16 @@ class UserController extends Controller
 {
     public function index()
     {
-        $id = Auth::id();
-        $user = User::findOrFail($id);
-
         if (Auth::user()->isAdmin()) {
             return redirect()->route('admin.index');
         }
 
-        $subscription = Subscription::where('user_id', $id)->first()->toArray();
-        $plan_id = (int)$subscription['plan_id'];
-        $plan = Plan::where('id', $plan_id)->first()->toArray();
-        $renew_plan_id = (int)$subscription['renew_plan_id'];
-        if ($renew_plan_id == 0) {
-            $renew_plan = "cancelled";
-        } else {
-            $renew_plan = Plan::where('id', $renew_plan_id)->first();
-        }
+        $id = Auth::id();
+        $user = User::findOrFail($id);
+        $subscriptions = $user->subscriptions()->get();
+        //dd($subscriptions);
 
-        return view('layouts/profile')->with(['user' => $user, 'subscription' => $subscription, 'plan' => $plan, 'renew_plan' => $renew_plan]);
+        return view('layouts/profile')->with(['user' => $user, 'subscriptions' => $subscriptions]);
     }
 
     public function edit_newsletter_settings()
@@ -86,7 +78,7 @@ class UserController extends Controller
         $user->third_party_offers = $third_party;
         $user->save();
 
-        $request->session()->flash('alert-success', 'Product subscription created successfully');
+        $request->session()->flash('alert-success', 'Registration successful');
 
         return redirect()->route('user.index');
     }
