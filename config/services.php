@@ -37,7 +37,8 @@ return [
     'weather_api' => [
         'key' => env('WEATHER_API_KEY'),
         'id' => 'appid',
-        'url_base' => 'http://api/openweathermap.org/data/2.5/weather',
+        'weather_url_base' => 'http://api.openweathermap.org/data/2.5/weather',
+        'forecast_url_base' => 'http://api.openweathermap.org/data/2.5/forecast',
     ],
 
 ];

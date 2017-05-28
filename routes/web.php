@@ -71,6 +71,11 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         ->name('user.download_invoice');
 });
 
+Route::group(['prefix' => 'weather', 'middleware' => 'auth'], function () {
+    Route::get('/', 'WeatherController@index')
+        ->name('weather.index');
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/', 'Admin\AdminController@index')
         ->name('admin.index');
