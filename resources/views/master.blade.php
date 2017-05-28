@@ -98,5 +98,44 @@
     <!-- JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery.jcarousel.min.js') }}"></script>
+    <script>
+        (function($) {
+            $(function() {
+                $('.jcarousel').jcarousel();
+
+                $('.jcarousel-control-prev')
+                    .on('jcarouselcontrol:active', function() {
+                        $(this).removeClass('inactive');
+                    })
+                    .on('jcarouselcontrol:inactive', function() {
+                        $(this).addClass('inactive');
+                    })
+                    .jcarouselControl({
+                        target: '-=1'
+                    });
+
+                $('.jcarousel-control-next')
+                    .on('jcarouselcontrol:active', function() {
+                        $(this).removeClass('inactive');
+                    })
+                    .on('jcarouselcontrol:inactive', function() {
+                        $(this).addClass('inactive');
+                    })
+                    .jcarouselControl({
+                        target: '+=1'
+                    });
+
+                $('.jcarousel-pagination')
+                    .on('jcarouselpagination:active', 'a', function() {
+                        $(this).addClass('active');
+                    })
+                    .on('jcarouselpagination:inactive', 'a', function() {
+                        $(this).removeClass('active');
+                    })
+                    .jcarouselPagination();
+            });
+        })(jQuery);
+    </script>
     </body>
 </html>

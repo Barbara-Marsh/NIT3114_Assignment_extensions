@@ -55,13 +55,16 @@ class WeatherController extends Controller
             $weather[] = $this->getCityWeather($city_id);
         }
 
-        //dd($weather);
-
         return view('layouts.weather.weather')->with(['weather_data' => $weather]);
     }
 
     public function forecast(Request $request)
     {
-        $forecast = $this->getCityForecast('2158177');
+        $city_id = $request->get('city_id');
+        $forecast = $this->getCityForecast($city_id);
+        $name = $forecast['city']['name'];
+        $lists = $forecast['list'];
+
+        return view('layouts.weather.forecast')->with(['name' => $name, 'lists' => $lists]);
     }
 }

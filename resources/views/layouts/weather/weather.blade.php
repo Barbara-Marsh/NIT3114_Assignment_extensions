@@ -35,7 +35,7 @@
                                     <strong>Pressure: </strong>{{ $weather['main']['pressure'] }} hPa<br>
                                     <strong>Humidity: </strong>{{ $weather['main']['humidity'] }}%<br>
                                     <strong>Cloudiness: </strong>{{ $weather['clouds']['all'] }}%<br>
-                                    <strong>Wind Speed: </strong>{{ $weather['wind']['speed'] }} meter/sec
+                                    <strong>Wind Speed: </strong>{{ $weather['wind']['speed'] }} m/sec
                                 </p>
                             </div>
                             <hr>
