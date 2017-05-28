@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\City;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -43,13 +44,24 @@ class WeatherController extends Controller
 
     public function index()
     {
-        $user = Auth::user();
-        $weather = $this->getCityWeather('2158177');
+        $cities = City::all()->toArray();
+        $city_ids = [];
+        foreach ($cities as $city) {
+            $city_ids[] = $city['openweathermap_id'];
+        }
+
+        $weather = [];
+        foreach ($city_ids as $city_id) {
+            $weather[] = $this->getCityWeather($city_id);
+        }
+
+        //dd($weather);
+
+        return view('layouts.weather.weather')->with(['weather_data' => $weather]);
+    }
+
+    public function forecast(Request $request)
+    {
         $forecast = $this->getCityForecast('2158177');
-
-        var_dump($weather);
-        var_dump($forecast);
-
-        return view('layouts.user.weather')->with(['weather' => $weather, 'forecast' => $forecast]);
     }
 }

@@ -13,25 +13,25 @@ class PlanTableSeeder extends Seeder
     {
         DB::table('plans')->insert([
             'name' => 'Open',
-            'features' => 'Data for one Australian capital city.',
+            'features' => 'Weather data for three Australian capital cities.',
             'price' => 0,
-            'number_of_cities' => 1,
+            'number_of_cities' => 3,
             'is_active' => TRUE,
             'stripe_id' => 'open',
         ]);
 
         DB::table('plans')->insert([
             'name' => 'Basic',
-            'features' => 'Data for three Australian capital cities.',
+            'features' => 'Weather data for all Australian capital cities.',
             'price' => 995,
-            'number_of_cities' => 3,
+            'number_of_cities' => 8,
             'is_active' => TRUE,
             'stripe_id' => 'basic',
         ]);
 
         DB::table('plans')->insert([
             'name' => 'Pro',
-            'features' => 'Data for all Australian capital cities.',
+            'features' => 'Weather data and forecasts for all Australian capital cities.',
             'price' => 1995,
             'number_of_cities' => 8,
             'is_active' => TRUE,

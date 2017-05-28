@@ -74,6 +74,9 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
 Route::group(['prefix' => 'weather', 'middleware' => 'auth'], function () {
     Route::get('/', 'WeatherController@index')
         ->name('weather.index');
+
+    Route::get('/forecast', 'WeatherController@forecast')
+        ->name('weather.forecast');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function () {
