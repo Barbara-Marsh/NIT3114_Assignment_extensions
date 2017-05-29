@@ -45,6 +45,7 @@
                                 </script>
                                 @endif
                             </form>
+                            <p class="smaller">&ast;Includes GST</p>
                         </div>
                     @endforeach
                 </div>

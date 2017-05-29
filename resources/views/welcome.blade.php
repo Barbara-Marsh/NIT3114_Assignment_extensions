@@ -21,15 +21,16 @@
     <div class="row">
         @foreach($plans as $plan)
         <div class="col-md-4">
-            <div class="well well-lg">
+            <div class="well well-lg well-welcome">
                 <h3 class="content-header">{{ $plan['name'] }}</h3>
                 <p class="text-justify">{{ $plan['features'] }}</p>
                 @if($plan['name'] == 'Open')
                     <p>Price: Free</p>
                 @else
-                    <p>Price: $@php echo number_format($plan['price']/100,2) @endphp</p>
+                    <p>Price: $@php echo number_format($plan['price']/100,2) @endphp&ast;</p>
                 @endif
                 <a href="{{ url('/register') }}" class="btn btn-default">Sign up</a>
+                <p class="smaller">&ast;Includes GST</p>
             </div>
         </div>
         @endforeach

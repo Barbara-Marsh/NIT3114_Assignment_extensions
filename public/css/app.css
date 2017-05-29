@@ -169,9 +169,16 @@ html body .big-checkbox {
   transform: scale(1.75, 1.75);
   margin: 0 5px;
 }
+html body .smaller {
+  font-size: smaller;
+  margin-top: 15px;
+}
 html body .well {
   margin: 0 auto;
   background-color: rgba(255, 255, 255, 0.2);
+}
+html body .well-welcome {
+  min-height: 260px;
 }
 html body .well-margin-bottom {
   margin-bottom: 20px;

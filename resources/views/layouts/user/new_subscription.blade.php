@@ -22,7 +22,7 @@
                     <div class="col-md-4">
                         <h2>{{ $plan['name'] }}</h2>
                         <p><strong>Features:</strong> {{ $plan['features'] }}</p>
-                        <p><strong>Price:</strong> $@php echo number_format($plan['price']/100,2) @endphp</p>
+                        <p><strong>Price:</strong> $@php echo number_format($plan['price']/100,2) @endphp&ast;</p>
                         <form action="{{ route('user.create_subscription') }}" method="post">
                             {{ csrf_field() }}
                             <input type="hidden" name="plan_id" value="{{ $plan['id'] }}">
@@ -42,6 +42,7 @@
                             >
                             </script>
                         </form>
+                        <p class="smaller">&ast;Includes GST</p>
                     </div>
                     @endforeach
                 </div>
