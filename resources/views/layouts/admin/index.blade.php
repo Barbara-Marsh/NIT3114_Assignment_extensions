@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3 col-md-offset-2">
-                    <a href="" class="btn btn-default">Send Monthly Invoices</a>
+                    <a href="{{ Route('admin.view-users') }}" class="btn btn-default">Ban Users</a>
                 </div>
             </div>
             <hr>
