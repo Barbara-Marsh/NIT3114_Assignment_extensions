@@ -1,6 +1,5 @@
 fix subscription controller@update
 admin ability to block a user
-fix view invoices button to prevent error when user has no invoices/subscription
 make redirect to weather display after login instead of profile
 
 if time: differentiate between open and basic plans
