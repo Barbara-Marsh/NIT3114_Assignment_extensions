@@ -31,11 +31,9 @@ class SubscriptionController extends Controller
         $user = Auth::user();
         $plan = Plan::findOrFail($request['plan_id']);
         $stripeToken = $request->get('stripeToken');
-
         $user->newSubscription($plan->name, $plan->stripe_id)->create($stripeToken);
 
         Mail::to($user)->send(new Welcome($user));
-
         $request->session()->flash('alert-success', 'Product subscription created successfully');
 
         return redirect()->route('user.index');
@@ -44,14 +42,12 @@ class SubscriptionController extends Controller
     public function cancel(Request $request)
     {
         $id = $request->get('subscription_id');
-
         $subscription = Subscription::find($id);
         $subscription->cancel();
-
         $user = Auth::user();
         Mail::to($user)->send(new Goodbye($user));
-
         $request->session()->flash('alert-success', "Subscription Cancelled. Please see your profile for end date of your account.");
+
         return redirect()->route('user.index');
     }
 
@@ -63,8 +59,8 @@ class SubscriptionController extends Controller
         $subscription = Subscription::find($id);
         $subscription->resume();
         Mail::to($user)->send(new Resume($user));
-
         $request->session()->flash('alert-success', "Subscription Reset. Welcome back!");
+
         return redirect()->route('user.index');
     }
 
@@ -123,8 +119,8 @@ class SubscriptionController extends Controller
         $stripeToken = $request->get('stripeToken');
         $user = Auth::user();
         $user->updateCard($stripeToken);
-        Mail::to($user)->send(new UpdateCard($user));
 
+        Mail::to($user)->send(new UpdateCard($user));
         $request->session()->flash('alert-success', "Card Updated.");
 
         return redirect()->route('user.index');
