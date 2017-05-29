@@ -20,11 +20,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ Route('welcome') }}">Australian Weather Services</a>
+                @if(Auth::check())
+                    <a class="navbar-brand" href="{{ Route('weather.index') }}">Australian Weather Services</a>
+                @else
+                    <a class="navbar-brand" href="{{ Route('welcome') }}">Australian Weather Services</a>
+                @endif
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ Route('welcome') }}">Home</a></li>
+                    @if(Auth::check())
+                        <li><a href="{{ Route('weather.index') }}">Home</a></li>
+                    @else
+                        <li><a href="{{ Route('welcome') }}">Home</a></li>
+                    @endif
                     <li><a href="{{ Route('about') }}">About</a></li>
                 </ul>
                 @if (Route::has('login'))

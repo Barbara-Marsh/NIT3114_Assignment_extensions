@@ -1,5 +1,6 @@
 fix subscription controller@update
 admin ability to block a user
+all references to prices stating they include gst
 
 if time: differentiate between open and basic plans
 if time: improve css for user profile pages
