@@ -1,6 +1,5 @@
 fix subscription controller@update
 admin ability to block a user
-make redirect to weather display after login instead of profile
 
 if time: differentiate between open and basic plans
 if time: improve css for user profile pages

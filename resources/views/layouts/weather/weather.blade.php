@@ -22,30 +22,30 @@
                     <div class="col-md-3">
                         <div class="well well-lg well-margin-bottom">
                             <div class="text-center">
-                                <h2>{{ $weather['name'] }}</h2>
+                                <h2>{{ $weather['name'] ?? "" }}</h2>
                                 <hr>
-                                <h3>{{ $weather['weather'][0]['main'] }}</h3>
+                                <h3>{{ $weather['weather'][0]['main'] ?? "" }}</h3>
                                 <img src="https://openweathermap.org/img/w/{{ $weather['weather'][0]['icon'] }}.png">
-                                <p>{{ $weather['weather'][0]['description'] }}</p>
-                                <h3>@php echo $weatherDetail->setTemperature($weather['main']['temp']); @endphp&deg; </h3>
+                                <p>{{ $weather['weather'][0]['description'] ?? "" }}</p>
+                                <h3>@php echo $weatherDetail->setTemperature($weather['main']['temp']) ?? ""; @endphp&deg; </h3>
                             </div>
                             <hr>
                             <div>
                                 <p>
-                                    <strong>Pressure: </strong>{{ $weather['main']['pressure'] }} hPa<br>
-                                    <strong>Humidity: </strong>{{ $weather['main']['humidity'] }}%<br>
-                                    <strong>Cloudiness: </strong>{{ $weather['clouds']['all'] }}%<br>
-                                    <strong>Wind Speed: </strong>{{ $weather['wind']['speed'] }} m/sec
+                                    <strong>Pressure: </strong>{{ $weather['main']['pressure'] ?? "" }} hPa<br>
+                                    <strong>Humidity: </strong>{{ $weather['main']['humidity'] ?? "" }}%<br>
+                                    <strong>Cloudiness: </strong>{{ $weather['clouds']['all'] ?? "" }}%<br>
+                                    <strong>Wind Speed: </strong>{{ $weather['wind']['speed'] ?? "" }} m/sec
                                 </p>
                             </div>
                             <hr>
                             <div>
                                 <p>
-                                    <strong>Sunrise: </strong>@php echo $weatherDetail->setSunrise($weather['sys']['sunrise']); @endphp<br>
-                                    <strong>Sunset: </strong>@php echo $weatherDetail->setSunset($weather['sys']['sunset']); @endphp
+                                    <strong>Sunrise: </strong>@php echo $weatherDetail->setSunrise($weather['sys']['sunrise'] ?? ""); @endphp<br>
+                                    <strong>Sunset: </strong>@php echo $weatherDetail->setSunset($weather['sys']['sunset'] ?? ""); @endphp
                                 </p>
                             </div>
-                            @if(Auth::user()->subscription->name == 'Pro')
+                            @if(isset(Auth::user()->subscription->name) && Auth::user()->subscription->name == 'Pro')
                                 <br>
                                 <div class="text-center">
                                     <form action="{{ Route('weather.forecast') }}" method="get">

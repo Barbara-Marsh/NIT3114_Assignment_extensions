@@ -25,6 +25,8 @@ class HomeController extends Controller
     {
         //return view('layouts/home');
 
-        return redirect()->route('user.index');
+        //return redirect()->route('user.index');
+
+        return redirect()->route('weather.index');
     }
 }
