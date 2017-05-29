@@ -59,5 +59,6 @@ class Kernel extends HttpKernel
 
         'admin' => \App\Http\Middleware\Admin::class,
         'role' => \App\Http\Middleware\Role::class,
+        'notBanned' => \App\Http\Middleware\NotBanned::class,
     ];
 }

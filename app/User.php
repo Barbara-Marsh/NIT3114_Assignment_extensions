@@ -14,6 +14,16 @@ class User extends Authenticatable
         return $this->admin;
     }
 
+    public function isNotBanned() {
+        if ($this->is_banned == TRUE) {
+            $isNotBanned = FALSE;
+        } elseif ($this->is_banned == FALSE) {
+            $isNotBanned = TRUE;
+        }
+
+        return $isNotBanned;
+    }
+
     /**
  * The attributes that are mass assignable.
  *

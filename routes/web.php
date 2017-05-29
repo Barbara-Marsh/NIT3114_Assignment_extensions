@@ -23,7 +23,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
-Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'user', 'middleware' => ['auth', 'notBanned']], function () {
     // Display layouts/profile.blade when user logs in or completes registration
     Route::get('/', 'User\UserController@index')
         ->name('user.index');
@@ -71,7 +71,7 @@ Route::group(['prefix' => 'user', 'middleware' => 'auth'], function () {
         ->name('user.download_invoice');
 });
 
-Route::group(['prefix' => 'weather', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'weather', 'middleware' => ['auth', 'notBanned']], function () {
     Route::get('/', 'WeatherController@index')
         ->name('weather.index');
 

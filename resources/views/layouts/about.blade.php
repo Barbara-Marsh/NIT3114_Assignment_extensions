@@ -19,7 +19,8 @@
             <p>Admin user: <strong>admin@example.com</strong> with password <strong>admin</strong>.</p>
             <p>User with Open plan: <strong>joe@example.com</strong> with password: <strong>joe</strong>.</p>
             <p>User with Basic plan: <strong>barb@example.com</strong> with password: <strong>barb</strong>.</p>
-            <p>User with Pro plan: <strong>sally@example.com</strong> with password: <strong>sally</strong>.</p><br>
+            <p>User with Pro plan: <strong>sally@example.com</strong> with password: <strong>sally</strong>.</p>
+            <p>Banned user: <strong>john@example.com</strong> with password <strong>john</strong></p><br>
         </div>
     </div>
     <div class="row">

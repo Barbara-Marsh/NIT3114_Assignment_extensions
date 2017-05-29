@@ -38,6 +38,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('john'),
             'subscribed_to_newsletter' => TRUE,
             'third_party_offers' => TRUE,
+            'is_banned' => TRUE,
             'created_at' => \Carbon\Carbon::now()->subMonths(2),
             'updated_at' => \Carbon\Carbon::now(),
         ]);
