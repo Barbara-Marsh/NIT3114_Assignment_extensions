@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\User;
 
-use App\User;
 use App\Plan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\Welcome;
 use App\Mail\Goodbye;
+use App\Mail\Resume;
+use App\Mail\UpdateCard;
+use App\Mail\UpdatePlan;
 use Laravel\Cashier\Subscription;
 use Stripe\Stripe;
 
@@ -57,9 +58,11 @@ class SubscriptionController extends Controller
     public function resume(Request $request)
     {
         $id = $request->get('subscription_id');
+        $user = Auth::user();
 
         $subscription = Subscription::find($id);
         $subscription->resume();
+        Mail::to($user)->send(new Resume($user));
 
         $request->session()->flash('alert-success', "Subscription Reset. Welcome back!");
         return redirect()->route('user.index');
@@ -101,9 +104,9 @@ class SubscriptionController extends Controller
         $user->subscription->name = $name;
         $user->subscription->save();*/
 
-        // send email to confirm plan changed
-
+        Mail::to($user)->send(new UpdatePlan($user));
         $request->session()->flash('alert-success', "Subscription Updated. Any additional fees incurred from changing your plan will be added to your next invoice.");
+
         return redirect()->route('user.index');
     }
 
@@ -120,6 +123,7 @@ class SubscriptionController extends Controller
         $stripeToken = $request->get('stripeToken');
         $user = Auth::user();
         $user->updateCard($stripeToken);
+        Mail::to($user)->send(new UpdateCard($user));
 
         $request->session()->flash('alert-success', "Card Updated.");
 
