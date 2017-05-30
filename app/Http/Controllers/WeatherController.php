@@ -60,11 +60,17 @@ class WeatherController extends Controller
 
     public function forecast(Request $request)
     {
-        $city_id = $request->get('city_id');
-        $forecast = $this->getCityForecast($city_id);
-        $name = $forecast['city']['name'];
-        $lists = $forecast['list'];
+        if(isset(Auth::user()->subscription->name) && Auth::user()->subscription->name == 'Pro') {
+            $city_id = $request->get('city_id');
+            $forecast = $this->getCityForecast($city_id);
+            $name = $forecast['city']['name'];
+            $lists = $forecast['list'];
 
-        return view('layouts.weather.forecast')->with(['name' => $name, 'lists' => $lists]);
+            return view('layouts.weather.forecast')->with(['name' => $name, 'lists' => $lists]);
+        } else {
+            $request->session()->flash('alert-danger', "Only Pro users can access the forecast page");
+
+            return redirect()->route('weather.index');
+        }
     }
 }

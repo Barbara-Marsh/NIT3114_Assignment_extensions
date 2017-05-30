@@ -7,7 +7,7 @@
 @section('content-header')
     <div class="row content-header">
         <div class="col-md-12">
-            <h1>Current Weather in Capital Cities</h1>
+            <h1>Current Weather in Australian Capital Cities</h1>
         </div>
     </div>
 @endsection
