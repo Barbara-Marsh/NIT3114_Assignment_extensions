@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Plan;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -77,28 +78,13 @@ class SubscriptionController extends Controller
 
     public function update(Request $request)
     {
-        $user = Auth::user();
-        $subscription = $user->subscription;
-        $current_plan = $subscription->stripe_plan;
+        $user = Auth::id();
+        $subscription = Subscription::where('user_id', '=', $user)->first();
+        $current_plan = $subscription['stripe_plan'];
         $stripe_id = $request->get('stripe_id');
-        //$stripe_name = $request->get('name');
-        //dd($stripe_id); //basic
 
-        Stripe::setApiKey(config('services.stripe.secret'));
-
-        //$subscription = \Stripe\Subscription::retrieve($stripe_id);
-        /*$subscription->stripe_plan = $stripe_id;
-        $subscription->name = $stripe_name;
-        $subscription->save();*/
-
-        // this method didn't work
-        $user->subscription($current_plan)->swap($stripe_id);
-
-        // this method charges immediately
-        // and updates local db but not stripe
-        /*$user->subscription->stripe_plan = $stripe_id;
-        $user->subscription->name = $name;
-        $user->subscription->save();*/
+        //dd($current_plan);
+        $subscription($current_plan)->swap($stripe_id);  // causes "Call to undefined method Illuminate\Database\Query\Builder::swap()"
 
         Mail::to($user)->send(new UpdatePlan($user));
         $request->session()->flash('alert-success', "Subscription Updated. Any additional fees incurred from changing your plan will be added to your next invoice.");

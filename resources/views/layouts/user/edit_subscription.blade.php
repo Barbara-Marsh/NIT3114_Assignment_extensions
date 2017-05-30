@@ -29,20 +29,8 @@
                                 <input type="hidden" name="stripe_id" value="{{ $plan['stripe_id'] }}">
                                 <input type="hidden" name="name" value="{{ $plan['name'] }}">
                                 @if($plan['name'] != $current_plan_name)
-                                <script
-                                        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                        data-key="{{ config('services.stripe.key') }}"
-                                        data-name="Australian Weather Services"
-                                        data-description="Updating to {{ $plan['name'] }} Subscription"
-                                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
-                                        data-locale="auto"
-                                        data-zip-code="false"
-                                        data-billing-address="false"
-                                        data-currency="aud"
-                                        data-label="Subscribe"
-                                        data-email="<?php echo $email; ?>"
-                                >
-                                </script>
+                                    <input type="hidden" value="{{ $plan['stripe_id'] }}">
+                                    <button class="btn btn-default">Update Subscription</button>
                                 @endif
                             </form>
                             <p class="smaller">&ast;Includes GST</p>
