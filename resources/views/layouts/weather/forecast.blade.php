@@ -17,7 +17,7 @@
 
 @section('content')
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-10 col-md-offset-1">
             <div class="jcarousel-wrapper">
                 <div class="jcarousel">
                     <ul>
@@ -41,16 +41,13 @@
                                         <strong>Pressure: </strong>{{ $list['main']['pressure'] }} hPa<br>
                                         <strong>Humidity: </strong>{{ $list['main']['humidity'] }}%<br>
                                         <strong>Cloudiness: </strong>{{ $list['clouds']['all'] }}%<br>
-                                        <strong>Wind Speed: </strong>{{ $list['wind']['speed'] }} m/sec
-                                    </p>
-                                </div>
-                                <hr>
-                                <div class="sm-text">
+                                        <strong>Wind Speed: </strong>{{ $list['wind']['speed'] }} m/sec<br>
                                     @if(isset($list['rain']['3h']))
-                                        <p><strong>Rain: </strong>{{ round($list['rain']['3h'], 2) }} mm</p>
+                                        <strong>Rain: </strong>{{ round($list['rain']['3h'], 2) }} mm
                                     @else
-                                        <p><strong>Rain: </strong>0 mm</p>
-                                    @endif
+                                        <strong>Rain: </strong>0 mm
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
                         </li>
