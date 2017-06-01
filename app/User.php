@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Cashier\Billable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -42,8 +43,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function subscription()
+    public function activeSubscription()
     {
-        return $this->hasOne('App\Subscription');
+        $subscriptions = DB::table('subscriptions')->where('user_id', '=', $this->id)->get();
+
+        foreach ($subscriptions as $subscription) {
+            if ($subscription->active == TRUE) {
+                $activeSubscription = $subscription;
+                return $activeSubscription;
+            }
+        }
     }
 }

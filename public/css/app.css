@@ -203,3 +203,6 @@ html body .jcarousel-wrapper .jcarousel {
 html body .jcarousel-wrapper .jcarousel .well {
   margin: 0 5px;
 }
+html body .stripe-button-el {
+  display: none;
+}

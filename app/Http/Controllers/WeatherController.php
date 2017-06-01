@@ -60,7 +60,7 @@ class WeatherController extends Controller
 
     public function forecast(Request $request)
     {
-        if(isset(Auth::user()->subscription->name) && Auth::user()->subscription->name == 'Pro') {
+        if(isset(Auth::user()->activeSubscription()->name) && Auth::user()->activeSubscription()->name == 'Pro') {
             $city_id = $request->get('city_id');
             $forecast = $this->getCityForecast($city_id);
             $name = $forecast['city']['name'];

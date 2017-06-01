@@ -98,7 +98,7 @@
     @section('footer')
     <footer class="footer">
         <div class="container">
-            <p class="text-muted centered">&copy; Barbara Marsh <?php echo date('Y') ?> | email: <a href="mailto:barbara.marsh@live.vu.edu.au">barbara.marsh@live.vu.edu.au</a></p>
+            <p class="text-muted centered">&copy; Barbara Marsh <?php echo date('Y') ?> | <span class="glyphicon glyphicon-envelope"></span> <a href="mailto:barbara.marsh@live.vu.edu.au">barbara.marsh@live.vu.edu.au</a></p>
         </div>
     </footer>
     @show

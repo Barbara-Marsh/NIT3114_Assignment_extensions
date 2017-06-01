@@ -2,6 +2,5 @@ REQUIREMENTS
 fix subscription controller@update
 
 IMPROVEMENTS
-differentiate between open and basic plans
 improve css for user profile pages
 improve css for admin console

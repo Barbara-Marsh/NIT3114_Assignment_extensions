@@ -21,7 +21,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Update payment details</div>
                 <div class="panel-body">
-                    <form action="{{ Route('user.update_card') }}" method="post">
+                    <form action="{{ Route('user.update_card') }}" method="post" style="display: inline">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <script
@@ -37,12 +37,11 @@
                             data-email="<?php echo $email; ?>"
                         >
                         </script>
+                        <button class="btn btn-primary">Change Billing Details</button>
                     </form>
+                    <a href="{{ route('user.index') }}" class="btn btn-primary" style="display: inline;float: right">Cancel</a>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2 sidebar">
-            @include('layouts.user-right-sidebar')
         </div>
     </div>
 @endsection

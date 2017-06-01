@@ -22,6 +22,7 @@ class CreateSubscriptionTable extends Migration
             $table->integer('quantity')->default(1);
             $table->timestamp('trial_ends_at')->nullable();
             $table->timestamp('ends_at')->nullable();
+            $table->boolean('active')->default(TRUE);
             $table->timestamps();
         });
     }

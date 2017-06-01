@@ -17,6 +17,7 @@ class SubscriptionTableSeeder extends Seeder
             'stripe_id' => 'sub_AjZsDRijPfo1mL',
             'stripe_plan' => 'basic',
             'quantity' => 1,
+            'active' => TRUE,
         ]);
 
         DB::table('subscriptions')->insert([
@@ -27,6 +28,7 @@ class SubscriptionTableSeeder extends Seeder
             'quantity' => 1,
             'created_at' => '2017-05-29 13:42:10',
             'updated_at' => '2017-05-29 13:42:10',
+            'active' => TRUE,
         ]);
 
         DB::table('subscriptions')->insert([
@@ -35,6 +37,7 @@ class SubscriptionTableSeeder extends Seeder
             'stripe_id' => 'sub_AjqrXFXwCpkrfx',
             'stripe_plan' => 'pro',
             'quantity' => 1,
+            'active' => TRUE,
         ]);
 
         DB::table('subscriptions')->insert([
@@ -43,6 +46,7 @@ class SubscriptionTableSeeder extends Seeder
             'stripe_id' => 'sub_Aj9kcwk8Vutqzf',
             'stripe_plan' => 'open',
             'quantity' => 1,
+            'active' => TRUE,
         ]);
     }
 }

@@ -35,22 +35,21 @@
                                     <form action="{{ Route('user.download_invoice') }}" method="get">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="invoiceId" value="{{ $invoice->id }}">
-                                        <button class="btn btn-primary btn-sm">Download</button>
+                                        <button class="btn btn-primary">
+                                            <span class="glyphicon glyphicon-save"></span> Download
+                                        </button>
                                     </form>
                                 </td>
                             </tr>
                         @endforeach
                         <tr>
                             <td colspan="3" style="text-align: right">
-                                <a href="{{ route('user.index') }}" class="btn btn-default">Return to Profile</a>
+                                <a href="{{ route('user.index') }}" class="btn btn-primary">Return to Profile</a>
                             </td>
                         </tr>
                     </table>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2 sidebar">
-            @include('layouts.user-right-sidebar')
         </div>
     </div>
 @endsection

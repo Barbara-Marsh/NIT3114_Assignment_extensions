@@ -13,8 +13,8 @@ class Plan extends Model
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
-    public function subscriptions()
+    /*public function subscriptions()
     {
         return $this->hasMany('App\Subscription');
-    }
+    }*/
 }

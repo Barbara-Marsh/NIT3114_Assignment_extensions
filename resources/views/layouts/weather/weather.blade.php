@@ -45,7 +45,7 @@
                                     <strong>Sunset: </strong>@php echo $weatherDetail->setSunset($weather['sys']['sunset'] ?? ""); @endphp
                                 </p>
                             </div>
-                            @if(isset(Auth::user()->subscription->name) && Auth::user()->subscription->name == 'Pro')
+                            @if(isset(Auth::user()->activeSubscription()->name) && Auth::user()->activeSubscription()->name == 'Pro')
                                 <br>
                                 <div class="text-center">
                                     <form action="{{ Route('weather.forecast') }}" method="get">

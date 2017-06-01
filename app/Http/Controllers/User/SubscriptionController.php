@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\User;
 
 use App\Plan;
-use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -14,7 +13,6 @@ use App\Mail\Resume;
 use App\Mail\UpdateCard;
 use App\Mail\UpdatePlan;
 use Laravel\Cashier\Subscription;
-use Stripe\Stripe;
 
 class SubscriptionController extends Controller
 {
@@ -76,18 +74,21 @@ class SubscriptionController extends Controller
         return view('layouts.user.edit_subscription')->with(['plans' => $plans, 'current_plan_name' => $subscription_name, 'email' => $email]);
     }
 
+
+
     public function update(Request $request)
     {
-        $user = Auth::id();
-        $subscription = Subscription::where('user_id', '=', $user)->first();
-        $current_plan = $subscription['stripe_plan'];
+        $user = Auth::user();
+        $subscription = $user->activeSubscription();
+        $current_plan = $subscription->name;
         $stripe_id = $request->get('stripe_id');
-
-        //dd($current_plan);
-        $subscription($current_plan)->swap($stripe_id);  // causes "Call to undefined method Illuminate\Database\Query\Builder::swap()"
+        $user->subscription($current_plan)->swap($stripe_id);
+        // manually update name field of subscription table because swap() method doesn't do it
+        // had to do db call because update wouldn't work when using $subscription variable directly
+        Subscription::where('id', $subscription->id)->update(['name' => $request->get('name')]);
 
         Mail::to($user)->send(new UpdatePlan($user));
-        $request->session()->flash('alert-success', "Subscription Updated. Any additional fees incurred from changing your plan will be added to your next invoice.");
+        $request->session()->flash('alert-success', "Subscription Updated. Any additional fees incurred from changing your plan will be added to your next invoice. Overpayments will be credited to your next invoice");
 
         return redirect()->route('user.index');
     }

@@ -52,7 +52,7 @@
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="subscription_id" value="{{ $subscription->id }}">
                                                         <button type="submit" class="btn  btn-danger btn-sm">
-                                                            <span class="glyphicon glyphicon-trash"></span> Delete
+                                                            <span class="glyphicon glyphicon-trash"></span> Cancel Plan
                                                         </button>
                                                     </form>
                                                 </span>
@@ -61,7 +61,7 @@
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="subscription_id" value="{{ $subscription->id }}">
                                                         <button type="submit" class="btn  btn-success btn-sm btn-margin-right">
-                                                            <span class="glyphicon glyphicon-trash"></span> Change
+                                                            <span class="glyphicon glyphicon-pencil"></span> Change Plan
                                                         </button>
                                                     </form>
                                                 </span>
@@ -71,7 +71,7 @@
                                                         {{ csrf_field() }}
                                                         <input type="hidden" name="subscription_id" value="{{ $subscription->id }}">
                                                         <button type="submit" class="btn  btn-success btn-sm">
-                                                            <span class="glyphicon glyphicon-thumbs-up"></span> Reset
+                                                            <span class="glyphicon glyphicon-off"></span> Reset
                                                         </button>
                                                     </form>
                                                 </span>
@@ -118,9 +118,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-2 sidebar">
-            @include('layouts.user-right-sidebar')
         </div>
     </div>
 @endsection

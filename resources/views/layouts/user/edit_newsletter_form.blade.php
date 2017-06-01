@@ -49,8 +49,5 @@
             </div>
         </div>
     </div>
-    <div class="col-md-2 sidebar">
-        @include('layouts.user-right-sidebar')
-    </div>
 </div>
 @endsection
