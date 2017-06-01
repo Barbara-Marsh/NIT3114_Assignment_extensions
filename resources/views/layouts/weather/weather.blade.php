@@ -20,7 +20,7 @@
             <div class="row">
                 @foreach($weather_data as $weather)
                     <div class="col-md-3">
-                        <div class="well well-lg well-margin-bottom">
+                        <div class="well well-margin-bottom">
                             <div class="text-center">
                                 <h2>{{ $weather['name'] ?? "" }}</h2>
                                 <hr>

@@ -182,6 +182,10 @@ html body .well-welcome {
 }
 html body .well-margin-bottom {
   margin-bottom: 20px;
+  padding-top: 15px;
+}
+html body .well-margin-bottom h2 {
+  margin-top: 0;
 }
 html body .well-reduce-padding {
   padding: 10px;

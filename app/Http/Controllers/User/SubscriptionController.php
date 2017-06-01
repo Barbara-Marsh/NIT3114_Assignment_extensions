@@ -74,8 +74,6 @@ class SubscriptionController extends Controller
         return view('layouts.user.edit_subscription')->with(['plans' => $plans, 'current_plan_name' => $subscription_name, 'email' => $email]);
     }
 
-
-
     public function update(Request $request)
     {
         $user = Auth::user();
