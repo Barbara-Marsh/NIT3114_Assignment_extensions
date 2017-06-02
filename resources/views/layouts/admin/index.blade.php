@@ -47,7 +47,8 @@
             <hr>
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="content-header">Usage Graphs</h2>
+                    <h2 class="content-header">Reports</h2>
+                    <a href="{{ Route('admin.invoices') }}" class="btn btn-default">View invoices for past month</a>
                 </div>
             </div>
             <div class="row"></div>

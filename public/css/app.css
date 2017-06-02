@@ -210,3 +210,26 @@ html body .jcarousel-wrapper .jcarousel .well {
 html body .stripe-button-el {
   display: none;
 }
+html body .table-white-background {
+  background-color: whitesmoke;
+}
+html body .table-top {
+  margin: 0;
+  /*border: none;
+      border-radius: 10px 10px 0 0;*/
+}
+html body .table-top th,
+html body .table-top td {
+  width: 25%;
+}
+html body .table-bottom {
+  /*border: none;
+      border-radius: 0 0 10px 10px;*/
+}
+html body .table-bottom th,
+html body .table-bottom td {
+  width: 12.5%;
+}
+html body .table-bottom .three-x-width {
+  width: 37.5%;
+}

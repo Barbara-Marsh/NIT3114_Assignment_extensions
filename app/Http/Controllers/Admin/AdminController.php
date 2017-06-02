@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Plan;
-use App\Subscription;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Laravel\Cashier\Subscription;
 
 class AdminController extends Controller
 {

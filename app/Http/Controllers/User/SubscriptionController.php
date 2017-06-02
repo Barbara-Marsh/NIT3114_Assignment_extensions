@@ -81,6 +81,7 @@ class SubscriptionController extends Controller
         $current_plan = $subscription->name;
         $stripe_id = $request->get('stripe_id');
         $user->subscription($current_plan)->swap($stripe_id);
+
         // manually update name field of subscription table because swap() method doesn't do it
         // had to do db call because update wouldn't work when using $subscription variable directly
         Subscription::where('id', $subscription->id)->update(['name' => $request->get('name')]);
