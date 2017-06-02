@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="row ">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-transparent-background">
             <thead>
             <tr>
                 <th>Name</th>

@@ -160,10 +160,9 @@ html body .align-right {
 }
 html body .statistics-container {
   border: solid 1px #eee;
-  background-color: #f8f8f8;
+  background-color: rgba(248, 248, 248, 0.5);
   border-radius: 3px;
   padding: 0 0 25px;
-  margin: 20px 0;
 }
 html body .big-checkbox {
   transform: scale(1.75, 1.75);
@@ -210,21 +209,15 @@ html body .jcarousel-wrapper .jcarousel .well {
 html body .stripe-button-el {
   display: none;
 }
-html body .table-white-background {
-  background-color: whitesmoke;
+html body .table-transparent-background {
+  background-color: rgba(248, 248, 248, 0.5);
 }
 html body .table-top {
   margin: 0;
-  /*border: none;
-      border-radius: 10px 10px 0 0;*/
 }
 html body .table-top th,
 html body .table-top td {
   width: 25%;
-}
-html body .table-bottom {
-  /*border: none;
-      border-radius: 0 0 10px 10px;*/
 }
 html body .table-bottom th,
 html body .table-bottom td {

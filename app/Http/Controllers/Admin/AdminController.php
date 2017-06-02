@@ -45,11 +45,11 @@ class AdminController extends Controller
     public function viewUsers()
     {
         $users = User::all();
-        foreach ($users as $user) {
+        /*foreach ($users as $user) {
             if (isset($user->subscription->name)) {
                 $user['plan'] = $user->subscription->name;
             }
-        }
+        }*/
 
         return view('layouts.admin.all-users')->with('users', $users);
     }

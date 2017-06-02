@@ -14,7 +14,7 @@
 
 @section('content')
     <div class="row ">
-        <div class="container statistics-container">
+        <div class="container statistics-container col-md-10 col-md-offset-1">
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="content-header">System Statistics</h2>
@@ -48,6 +48,8 @@
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="content-header">Reports</h2>
+                </div>
+                <div class="col-md-3 col-md-offset-2">
                     <a href="{{ Route('admin.invoices') }}" class="btn btn-default">View invoices for past month</a>
                 </div>
             </div>

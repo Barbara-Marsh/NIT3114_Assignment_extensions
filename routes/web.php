@@ -92,15 +92,4 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/invoices', 'Admin\ReportsController@getInvoices')
         ->name('admin.invoices');
 
-
-    /*
-    Route::get('/invoices', 'Admin\AdminController@invoicesList')
-        ->name('admin.invoices_list');
-
-    Route::get('/invoices/create', 'Admin\AdminController@createInvoice')
-        ->name('admin.create_invoice');
-
-    Route::post('/invoices/create', 'InvoiceController@store')
-        ->name('admin.store_invoice');
-    */
 });

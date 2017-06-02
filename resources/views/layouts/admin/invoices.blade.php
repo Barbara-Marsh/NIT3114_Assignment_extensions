@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
         @foreach($invoices as $invoice)
-        <table class="table table-bordered table-responsive table-white-background table-top">
+        <table class="table table-bordered table-responsive table-transparent-background table-top">
             <thead>
             <tr>
                 <th>Invoice #</th>
@@ -33,7 +33,7 @@
             </tr>
             </tbody>
         </table>
-        <table class="table table-bordered table-responsive table-white-background table-bottom">
+        <table class="table table-bordered table-responsive table-transparent-background table-bottom">
             <thead>
             <tr>
                 <th>Plan</th>
