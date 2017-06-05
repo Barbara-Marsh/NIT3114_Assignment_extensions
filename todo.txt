@@ -2,5 +2,9 @@ REQUIREMENTS
 
 IMPROVEMENTS
 improve css for user profile pages
-improve css for admin console
 add back button to reports
+page titles
+css for emails
+css for invoices
+admin user to automaticaly redirect to admin console on login
+test it all works
