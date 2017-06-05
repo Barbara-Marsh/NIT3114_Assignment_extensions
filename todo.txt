@@ -1,6 +1,6 @@
 REQUIREMENTS
-fix subscription controller@update
 
 IMPROVEMENTS
 improve css for user profile pages
 improve css for admin console
+add back button to reports
