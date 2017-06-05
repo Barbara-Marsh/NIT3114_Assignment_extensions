@@ -51,8 +51,8 @@
                         <td class="three-x-width">{{ $line['description'] ?? "" }}</td>
                         <td>{{ $line['start'] ?? "" }}</td>
                         <td>{{ $line['end'] ?? "" }}</td>
-                        <td>${{ $line['amount'] }}</td>
-                        <td>${{ $line['total_amount'] }}</td>
+                        <td>$@php echo number_format($line['amount']/100,2) @endphp</td>
+                        <td>$@php echo number_format($line['total_amount']/100,2) @endphp</td>
                     </tr>
                 @endforeach
             </tbody>

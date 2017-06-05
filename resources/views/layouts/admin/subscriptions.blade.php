@@ -43,10 +43,12 @@
             </tr>
             </thead>
             <tbody>
+            <tr>
                 <td>{{ $subscription['created'] }}</td>
-                <td>${{ $subscription['amount'] }}</td>
+                <td>$@php echo number_format($subscription['amount']/100,2) @endphp</td>
                 <td>{{ $subscription['current_period_start'] }}</td>
                 <td>{{ $subscription['current_period_end'] }}</td>
+            </tr>
             </tbody>
         </table>
         @endforeach

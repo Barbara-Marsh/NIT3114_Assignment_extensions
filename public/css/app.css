@@ -226,3 +226,12 @@ html body .table-bottom td {
 html body .table-bottom .three-x-width {
   width: 37.5%;
 }
+html body .charge-table .thin-column {
+  width: 17%;
+}
+html body .admin-h2 {
+  margin-bottom: 20px;
+}
+html body .admin-btn {
+  margin-bottom: 20px;
+}

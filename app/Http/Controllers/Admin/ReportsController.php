@@ -26,10 +26,10 @@ class ReportsController extends Controller
             Carbon::setToStringFormat('d-m-Y');
             foreach ($invoice['lines']->data as $line) {
                 $invoice_data['lines'][] = [
-                    'total_amount' => $line['amount'] / 100,
+                    'total_amount' => $line['amount'],
                     'description' => $line['description'],
                     'plan_name' => $line['plan']['name'],
-                    'amount' => $line['plan']['amount'] / 100,
+                    'amount' => $line['plan']['amount'],
                     'start' => Carbon::createFromTimestamp($line['period']['start'])->__toString(),
                     'end' => Carbon::createFromTimestamp($line['period']['end'])->__toString(),
                 ];
@@ -55,7 +55,7 @@ class ReportsController extends Controller
             Carbon::setToStringFormat('d-m-Y');
             $subscription_data['current_period_end'] = Carbon::createFromTimestamp($subscription['current_period_end'])->__toString();
             $subscription_data['current_period_start'] = Carbon::createFromTimestamp($subscription['current_period_start'])->__toString();
-            $subscription_data['amount'] = $subscription['plan']['amount'] / 100;
+            $subscription_data['amount'] = $subscription['plan']['amount'];
             $subscription_data['plan_name'] = $subscription['plan']['name'];
             $subscription_data['created'] = Carbon::createFromTimestamp($subscription['plan']['created'])->__toString();
             $subscription_data['status'] = $subscription['status'];
@@ -71,7 +71,25 @@ class ReportsController extends Controller
         Stripe::setApiKey(env('STRIPE_SECRET'));
         $start_date = Carbon::now()->subMonth(1)->timestamp;
         $charges_request = \Stripe\Charge::all(array('created' => array('gte' => $start_date)));
-        $charges = $charges_request['data'];
-        dd($charges);
+        $charges = $charges_request->data;
+        $report_data = [];
+        foreach ($charges as $charge) {
+            $charge_data = [];
+            Carbon::setToStringFormat('d-m-Y');
+            $charge_data['id'] = $charge['id'];
+            $charge_data['object'] = $charge['object'];
+            $charge_data['amount'] = $charge['amount'];
+            $charge_data['amount_refunded'] = $charge['amount_refunded'];
+            $charge_data['created'] = Carbon::createFromTimestamp($charge['created'])->__toString();
+            $charge_data['invoice_id'] = $charge['invoice'];
+            $charge_data['paid'] = var_export($charge['paid'], true);
+            $charge_data['customer_name'] = User::where('stripe_id', '=', $charge['source']['customer'])->value('name');
+            $charge_data['customer_email'] = $charge['source']['name'];
+            $charge_data['status'] = $charge['status'];
+            Carbon::resetToStringFormat();
+            $report_data[] = $charge_data;
+        }
+
+        return view('layouts.admin.charges')->with(['charges' => $report_data]);
     }
 }
