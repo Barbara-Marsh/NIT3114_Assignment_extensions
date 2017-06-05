@@ -92,4 +92,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::get('/invoices', 'Admin\ReportsController@getInvoices')
         ->name('admin.invoices');
 
+    Route::get('/subscriptions', 'Admin\ReportsController@getSubscriptions')
+        ->name('admin.subscriptions');
+
+    Route::get('/charges', 'Admin\ReportsController@getCharges')
+        ->name('admin.charges');
 });

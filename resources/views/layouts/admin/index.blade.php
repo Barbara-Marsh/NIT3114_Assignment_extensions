@@ -49,8 +49,14 @@
                 <div class="col-md-12">
                     <h2 class="content-header">Reports</h2>
                 </div>
-                <div class="col-md-3 col-md-offset-2">
+                <div class="col-md-4 text-center">
                     <a href="{{ Route('admin.invoices') }}" class="btn btn-default">View invoices for past month</a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="{{ Route('admin.subscriptions') }}" class="btn btn-default">View subscriptions for past month</a>
+                </div>
+                <div class="col-md-4 text-center">
+                    <a href="{{ Route('admin.charges') }}" class="btn btn-default">View charges for past month</a>
                 </div>
             </div>
             <div class="row"></div>
