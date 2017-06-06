@@ -31,6 +31,7 @@
                 @endif
                 <a href="{{ url('/register') }}" class="btn btn-default">Sign up</a>
                 <p class="smaller">&ast;Includes GST</p>
+                <p class="smaller">Sign-up requires registration</p>
             </div>
         </div>
         @endforeach
