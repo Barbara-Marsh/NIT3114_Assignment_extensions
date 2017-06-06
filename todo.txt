@@ -1,5 +1,0 @@
-REQUIREMENTS
-
-IMPROVEMENTS
-css for emails
-css for invoices

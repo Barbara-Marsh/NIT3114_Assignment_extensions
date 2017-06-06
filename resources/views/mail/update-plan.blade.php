@@ -1,8 +1,18 @@
-<h1>Card Updated</h1>
+@extends('mail.mail-master')
 
-<p>Dear {{ $user['name'] }},</p>
+@section('content-header')
+    <div class="row content-header">
+        <div class="col-md-12">
+            <h1>Plan Updated</h1>
+        </div>
+    </div>
+@endsection
 
-<p>Your plan has been successfully updated.</p>
-
-<p>Regards,</p>
-<p>The Australian Weather Services team.</p>
+@section('content')
+    <div class="row">
+        <div class="col-md-8">
+            <p>Dear {{ $user['name'] }},</p>
+            <p>Your plan has been successfully updated.</p>
+        </div>
+    </div>
+@endsection
