@@ -48,4 +48,9 @@
             </tbody>
         </table>
     </div>
+    <div class="row">
+        <div class="col-md-12">
+            <a href="{{ Route('admin.index') }}" class="btn btn-default pull-right">Return to Admin Console</a>
+        </div>
+    </div>
 @endsection
