@@ -36,7 +36,7 @@
                                     <button class="btn btn-primary">Update Subscription</button>
                                 @endif
                             </form>
-                            <p class="smaller">&ast;Includes GST</p>
+                            <p class="smaller"><em>&ast;Includes GST</em></p>
                         </div>
                     @endforeach
                     <div class="col-md-12">

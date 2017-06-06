@@ -42,7 +42,7 @@
                             >
                             </script>
                         </form>
-                        <p class="smaller">&ast;Includes GST</p>
+                        <p class="smaller"><em>&ast;Includes GST</em></p>
                     </div>
                     @endforeach
                 </div>
