@@ -84,7 +84,7 @@
                             @else
                                 You have no subscriptions.
                                 <span class="pull-right">
-                                    <a href="{{ route('user.show_subscription') }}" class="btn btn-default">
+                                    <a href="{{ route('user.show_subscription') }}" class="btn btn-primary">
                                         <span class="glyphicon glyphicon-new-window"></span> New Subscription
                                     </a>
                                 </span>

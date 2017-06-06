@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Plan;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -19,8 +20,8 @@ class SubscriptionController extends Controller
     public function show()
     {
         $plans = Plan::all()->toArray();
-        $user = Auth::user();
-        $email = $user->email;
+        $user_id = Auth::id();
+        $email = User::where('id', '=', $user_id)->value('email');
 
         return view('layouts.user.new_subscription')->with(['plans' => $plans, 'email' => $email]);
     }

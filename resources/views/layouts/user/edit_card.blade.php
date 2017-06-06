@@ -21,7 +21,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Update payment details</div>
                 <div class="panel-body">
-                    <form action="{{ Route('user.update_card') }}" method="post" style="display: inline">
+                    <form action="{{ Route('user.update_card') }}" method="post" style="display: inline" class="stripe-btn-no-display">
                         {{ csrf_field() }}
                         {{ method_field('PUT') }}
                         <script
@@ -34,7 +34,7 @@
                             data-allow-remember-me=false
                             data-locale="auto"
                             data-zip-code="true"
-                            data-email="<?php echo $email; ?>"
+                            data-email="{{ $email }}"
                         >
                         </script>
                         <button class="btn btn-primary">Change Billing Details</button>

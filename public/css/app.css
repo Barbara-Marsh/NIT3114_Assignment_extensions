@@ -206,7 +206,7 @@ html body .jcarousel-wrapper .jcarousel {
 html body .jcarousel-wrapper .jcarousel .well {
   margin: 0 5px;
 }
-html body .stripe-button-el {
+html body .stripe-btn-no-display .stripe-button-el {
   display: none;
 }
 html body .table-transparent-background {

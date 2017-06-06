@@ -23,15 +23,6 @@
             <p>Banned user: <strong>john@example.com</strong> with password <strong>john</strong></p><br>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <p><strong>Assumptions:</strong></p>
-            <ul>
-                <li>User can only subscribe to 1 plan</li>
-                <li>Displayed prices include GST of 10%</li>
-            </ul>
-        </div>
-    </div>
     <div class="row content-header">
         <div class="col-md-12">
             <h2>Database design</h2>
@@ -94,12 +85,6 @@
                 <li>created_at: timestamp</li>
                 <li>updated_at: timestamp</li>
             </ul>
-        </div>
-        </div>
-    <div class="row">
-        <br>
-        <div class="col-md-12 text-justify">
-            <p>Because I used checkboxes for the newsletter settings form, the built-in Laravel validation didn't work. If the boxes are checked, the value in the $request variable is 'on', so I couldn't validate it as a boolean. However, the way my update_newsletter_settings and store_newsletter_settings functions are written ensures that the values must be boolean.</p>
         </div>
     </div>
 @endsection

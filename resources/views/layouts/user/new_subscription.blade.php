@@ -38,7 +38,7 @@
                                 data-billing-address="false"
                                 data-currency="aud"
                                 data-label="Subscribe"
-                                data-email="<?php echo $email; ?>"
+                                data-email="{{ $email }}"
                             >
                             </script>
                         </form>
