@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Weather
+    Weather Forecast
 @endsection
 
 @section('content-header')

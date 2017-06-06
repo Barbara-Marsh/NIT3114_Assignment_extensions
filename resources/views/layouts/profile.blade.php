@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Profile
+    User Profile
 @endsection
 
 @section('content-header')

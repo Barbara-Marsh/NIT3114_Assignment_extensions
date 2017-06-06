@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Create Subscription Details
+    Create Newsletter Details
 @endsection
 
 @section('content-header')

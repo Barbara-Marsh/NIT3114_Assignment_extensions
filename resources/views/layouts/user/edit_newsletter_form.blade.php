@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Change Subscription Details
+    Change Newsletter Details
 @endsection
 
 @section('content-header')

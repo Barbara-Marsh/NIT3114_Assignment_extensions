@@ -1,5 +1,9 @@
 @extends('master')
 
+@section('title')
+    Register
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -9,11 +13,7 @@
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
-                        {{-- get the plan_id if user got to register page from button on home page rather than nav menu --}}
-                        @if(isset($_GET['plan_id']))
-                            <input type="hidden" name="plan_id" value="{{ $_GET['plan_id'] }}">
-                        @endif
-                        <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                       <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Name</label>
 
                             <div class="col-md-6">
