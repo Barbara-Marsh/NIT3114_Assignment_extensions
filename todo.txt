@@ -2,7 +2,6 @@ REQUIREMENTS
 
 IMPROVEMENTS
 improve css for user profile pages
-add back button to reports
 css for emails
 css for invoices
 test it all works

@@ -15,6 +15,11 @@
 
 @section('content')
     <div class="row">
+        <div class="col-md-10 col-md-offset-1" style="margin-bottom: 10px">
+            <a href="{{ Route('admin.index') }}" class="btn btn-default pull-right">Return to Admin Console</a>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-md-10 col-md-offset-1">
         @foreach($subscriptions as $subscription)
         <table class="table table-bordered table-responsive table-transparent-background">
@@ -52,6 +57,11 @@
             </tbody>
         </table>
         @endforeach
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" style="margin-bottom: 10px">
+            <a href="{{ Route('admin.index') }}" class="btn btn-default pull-right">Return to Admin Console</a>
         </div>
     </div>
 @endsection
