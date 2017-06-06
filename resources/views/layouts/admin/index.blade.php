@@ -41,7 +41,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 col-md-offset-4 text-center admin-btn">
-                    <a href="{{ Route('admin.view-users') }}" class="btn btn-default">Ban Users</a>
+                    <a href="{{ Route('admin.view-users') }}" class="btn btn-default">Ban/Restore Users</a>
                 </div>
             </div>
             <hr>

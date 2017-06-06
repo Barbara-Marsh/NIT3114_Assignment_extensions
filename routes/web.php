@@ -89,6 +89,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'admin']], function 
     Route::put('/ban-user', 'Admin\AdminController@banUser')
         ->name('admin.ban-user');
 
+    Route::put('/unban-user', 'Admin\AdminController@unbanUser')
+        ->name('admin.unban-user');
+
     Route::get('/invoices', 'Admin\ReportsController@getInvoices')
         ->name('admin.invoices');
 

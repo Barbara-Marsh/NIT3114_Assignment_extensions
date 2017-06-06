@@ -87,7 +87,7 @@ class SubscriptionController extends Controller
         Subscription::where('id', $subscription->id)->update(['name' => $request->get('name')]);
 
         Mail::to($user)->send(new UpdatePlan($user));
-        $request->session()->flash('alert-success', "Subscription Updated. Any additional fees incurred from changing your plan will be added to your next invoice. Overpayments will be credited to your next invoice");
+        $request->session()->flash('alert-success', "Subscription Updated. Please check your invoices.");
 
         return redirect()->route('user.index');
     }

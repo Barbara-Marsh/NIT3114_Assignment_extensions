@@ -28,22 +28,33 @@
             </thead>
             <tbody>
             @foreach($users as $user)
-            <tr>
-                <td>{{ $user['name'] }}</td>
-                <td>{{ $user['email'] }}</td>
-                <td>{{ $user['plan'] ?? "" }}</td>
-                <td>@php echo boolval($user['subscribed_to_newsletter']) ? 'TRUE' : '' @endphp</td>
-                <td>@php echo boolval($user['third_party_offers']) ? 'TRUE' : '' @endphp</td>
-                <td>@php echo boolval($user['is_banned']) ? 'TRUE' : '' @endphp</td>
-                <td>
-                    <form action="{{ Route('admin.ban-user') }}" method="post">
-                        {{ csrf_field() }}
-                        {{ method_field('PUT') }}
-                        <input type="hidden" name="user_id" value="{{$user['id']}}">
-                        <button class="btn btn-danger">Ban User</button>
-                    </form>
-                </td>
-            </tr>
+                @if($user['name'] != 'admin')
+                    <tr>
+                        <td>{{ $user['name'] }}</td>
+                        <td>{{ $user['email'] }}</td>
+                        <td>{{ $user['plan'] ?? "" }}</td>
+                        <td>@php echo boolval($user['subscribed_to_newsletter']) ? 'TRUE' : '' @endphp</td>
+                        <td>@php echo boolval($user['third_party_offers']) ? 'TRUE' : '' @endphp</td>
+                        <td>@php echo boolval($user['is_banned']) ? 'TRUE' : '' @endphp</td>
+                        <td>
+                            @if($user['is_banned'] == TRUE)
+                                <form action="{{ Route('admin.unban-user') }}" method="post">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <input type="hidden" name="user_id" value="{{$user['id']}}">
+                                    <button class="btn btn-success">Restore User</button>
+                                </form>
+                            @else
+                                <form action="{{ Route('admin.ban-user') }}" method="post">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <input type="hidden" name="user_id" value="{{$user['id']}}">
+                                    <button class="btn btn-danger">Ban User</button>
+                                </form>
+                            @endif
+                        </td>
+                    </tr>
+                @endif
             @endforeach
             </tbody>
         </table>

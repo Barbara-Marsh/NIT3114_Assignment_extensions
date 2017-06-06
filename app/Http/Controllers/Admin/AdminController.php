@@ -45,11 +45,9 @@ class AdminController extends Controller
     public function viewUsers()
     {
         $users = User::all();
-        /*foreach ($users as $user) {
-            if (isset($user->subscription->name)) {
-                $user['plan'] = $user->subscription->name;
-            }
-        }*/
+        foreach ($users as $user) {
+            $user['plan'] = Subscription::where('user_id', '=', $user['id'])->value('name');
+        }
 
         return view('layouts.admin.all-users')->with('users', $users);
     }
@@ -61,6 +59,17 @@ class AdminController extends Controller
         $user->save();
 
         $request->session()->flash('alert-success', 'User successfully banned');
+
+        return redirect()->route('admin.view-users');
+    }
+
+    public function unbanUser(Request $request)
+    {
+        $user = User::findOrFail($request['user_id']);
+        $user->is_banned = FALSE;
+        $user->save();
+
+        $request->session()->flash('alert-success', 'User successfully unbanned');
 
         return redirect()->route('admin.view-users');
     }
