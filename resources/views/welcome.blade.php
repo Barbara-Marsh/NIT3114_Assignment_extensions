@@ -30,8 +30,8 @@
                     <p>Price: $@php echo number_format($plan['price']/100,2) @endphp&ast;</p>
                 @endif
                 <a href="{{ url('/register') }}" class="btn btn-default">Sign up</a>
-                <p class="smaller">&ast;Includes GST</p>
-                <p class="smaller">Sign-up requires registration</p>
+                <p class="smaller"><em>&ast;Includes GST</em></p>
+                <p class="smaller"><em>Sign-up requires registration</em></p>
             </div>
         </div>
         @endforeach
