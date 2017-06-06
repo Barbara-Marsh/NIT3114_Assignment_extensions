@@ -4,4 +4,4 @@ IMPROVEMENTS
 improve css for user profile pages
 css for emails
 css for invoices
-test it all works
+test user functions all work
