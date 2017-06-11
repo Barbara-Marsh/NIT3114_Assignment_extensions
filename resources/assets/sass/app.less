@@ -5,10 +5,14 @@
 // Add-in .less files
 @import "less-addins/navbar-fixed-top";
 @import "less-addins/sticky-footer";
+@import "less-addins/carousel";
 
 html {
   body {
     font-family: 'Raleway', sans-serif;
+    background-image: url("../img/background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
     footer.footer {
       padding: 15px 0 5px;
       text-align: right;
@@ -23,6 +27,9 @@ html {
     .btn-margin-top {
       margin-top: 10px;
       width: 170px;
+    }
+    .btn-margin-right {
+      margin-right: 5px;
     }
     .btn-default {
       background-color: #eee;
@@ -44,14 +51,85 @@ html {
     }
     .statistics-container {
       border: solid 1px #eee;
-      background-color: #f8f8f8;
+      background-color: rgba(248, 248, 248, 0.5);
       border-radius: 3px;
       padding: 0 0 25px;
-      margin: 20px 0;
     }
     .big-checkbox {
       transform:scale(1.75, 1.75);
       margin: 0 5px;
+    }
+    .smaller {
+      font-size: smaller;
+      margin-top: 15px;
+    }
+    .well {
+      margin: 0 auto;
+      background-color: rgba(255, 255, 255, 0.2);
+    }
+    .well-welcome {
+      min-height: 295px;
+    }
+    .well-margin-bottom {
+      margin-bottom: 20px;
+      padding-top: 15px;
+      h2 {
+        margin-top: 0;
+      }
+    }
+    .well-reduce-padding {
+      padding: 10px;
+      .sm-text {
+        font-size: smaller;
+      }
+    }
+    .jcarousel-wrapper {
+      margin: 0 auto;
+      width: 100%;
+      height: auto;
+      border: none;
+      .jcarousel {
+        margin:0;
+        width:100%;
+        border: none;
+        .well {
+          margin: 0 5px;
+        }
+      }
+    }
+    .stripe-btn-no-display {
+      .stripe-button-el {
+        display: none;
+      }
+    }
+
+    .table-transparent-background {
+      background-color: rgba(248, 248, 248, 0.5);
+    }
+    .table-top {
+      margin: 0;
+      th, td {
+        width: 25%;
+      }
+    }
+    .table-bottom {
+      th, td {
+        width: 12.5%;
+      }
+      .three-x-width {
+        width: 37.5%;
+      }
+    }
+    .charge-table {
+      .thin-column {
+        width: 17%;
+      }
+    }
+    .admin-h2 {
+      margin-bottom: 20px;
+    }
+    .admin-btn {
+      margin-bottom: 20px;
     }
   }
 }

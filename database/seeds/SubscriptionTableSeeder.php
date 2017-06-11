@@ -13,42 +13,40 @@ class SubscriptionTableSeeder extends Seeder
     {
         DB::table('subscriptions')->insert([
             'user_id' => 1,
-            'plan_id' => 2,
-            'renew_plan_id' => NULL,
-            'price' => 49.95,
-            'starts_at' => '2017-05-01',
-            'ends_at' => '2017-06-01',
-            'status' => 'active',
+            'name' => 'Basic',
+            'stripe_id' => 'sub_AjZsDRijPfo1mL',
+            'stripe_plan' => 'basic',
+            'quantity' => 1,
+            'active' => TRUE,
         ]);
 
         DB::table('subscriptions')->insert([
             'user_id' => 3,
-            'plan_id' => 2,
-            'renew_plan_id' => NULL,
-            'price' => 49.95,
-            'starts_at' => '2017-05-23',
-            'ends_at' => '2017-06-22',
-            'status' => 'active',
+            'name' => 'Basic',
+            'stripe_id' => 'sub_AkIj651PPJwh9I',
+            'stripe_plan' => 'basic',
+            'quantity' => 1,
+            'created_at' => '2017-05-29 13:42:10',
+            'updated_at' => '2017-05-29 13:42:10',
+            'active' => TRUE,
         ]);
 
         DB::table('subscriptions')->insert([
             'user_id' => 4,
-            'plan_id' => 1,
-            'renew_plan_id' => NULL,
-            'price' => 0.00,
-            'starts_at' => '2017-04-28',
-            'ends_at' => '2017-05-27',
-            'status' => 'active',
+            'name' => 'Pro',
+            'stripe_id' => 'sub_AjqrXFXwCpkrfx',
+            'stripe_plan' => 'pro',
+            'quantity' => 1,
+            'active' => TRUE,
         ]);
 
         DB::table('subscriptions')->insert([
             'user_id' => 5,
-            'plan_id' => 3,
-            'renew_plan_id' => NULL,
-            'price' => 89.95,
-            'starts_at' => '2017-05-01',
-            'ends_at' => '2017-06-01',
-            'status' => 'active',
+            'name' => 'Open',
+            'stripe_id' => 'sub_Aj9kcwk8Vutqzf',
+            'stripe_plan' => 'open',
+            'quantity' => 1,
+            'active' => TRUE,
         ]);
     }
 }

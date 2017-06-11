@@ -7,7 +7,7 @@
 @section('content-header')
     <div class="row content-header">
         <div class="col-md-12">
-            <h1>Welcome</h1>
+            <h1>Welcome to Australian Weather Services</h1>
         </div>
     </div>
 @endsection
@@ -21,14 +21,18 @@
     <div class="row">
         @foreach($plans as $plan)
         <div class="col-md-4">
-            <h3>{{ $plan['name'] }}</h3>
-            <p class="text-justify">{{ $plan['features'] }}</p>
-            @if($plan['name'] == 'Open')
-                <p>Price: Free</p>
-            @else
-                <p>Price: ${{ $plan['price'] }}</p>
-            @endif
-            <a href="{{ url("/register?plan_id=".$plan['id']) }}" class="btn btn-default">Sign up</a>
+            <div class="well well-lg well-welcome">
+                <h3 class="content-header">{{ $plan['name'] }}</h3>
+                <p class="text-justify">{{ $plan['features'] }}</p>
+                @if($plan['name'] == 'Open')
+                    <p>Price: Free</p>
+                @else
+                    <p>Price: $@php echo number_format($plan['price']/100,2) @endphp&ast;</p>
+                @endif
+                <a href="{{ url('/register') }}" class="btn btn-default">Sign up</a>
+                <p class="smaller"><em>&ast;Includes GST</em></p>
+                <p class="smaller"><em>Sign-up requires registration</em></p>
+            </div>
         </div>
         @endforeach
         @if(Auth::check())

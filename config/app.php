@@ -178,6 +178,11 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\ComposerServiceProvider::class,
 
+        /*
+         * Cashier service provider
+         */
+        Laravel\Cashier\CashierServiceProvider::class,
+
     ],
 
     /*

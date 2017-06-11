@@ -20,11 +20,19 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{ Route('welcome') }}">Data Solutions</a>
+                @if(Auth::check())
+                    <a class="navbar-brand" href="{{ Route('weather.index') }}">Australian Weather Services</a>
+                @else
+                    <a class="navbar-brand" href="{{ Route('welcome') }}">Australian Weather Services</a>
+                @endif
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ Route('welcome') }}">Home</a></li>
+                    @if(Auth::check())
+                        <li><a href="{{ Route('weather.index') }}">Home</a></li>
+                    @else
+                        <li><a href="{{ Route('welcome') }}">Home</a></li>
+                    @endif
                     <li><a href="{{ Route('about') }}">About</a></li>
                 </ul>
                 @if (Route::has('login'))
@@ -90,7 +98,7 @@
     @section('footer')
     <footer class="footer">
         <div class="container">
-            <p class="text-muted centered">&copy; Barbara Marsh <?php echo date('Y') ?> | email: <a href="mailto:barbara.marsh@live.vu.edu.au">barbara.marsh@live.vu.edu.au</a></p>
+            <p class="text-muted centered">&copy; Barbara Marsh <?php echo date('Y') ?> | <span class="glyphicon glyphicon-envelope"></span> <a href="mailto:barbara.marsh@live.vu.edu.au">barbara.marsh@live.vu.edu.au</a></p>
         </div>
     </footer>
     @show
@@ -98,5 +106,44 @@
     <!-- JavaScript -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/jquery.jcarousel.min.js') }}"></script>
+    <script>
+        (function($) {
+            $(function() {
+                $('.jcarousel').jcarousel();
+
+                $('.jcarousel-control-prev')
+                    .on('jcarouselcontrol:active', function() {
+                        $(this).removeClass('inactive');
+                    })
+                    .on('jcarouselcontrol:inactive', function() {
+                        $(this).addClass('inactive');
+                    })
+                    .jcarouselControl({
+                        target: '-=1'
+                    });
+
+                $('.jcarousel-control-next')
+                    .on('jcarouselcontrol:active', function() {
+                        $(this).removeClass('inactive');
+                    })
+                    .on('jcarouselcontrol:inactive', function() {
+                        $(this).addClass('inactive');
+                    })
+                    .jcarouselControl({
+                        target: '+=1'
+                    });
+
+                $('.jcarousel-pagination')
+                    .on('jcarouselpagination:active', 'a', function() {
+                        $(this).addClass('active');
+                    })
+                    .on('jcarouselpagination:inactive', 'a', function() {
+                        $(this).removeClass('active');
+                    })
+                    .jcarouselPagination();
+            });
+        })(jQuery);
+    </script>
     </body>
 </html>

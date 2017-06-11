@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('title')
-    Change Subscription Details
+    Change Newsletter Details
 @endsection
 
 @section('content-header')
@@ -11,8 +11,6 @@
     </div>
 </div>
 @endsection
-
-{{--@inject('input','Illuminate\Support\Facades\Input')--}}
 
 @section('content')
 <div class="row">
@@ -44,8 +42,8 @@
                         </li>
                     </ul>
                     <p style="text-align: right">
-                        <button class="btn btn-default">Update Subscriptions</button>
-                        <a href="{{ Route('user.index') }}" class="btn btn-default">Cancel</a>
+                        <a href="{{ Route('user.index') }}" class="btn btn-primary">Cancel</a>
+                        <button class="btn btn-primary">Update Subscriptions</button>
                     </p>
                 </form>
             </div>

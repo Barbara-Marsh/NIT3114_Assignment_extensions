@@ -28,7 +28,7 @@ class RegisterController extends Controller
      * @var string
      */
     //protected $redirectTo = '/home';
-    protected $redirectTo = 'user/subscription';
+    protected $redirectTo = 'user/newsletter';
 
     /**
      * Create a new controller instance.
@@ -63,10 +63,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        if (isset($data['plan_id'])) {
-            $this->redirectTo = $this->redirectTo . '?plan_id=' . $data['plan_id'];
-        }
-
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

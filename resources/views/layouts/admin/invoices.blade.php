@@ -1,52 +1,73 @@
 @extends('../master')
 
 @section('title')
-    Create Invoices
+    Admin Console
 @endsection
 
 @section('content-header')
     <div class="row content-header">
         <div class="col-md-12">
-            <h1>Create New Invoices</h1>
+            <h1>Invoices Report</h1>
+            <h2>Invoices for past month</h2>
         </div>
     </div>
 @endsection
 
 @section('content')
-    <div class="row ">
-        <div class="col-md-8 col-md-offset-2">
-            <h2>Subscriptions Near to Ending</h2>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" style="margin-bottom: 10px">
+            <a href="{{ Route('admin.index') }}" class="btn btn-default pull-right">Return to Admin Console</a>
         </div>
-        <div class="col-md-8 col-md-offset-2">
-            <table class="table table-responsive table-bordered table-hover">
-                <tr>
-                    <th>Subscription ID</th>
-                    <th>User ID</th>
-                    <th>Plan ID</th>
-                    <th>Renew Plan ID<br>(if present)</th>
-                    <th>Price</th>
-                    <th>Starts at</th>
-                    <th>Ends at</th>
-                    <th></th>
-                </tr>
-            @for($x = 0; $x < count($subscriptions); $x++)
-                <form action="{{ route('admin.create_invoice') }}" method="get">
-                    {{ csrf_field() }}
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+        @foreach($invoices as $invoice)
+        <table class="table table-bordered table-responsive table-transparent-background table-top">
+            <thead>
+            <tr>
+                <th>Invoice #</th>
+                <th>Customer ID</th>
+                <th>Customer Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>{{ $invoice['id'] }}</td>
+                <td>{{ $invoice['customer_id'] }}</td>
+                <td>{{ $invoice['customer_name'] ?? "" }}</td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered table-responsive table-transparent-background table-bottom">
+            <thead>
+            <tr>
+                <th>Plan</th>
+                <th class="three-x-width">Description</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Amount</th>
+                <th>Total Amount</th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach($invoice['lines'] as $line)
                     <tr>
-                        <td>{{ $subscriptions[$x]->id }}</td>
-                        <td>{{ $subscriptions[$x]->user_id }}</td>
-                        <td>{{ $subscriptions[$x]->plan_id }}</td>
-                        <td>{{ $subscriptions[$x]->renew_plan_id }}</td>
-                        <td>{{ $subscriptions[$x]->price }}</td>
-                        <td>{{ $subscriptions[$x]->starts_at }}</td>
-                        <td>{{ $subscriptions[$x]->ends_at }}</td>
-                        <input type="hidden" value="{{ $subscriptions[$x] }}" name="subscription">
-                        <td><button class="btn btn-default">Create Invoice</button></td>
+                        <td>{{ $line['plan_name'] ?? "" }}</td>
+                        <td class="three-x-width">{{ $line['description'] ?? "" }}</td>
+                        <td>{{ $line['start'] ?? "" }}</td>
+                        <td>{{ $line['end'] ?? "" }}</td>
+                        <td>$@php echo number_format($line['amount']/100,2) @endphp</td>
+                        <td>$@php echo number_format($line['total_amount']/100,2) @endphp</td>
                     </tr>
-                </form>
-            @endfor
-            </table>
-            <p><a href="{{ route('admin.index') }}" class="btn btn-default">Return to Admin Console</a></p>
+                @endforeach
+            </tbody>
+        </table>
+        @endforeach
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1" style="margin-bottom: 10px">
+            <a href="{{ Route('admin.index') }}" class="btn btn-default pull-right">Return to Admin Console</a>
         </div>
     </div>
 @endsection

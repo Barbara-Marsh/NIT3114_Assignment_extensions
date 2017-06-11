@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Invoice;
 use App\Plan;
-use App\Subscription;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\DB;
+use Laravel\Cashier\Subscription;
 
 class AdminController extends Controller
 {
@@ -36,7 +34,7 @@ class AdminController extends Controller
         $plans = Plan::all()->toArray();
 
         foreach ($plans as &$plan) {
-            $subscriptions = Subscription::where('plan_id', '=', $plan['id'])->get();
+            $subscriptions = Subscription::where('name', '=', $plan['name'])->get();
             $count = count($subscriptions);
             $plan['count'] = $count;
         }
@@ -44,24 +42,35 @@ class AdminController extends Controller
         return $plans;
     }
 
-    public function invoicesList()
+    public function viewUsers()
     {
-        $today = new \DateTime();
-        $recent = $today->sub(new \DateInterval('P7D'));
-        $recent = $recent->format('Y-m-d H:i');
-        $max = $today->add(new \DateInterval('P60D'));
-        $max = $max->format('Y-m-d H:i');
-        $subscriptions = Subscription::where('status', '=', 'active')->whereBetween('ends_at', [$recent, $max])->orderBy('ends_at')->get();
+        $users = User::all();
+        foreach ($users as $user) {
+            $user['plan'] = Subscription::where('user_id', '=', $user['id'])->value('name');
+        }
 
-        return view('layouts.admin.invoices')->with(['subscriptions' => $subscriptions]);
+        return view('layouts.admin.all-users')->with('users', $users);
     }
 
-    public function createInvoice(Request $request)
+    public function banUser(Request $request)
     {
-        $subscription = json_decode($request['subscription']);
-        $date = date("Y-m-d H:i:s");
-        return view('layouts.admin.create-invoices')
-            ->with('subscription', $subscription)
-            ->with('date', $date);
+        $user = User::findOrFail($request['user_id']);
+        $user->is_banned = TRUE;
+        $user->save();
+
+        $request->session()->flash('alert-success', 'User successfully banned');
+
+        return redirect()->route('admin.view-users');
+    }
+
+    public function unbanUser(Request $request)
+    {
+        $user = User::findOrFail($request['user_id']);
+        $user->is_banned = FALSE;
+        $user->save();
+
+        $request->session()->flash('alert-success', 'User successfully unbanned');
+
+        return redirect()->route('admin.view-users');
     }
 }

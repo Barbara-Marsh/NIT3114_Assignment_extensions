@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Invoice extends Model
+class City extends Model
 {
     /**
      * The attributes that aren't mass assignable.
@@ -12,9 +12,4 @@ class Invoice extends Model
      * @var array
      */
     protected $guarded = ['id', 'created_at', 'updated_at'];
-
-    public function subscription()
-    {
-        return $this->hasMany('App\Subscription');
-    }
 }

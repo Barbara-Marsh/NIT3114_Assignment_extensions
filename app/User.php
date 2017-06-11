@@ -4,13 +4,25 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Laravel\Cashier\Billable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, Billable;
 
     public function isAdmin() {
         return $this->admin;
+    }
+
+    public function isNotBanned() {
+        if ($this->is_banned == TRUE) {
+            $isNotBanned = FALSE;
+        } elseif ($this->is_banned == FALSE) {
+            $isNotBanned = TRUE;
+        }
+
+        return $isNotBanned;
     }
 
     /**
@@ -31,8 +43,15 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function subscription()
+    public function activeSubscription()
     {
-        return $this->hasOne('App/Subscription');
+        $subscriptions = DB::table('subscriptions')->where('user_id', '=', $this->id)->get();
+
+        foreach ($subscriptions as $subscription) {
+            if ($subscription->active == TRUE) {
+                $activeSubscription = $subscription;
+                return $activeSubscription;
+            }
+        }
     }
 }
